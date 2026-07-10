@@ -1,0 +1,139 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "AI News",
+  "accent": "#3B9EFF",
+  "source": "Reuters, Let's Data Science, Axios, Zamin.uz, Gizmodo",
+  "voice": "en-US-AvaMultilingualNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "US AI Standards",
+      "headline": "US Pioneers Voluntary AI Model Standards",
+      "sub": "Implications for the Global AI Landscape",
+      "keywords": [
+        "AI Regulations",
+        "US Tech Policy",
+        "Global AI Impact"
+      ],
+      "vo": "Welcome to this breaking AI news update. The United States is pioneering voluntary standards for AI model releases, marking a significant move in the global AI landscape. What does this mean for the future of AI development?"
+    },
+    {
+      "type": "headlines",
+      "heading": "Breaking News Headlines",
+      "items": [
+        {
+          "source": "Reuters",
+          "title": "US in Talks for Voluntary AI Model Standards"
+        },
+        {
+          "source": "Gizmodo",
+          "title": "Trump Administration Nears Deal with Big AI"
+        },
+        {
+          "source": "Axios",
+          "title": "UN Launches 'AI for Good' Commission"
+        }
+      ],
+      "vo": "Breaking News Headlines: US Government in Advanced Talks with AI Companies for Voluntary Model Standards. An announcement is expected as soon as next week, according to the Financial Times."
+    },
+    {
+      "type": "stat",
+      "value": "**No Specific Number Available**",
+      "label": "Note: No numerical data provided in sources for a stat.",
+      "source": "N/A",
+      "vo": "While specific numbers on the impact are not yet available, the establishment of these standards underscores the growing concern over the misuse of advanced AI by countries of concern, including China and Russia."
+    },
+    {
+      "type": "point",
+      "heading": "**Key Implications**",
+      "bullets": [
+        "Voluntary standards may set global **AI development benchmarks**",
+        "Impact on **export controls** and **cybersecurity**",
+        "Unclear how **non-US AI companies** will be affected"
+      ],
+      "keywords": [
+        "AI Development Benchmarks",
+        "Export Control Impacts"
+      ],
+      "vo": "Key Implications: New benchmarks for advanced AI models, clearer timelines for release, and defined access protocols both domestically and internationally. This could significantly alter the AI development and deployment landscape."
+    },
+    {
+      "type": "quote",
+      "quote": "**'AI is the most profound technological transition in history'**",
+      "attribution": "Marc Benioff, Salesforce CEO",
+      "keywords": [
+        "AI Ethics",
+        "Technological Transition"
+      ],
+      "vo": "'AI is the most profound technological transition in history.' As the U.S. leads in setting voluntary standards, the world watches for implications on innovation, security, and global cooperation in the A-I era."
+    },
+    {
+      "type": "bars",
+      "title": "**Regional Response to US AI Export Restrictions**",
+      "unit": "",
+      "data": [
+        {
+          "label": "US",
+          "value": 0
+        },
+        {
+          "label": "China",
+          "value": 0
+        },
+        {
+          "label": "Japan",
+          "value": 0
+        }
+      ],
+      "source": "Zamin.uz, TechCrunch",
+      "vo": "Regional Response to US AI Export Restrictions: From cautious engagement by allies to potential countermeasures by nations like China and Russia, the global response is anticipated to be varied and complex, affecting I-P-O strategies."
+    },
+    {
+      "type": "compare",
+      "title": "**Comparing AI Models Post-US Regulations**",
+      "items": [
+        {
+          "name": "Anthropic's Mythos",
+          "note": "Export Restricted"
+        },
+        {
+          "name": "Tulongfeng (China)",
+          "note": "New Alternative"
+        },
+        {
+          "name": "Fugu (Japan)",
+          "note": "Competitive Release"
+        }
+      ],
+      "vo": "Comparing AI Models Post-US Regulations: Expect heightened scrutiny on model capabilities, security features, and end-user restrictions. Companies like OpenAI and Anthropic are at the forefront of these changes."
+    },
+    {
+      "type": "point",
+      "heading": "**Global Governance Efforts**",
+      "bullets": [
+        "UN's **'AI for Good' Commission**",
+        "Aims for unified **global AI regulations**"
+      ],
+      "keywords": [
+        "Global AI Governance",
+        "UN AI Commission"
+      ],
+      "vo": "Global Governance Efforts: The UN's new 'AI for Good' commission, launching on July 8, aims to unite world leaders and tech CEOs to forge unified global AI rules, contrasting with the current fragmented regulatory landscape."
+    },
+    {
+      "type": "outro",
+      "headline": "US Voluntary AI Standards: A New Global AI Order?",
+      "cta": "Subscribe to The Inference for More AI Insights",
+      "keywords": [
+        "AI Regulatory Trends",
+        "The Inference Channel"
+      ],
+      "vo": "US Voluntary AI Standards: A New Global AI Order? As the world navigates these uncharted waters, one thing is clear - the race to define AI's future has officially begun, with the U.S. setting the initial pace."
+    }
+  ],
+  "template": "wire",
+  "lang": "en",
+  "engine": "edge"
+}

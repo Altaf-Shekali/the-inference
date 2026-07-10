@@ -1,0 +1,70 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tech Trend",
+  "accent": "#F43F5E",
+  "source": "Let's Data Science, Retail TouchPoints, The Economic Times",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": true,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "AI Revolutionizes Retail",
+      "headline": "By 2028, AI Will Reshape Global Retail Infrastructure",
+      "sub": "Predicting the Future Based on 2026 Mid-Year Stats",
+      "keywords": [
+        "AI Retail",
+        "2028 Predictions"
+      ],
+      "vo": "AI is revolutionizing retail by 2028, driven by 2026 trends."
+    },
+    {
+      "type": "stat",
+      "value": "**$388 Billion**",
+      "label": "Projected 2026 Worldwide Retail Tech Spending",
+      "source": "WWD Sourcing Journal via Let's Data Science",
+      "vo": "Retail tech spending hits $388 billion in 2026, growing at 25% annually."
+    },
+    {
+      "type": "point",
+      "heading": "**Key Drivers**",
+      "bullets": [
+        "**Agentic Browsers** Automate Shopping",
+        "**GEO** Optimizes Product Discoverability for AI"
+      ],
+      "keywords": [
+        "Agentic Browsers",
+        "GEO Technology"
+      ],
+      "vo": "Agentic browsers and GEO technology lead the retail AI shift."
+    },
+    {
+      "type": "point",
+      "heading": "**Impact by 2028**",
+      "bullets": [
+        "**Stores**: Enhanced Personalization",
+        "**Supply Chains**: Automated Efficiency",
+        "**Consumer Experience**: Seamless Interactions"
+      ],
+      "keywords": [
+        "AI in Stores",
+        "AI Supply Chains",
+        "Seamless Consumer Experience"
+      ],
+      "vo": "By 2028, expect enhanced personalization, automated supply chains, and seamless consumer experiences."
+    },
+    {
+      "type": "outro",
+      "headline": "**The Future of Retail, Redefined by AI**",
+      "cta": "Follow The Inference for More Tech Insights",
+      "keywords": [
+        "AI Future",
+        "Retail Innovation"
+      ],
+      "vo": "Stay ahead with The Inference - your source for AI and tech trends."
+    }
+  ],
+  "template": "horizon",
+  "lang": "en",
+  "engine": "edge"
+}

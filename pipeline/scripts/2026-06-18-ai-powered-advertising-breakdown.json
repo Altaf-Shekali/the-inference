@@ -1,0 +1,124 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tool Breakdown",
+  "accent": "#34D399",
+  "source": "MediaPost, Campaign, ADWEEK",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "Revolutionizing Ad Placement",
+      "headline": "**Pinterest Unveils AI-Powered Contextual Advertising**",
+      "sub": "Dive into the features, pricing, and verdict of Pinterest's latest innovation",
+      "keywords": [
+        "Pinterest Ads",
+        "AI Advertising",
+        "Digital Marketing Tools"
+      ],
+      "vo": "Welcome to the future of advertising! Pinterest unveils its AI-powered contextual advertising tool, revolutionizing how brands connect with their audience. Get ready to unpack its game-changing potential."
+    },
+    {
+      "type": "headlines",
+      "heading": "Key Developments in Pinterest's AI Advertising Suite",
+      "items": [
+        {
+          "source": "MediaPost",
+          "title": "Pinterest Experiments With Contextual AI-Powered Advertising"
+        },
+        {
+          "source": "MediaPost",
+          "title": "Pinterest Expands AI Ad Suite, Spotify Integration For SMBs"
+        },
+        {
+          "source": "ADWEEK",
+          "title": "AI Search to Top $100B in Ad Revenue by 2030"
+        }
+      ],
+      "vo": "Key developments in Pinterest's AI advertising suite include enhanced contextual understanding and an expanded Performance+ suite, all designed to boost advertiser success through smarter, AI-driven insights."
+    },
+    {
+      "type": "stat",
+      "value": "64%",
+      "label": "Increase in New-Customer Conversions with Pinterest's NCA Feature",
+      "source": "MediaPost",
+      "vo": "Impressive results already: Pinterest's new NCA feature in Performance+ has delivered a 64% average increase in new-customer conversions for advertisers, targeting high-intent shoppers with precision."
+    },
+    {
+      "type": "point",
+      "heading": "**Key Features of Pinterest's Contextual AI Advertising**",
+      "bullets": [
+        "AI-Powered **Business Assistant** for contextual insights",
+        "**Performance+** for accelerated new customer acquisition",
+        "Integration with **Shopify** for streamlined campaign launch"
+      ],
+      "keywords": [
+        "AI Insights",
+        "Customer Acquisition Tools",
+        "Ecommerce Integrations"
+      ],
+      "vo": "At the heart of Pinterest's Contextual AI Advertising are key features like the Business Assistant, automated promotional materials, and AI-powered bidding, transforming consumer shopping contexts into tangible marketing advantages."
+    },
+    {
+      "type": "tool",
+      "name": "Pinterest's Contextual AI Advertising Platform",
+      "category": "Digital Advertising Tools",
+      "oneLiner": "Leverage AI for contextual ad placement and enhanced customer acquisition",
+      "features": [
+        "AI-driven **Business Assistant**",
+        "**Performance+** for new customer growth",
+        "Mobile alerts for trending aesthetics"
+      ],
+      "price": "Pricing not publicly disclosed (contact for custom quote)",
+      "verdict": "**Verdict:** Innovative, especially for visually driven brands, but pricing transparency needed",
+      "keywords": [
+        "AI Advertising Platforms",
+        "Visual Discovery Ads",
+        "SMB Marketing Solutions"
+      ],
+      "vo": "Let's dive into Pinterest's Contextual AI Advertising Platform, where AI (A-I) technology analyzes user actions, providing advertisers with actionable, data-driven strategies to enhance their ad performance and reach."
+    },
+    {
+      "type": "compare",
+      "title": "Pinterest's AI Advertising vs. Existing Solutions",
+      "items": [
+        {
+          "name": "Google Ads",
+          "note": "Less visually focused, broader reach"
+        },
+        {
+          "name": "Facebook Ads",
+          "note": "More demographic targeting options, less contextual AI"
+        },
+        {
+          "name": "Pinterest's AI Ads",
+          "note": "**Strength:** AI-powered contextual understanding for high-intent shoppers"
+        }
+      ],
+      "vo": "How does Pinterest's AI Advertising stack up against existing solutions? With its focus on visual discovery and contextual AI, it offers a unique edge, especially for I-P-O (Initial Public Offering) focused brands seeking targeted growth."
+    },
+    {
+      "type": "quote",
+      "quote": "**'AI Search will top $100B in ad revenue by 2030'** - WPP Media",
+      "attribution": "ADWEEK",
+      "keywords": [
+        "AI Search Forecast",
+        "Future of Advertising",
+        "Market Predictions"
+      ],
+      "vo": "'AI Search will top $100B in ad revenue by 2030' - a forecast by WPP Media that underscores the vast potential of AI-driven advertising tools like Pinterest's, poised to lead this revolutionary shift."
+    },
+    {
+      "type": "outro",
+      "headline": "**Pinterest's AI Advertising: A Game Changer for Visually Driven Brands**",
+      "cta": "Subscribe to The Inference for more tech and AI insights",
+      "keywords": [
+        "Pinterest AI Ads",
+        "Digital Marketing Trends",
+        "The Inference Tech News"
+      ],
+      "vo": "Pinterest's AI Advertising: A Game Changer for Visually Driven Brands. With its unparalleled contextual insights and AI-powered tools, the future of advertising has never looked brighter - or more targeted."
+    }
+  ]
+}

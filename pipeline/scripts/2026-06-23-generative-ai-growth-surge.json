@@ -1,0 +1,128 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tech Trend",
+  "accent": "#A78BFA",
+  "source": "Sensor Tower, GIGAZINE, Hotel News Resource, fashionunited.uk, MediaPost",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "Generative AI Boom",
+      "headline": "**2026 Generative AI App Boom**",
+      "sub": "Global Time Spent Projected to **Double**",
+      "keywords": [
+        "Generative AI Growth",
+        "2026 Tech Trends",
+        "AI App Boom"
+      ],
+      "vo": "Welcome to 'Doubling Down: Unpacking the 2026 Generative AI App Boom & Future Projections'. Get ready to dive into the explosive growth of Generative AI."
+    },
+    {
+      "type": "stat",
+      "value": "**36 Billion Hours**",
+      "label": "Projected Global Time Spent on Generative AI Apps (H1 2026)",
+      "source": "Sensor Tower’s State of AI 2026",
+      "vo": "A staggering **36 Billion Hours** will be spent on Generative AI apps in the first half of 2026, more than doubling from 17.2 Billion in 2025."
+    },
+    {
+      "type": "headlines",
+      "heading": "Key Highlights from Sensor Tower’s Report",
+      "items": [
+        {
+          "source": "Sensor Tower",
+          "title": "ChatGPT Reaches 1 Billion Monthly Active Users"
+        },
+        {
+          "source": "GIGAZINE",
+          "title": "ChatGPT’s Market Share Slips Below 50% for First Time"
+        },
+        {
+          "source": "MediaPost",
+          "title": "Snap Spins Off Gen-AI Video Team into New Company, Dotmo"
+        }
+      ],
+      "vo": "Sensor Tower’s State of AI 2026 Report highlights key trends: surging engagement, shifting market shares, and record consumer spending on A-I apps."
+    },
+    {
+      "type": "point",
+      "heading": "Driving Factors",
+      "bullets": [
+        "**Integration with Existing Services**",
+        "**Niche Expertise & Pricing Strategies**",
+        "**Processing Speed Advancements**"
+      ],
+      "keywords": [
+        "AI Integration",
+        "Niche AI Expertise",
+        "AI Processing Speed"
+      ],
+      "vo": "Driving this boom are integration with existing services, specialized expertise, competitive pricing, and enhanced processing speed of A-I solutions."
+    },
+    {
+      "type": "quote",
+      "quote": "**AI is an execution tool**",
+      "attribution": "Bernard Arnault, LVMH (VivaTech 2026)",
+      "keywords": [
+        "AI in Fashion",
+        "VivaTech Insights",
+        "LVMH AI Strategy"
+      ],
+      "vo": "'**AI is an execution tool**' - as the market matures, users prioritize functionality and seamless experiences over novelty, creating space for new players."
+    },
+    {
+      "type": "stat",
+      "value": "**$1.1 Billion+**",
+      "label": "Projected Consumer Spending on AI Apps (Record High in 2026)",
+      "source": "Sensor Tower’s State of AI 2026",
+      "vo": "**$1.1 Billion+** in projected monthly active users for ChatGPT by May 2026, despite a shifting market landscape."
+    },
+    {
+      "type": "compare",
+      "title": "Generative AI Market Share Shifts",
+      "items": [
+        {
+          "name": "ChatGPT",
+          "note": "**46.4%** (Down from >50%)"
+        },
+        {
+          "name": "Gemini",
+          "note": "**27.7%** (Gaining Momentum)"
+        },
+        {
+          "name": "Claude",
+          "note": "**10.3%** (Emerging Player)"
+        }
+      ],
+      "vo": "Market Share Shifts: ChatGPT below 50% for the first time (46.4%), with Gemini rising to 27.7% and Claude to 10.3%, signaling a competitive A-I market."
+    },
+    {
+      "type": "point",
+      "heading": "Future Projections by 2030",
+      "bullets": [
+        "**Further Market Fragmentation**",
+        "**Increased Enterprise Adoption**",
+        "**Regulatory Frameworks Emerge**"
+      ],
+      "keywords": [
+        "AI Market Fragmentation",
+        "Enterprise AI Adoption",
+        "AI Regulations"
+      ],
+      "vo": "By **2030**, projections indicate a further entrenchment of A-I in daily life, with anticipated innovations in I-P-O strategies for AI-centric startups."
+    },
+    {
+      "type": "outro",
+      "headline": "**The Inference** on Generative AI’s Explosive Growth",
+      "cta": "Subscribe for More Tech Insights",
+      "keywords": [
+        "Generative AI Trends",
+        "Tech News 2026",
+        "The Inference Channel"
+      ],
+      "vo": "**The Inference**: The 2026 Generative AI App Boom is just the beginning. Stay ahead of the curve as A-I continues to redefine the tech landscape."
+    }
+  ],
+  "template": "horizon"
+}

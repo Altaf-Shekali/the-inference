@@ -1,0 +1,120 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Business",
+  "accent": "#F5B301",
+  "source": "TrendX Insights, Grand View Research, MobiHealthNews, GamesBeat, Digital Scientists, KLAS Research",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "**$100M Series C**",
+      "headline": "Unpacking Cadence's Massive Investment",
+      "sub": "AI-Powered Chronic Care's Market Potential",
+      "keywords": [
+        "AI Healthcare Funding",
+        "Chronic Care Tech"
+      ],
+      "vo": "Welcome to 'Unpacking Cadence's $100M Series C', where we dive into the transformative potential of AI in chronic care. A deep dive into the numbers and the future of healthcare. Let's unpack the implications."
+    },
+    {
+      "type": "stat",
+      "value": "$7.43B",
+      "label": "AI in Chronic Disease Management Market by 2034",
+      "source": "TrendX Insights",
+      "vo": "The AI in Chronic Disease Management Market is projected to reach $7.43 Billion by 2034, growing at a CAGR of 18.9% from 2026 to 2034."
+    },
+    {
+      "type": "bars",
+      "title": "Market Growth Projections",
+      "unit": "Billion USD",
+      "data": [
+        {
+          "label": "2025",
+          "value": 1.56
+        },
+        {
+          "label": "2034",
+          "value": 7.43
+        }
+      ],
+      "source": "TrendX Insights",
+      "vo": "Market growth projections indicate a steep upward trend, with the market size increasing from $1.56 Billion in 2025 to $7.43 Billion by 2034, underscoring vast potential for AI-powered solutions."
+    },
+    {
+      "type": "point",
+      "heading": "Key Driver",
+      "bullets": [
+        "**18.9% CAGR** from 2026–2034",
+        "Growing Demand for AI in Healthcare",
+        "Investment Surge in AI-Powered Solutions"
+      ],
+      "keywords": [
+        "AI Growth Rate",
+        "Healthcare Tech Trends"
+      ],
+      "vo": "A key driver of this growth is the integration of A-I in enhancing patient outcomes and streamlining clinical workflows in chronic care management."
+    },
+    {
+      "type": "quote",
+      "quote": "**Transforming Healthcare with AI**",
+      "attribution": "Daisy Wolf, a16z (on Telepatia's Investment)",
+      "keywords": [
+        "AI in Healthcare Quotes"
+      ],
+      "vo": "**Transforming Healthcare with A-I** - A mantra that's becoming a reality, as seen with investments like Cadence's, aiming to revolutionize chronic care through innovative A-I solutions."
+    },
+    {
+      "type": "stat",
+      "value": "$505.6B",
+      "label": "Global AI in Healthcare Market by 2033",
+      "source": "Grand View Research",
+      "vo": "The broader A-I in Healthcare Market is anticipated to skyrocket from $50.7 Billion in 2026 to $505.6 Billion by 2033, at a staggering CAGR of 38.9%."
+    },
+    {
+      "type": "compare",
+      "title": "Recent AI Healthcare Investments",
+      "items": [
+        {
+          "name": "Cadence",
+          "note": "$100M Series C"
+        },
+        {
+          "name": "Telepatia",
+          "note": "$33M Series A"
+        },
+        {
+          "name": "OpenAI & Anthropic",
+          "note": "Record-Breaking VC in 2026"
+        }
+      ],
+      "vo": "Recent investments, such as Telepatia's $33M Series A, highlight the allure of A-I in healthcare, with Cadence's $100M Series C standing out amidst a record-breaking first half of 2026 for V-C investments."
+    },
+    {
+      "type": "point",
+      "heading": "Market Insight",
+      "bullets": [
+        "**95% of AI Pilots Fail** to Reach Production",
+        "Custom AI Solutions Show Higher Success Rates",
+        "External Partnerships are Twice as Successful"
+      ],
+      "keywords": [
+        "AI Pilot Success Rates",
+        "Custom AI Solutions"
+      ],
+      "vo": "Market insight reveals that A-I-powered platforms, like Telepatia's, which combines A-I documentation and clinical decision support, are improving protocol adherence and preventing medical errors at scale."
+    },
+    {
+      "type": "outro",
+      "headline": "The Future of AI in Chronic Care",
+      "cta": "Subscribe to The Inference for More Insights",
+      "keywords": [
+        "AI Chronic Care Future",
+        "The Inference Channel"
+      ],
+      "vo": "As we look to **The Future of A-I in Chronic Care**, one thing is clear: investments like Cadence's $100M Series C are pivotal in shaping a healthier, more sustainable future, powered by innovation."
+    }
+  ],
+  "template": "ledger"
+}

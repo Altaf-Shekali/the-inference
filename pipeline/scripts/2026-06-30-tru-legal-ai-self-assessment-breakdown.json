@@ -1,0 +1,124 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tool Breakdown",
+  "accent": "#34D399",
+  "source": "AI Magazine, Law.com, Diginomica, Bloomberg Law News",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "AI in Law: Talent Gap Exposed",
+      "headline": "Demystifying TruLegal's AI-Powered Legal Self-Assessment",
+      "sub": "Navigating the Surge in Demand for AI-Fluent Legal Professionals",
+      "keywords": [
+        "Legal AI Tools",
+        "TruLegal",
+        "Law Tech"
+      ],
+      "vo": "Welcome to Demystifying TruLegal's AI-Powered Legal Self-Assessment Tool, the game-changer in legal AI talent acquisition."
+    },
+    {
+      "type": "headlines",
+      "heading": "Key News Behind the Tool",
+      "items": [
+        {
+          "source": "AI Magazine",
+          "title": "TruLegal Launches Industry First Legal AI Self-Assessment"
+        },
+        {
+          "source": "Law.com",
+          "title": "Legal AI's Dependency on Underlying Systems Highlighted"
+        },
+        {
+          "source": "Diginomica",
+          "title": "Preparing the Brief for AI in Legal Professions"
+        }
+      ],
+      "vo": "Breaking news: Employer demand for AI-fluent legal talent hits a tipping point, prompting TruLegal's innovative response."
+    },
+    {
+      "type": "stat",
+      "value": ">60",
+      "label": "Legal AI Platforms Covered by TruLegal's Assessment",
+      "source": "TruLegal Launch, AI Magazine",
+      "vo": "Covering over 60 legal AI platforms, this tool sets a new benchmark for comprehensive AI literacy evaluation."
+    },
+    {
+      "type": "point",
+      "heading": "TruLegal AI Self-Assessment Breakdown",
+      "bullets": [
+        "**11 Legal Disciplines** Assessed for AI Proficiency",
+        "**Quick 3-Minute** Completion Time for Candidates",
+        "**Free** for All Legal Professionals"
+      ],
+      "keywords": [
+        "AI Literacy",
+        "Legal Hiring",
+        "TruLegal"
+      ],
+      "vo": "Now, let's dive into the TruLegal AI Self-Assessment Breakdown, exploring its structured approach to documenting AI experience."
+    },
+    {
+      "type": "tool",
+      "name": "TruLegal AI Self-Assessment",
+      "category": "Legal AI Talent Solutions",
+      "oneLiner": "**Streamlines** AI Skill Verification for Legal Hiring",
+      "features": [
+        "Detailed Transparency on AI Literacy",
+        "Integration with TruLegal Profiles",
+        "Optional Resume & Project Upload"
+      ],
+      "price": "**Free**",
+      "verdict": "**Pioneering Solution** for the Legal Industry's AI Talent Gap",
+      "keywords": [
+        "Legal Tech Innovations",
+        "AI Talent Solutions"
+      ],
+      "vo": "The TruLegal AI Self-Assessment Tool: where legal professionals rate their experience across 11 key legal disciplines, all in under three minutes."
+    },
+    {
+      "type": "quote",
+      "quote": "**For hiring managers, the challenge is finding candidates who can demonstrate AI experience with precision**",
+      "attribution": "TruLegal (via AI Magazine)",
+      "keywords": [
+        "Legal AI Challenges",
+        "Hiring in Law"
+      ],
+      "vo": "\"For hiring managers, the challenge is finding candidates who can demonstrate AI experience with precision,\" a gap TruLegal's tool aims to fill."
+    },
+    {
+      "type": "compare",
+      "title": "TruLegal's Advantage",
+      "items": [
+        {
+          "name": "Traditional Hiring",
+          "note": "Lacks AI Proficiency Insight"
+        },
+        {
+          "name": "TruLegal AI Self-Assessment",
+          "note": "**Provides Detailed AI Literacy Visibility**"
+        },
+        {
+          "name": "Future Hiring Trends",
+          "note": "Expected to **Rely on Similar AI-Driven Tools**"
+        }
+      ],
+      "vo": "TruLegal's Advantage: Detailed, tool-specific transparency that goes beyond claims, ensuring precision in AI talent hiring."
+    },
+    {
+      "type": "outro",
+      "headline": "Stay Ahead with The Inference",
+      "cta": "Subscribe for More Tech Breakdowns",
+      "keywords": [
+        "The Inference",
+        "Legal AI",
+        "Tech News"
+      ],
+      "vo": "Stay Ahead with The Inference - Empowered by insights into TruLegal's pioneering Legal AI Self-Assessment Tool."
+    }
+  ],
+  "template": "studio",
+  "engine": "edge"
+}

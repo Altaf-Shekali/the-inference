@@ -1,0 +1,138 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tool Breakdown",
+  "accent": "#34D399",
+  "source": "Business Insider, Venturebeat, AOL.com, Hotel News Resource",
+  "voice": "en-US-AvaMultilingualNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "ZCode Revolution",
+      "headline": "Unpacking ZCode: The Low-Cost AI Coding Tool",
+      "sub": "Can it disrupt the global development landscape?",
+      "keywords": [
+        "AI Coding Tool",
+        "ZCode",
+        "Development Landscape"
+      ],
+      "vo": "Welcome to Unpacking ZCode: Can This Low-Cost AI Coding Tool Revolutionize Development? We're about to dive into the game-changing potential of ZCode."
+    },
+    {
+      "type": "headlines",
+      "heading": "Key Developments",
+      "items": [
+        {
+          "source": "Business Insider",
+          "title": "Z.ai Unveils ZCode, Undercutting US Pricing"
+        },
+        {
+          "source": "Venturebeat",
+          "title": "ZCode Challenges Cursor, Claude Code, and GitHub Copilot"
+        },
+        {
+          "source": "AOL.com",
+          "title": "The Hidden Costs of the AI Coding Boom"
+        }
+      ],
+      "vo": "Key developments in the AI coding space have led to the emergence of ZCode, poised to disrupt the status quo with its innovative approach."
+    },
+    {
+      "type": "stat",
+      "value": "$10B",
+      "label": "Estimated AI Coding Agents Market by 2026",
+      "source": "Gartner via Venturebeat",
+      "vo": "The AI coding agents market is projected to reach $10 Billion, and ZCode is positioning itself at the forefront of this lucrative sector."
+    },
+    {
+      "type": "point",
+      "heading": "**ZCode's Edge**",
+      "bullets": [
+        "**Agent-First Development Environment**",
+        "**Long-Horizon Task Capability**",
+        "**Bring-Your-Own-Key (BYOK) Support**"
+      ],
+      "keywords": [
+        "AI Development Environment",
+        "ZCode Features"
+      ],
+      "vo": "ZCode's Edge lies in its agent-first development environment, designed to think in projects, not just prompts, leveraging A-I for seamless coding experiences."
+    },
+    {
+      "type": "quote",
+      "quote": "**Rapid Maturation of Agentic Coding Agents**",
+      "attribution": "Gartner",
+      "keywords": [
+        "Agentic Coding Agents",
+        "Market Growth"
+      ],
+      "vo": "\"Rapid Maturation of Agentic Coding Agents\" - Experts weigh in on the transformative power of tools like ZCode in the development landscape."
+    },
+    {
+      "type": "tool",
+      "name": "ZCode",
+      "category": "AI Coding Tool",
+      "oneLiner": "**Low-Cost, Agent-First Development for Global Developers**",
+      "features": [
+        "**GLM-5.2 Integration**",
+        "**Cross-Platform Compatibility**",
+        "**Usage-Quota Bonus for Subscribers**"
+      ],
+      "price": "**Competitively Priced (Undercuts US Rivals)**",
+      "verdict": "**Potential Game-Changer for Global Development**",
+      "keywords": [
+        "ZCode",
+        "AI Coding Tool",
+        "Low-Cost Development"
+      ],
+      "vo": "Let's take a closer look at ZCode itself: a free desktop application supporting BYOK configurations and offering a 1.5x usage-quota bonus for GLM Coding Plan subscribers."
+    },
+    {
+      "type": "compare",
+      "title": "ZCode vs. Competitors",
+      "items": [
+        {
+          "name": "Cursor",
+          "note": "US-Based, Higher Priced"
+        },
+        {
+          "name": "Claude Code",
+          "note": "Specialized Use Cases"
+        },
+        {
+          "name": "GitHub Copilot",
+          "note": "Wider Ecosystem but Less Agent-First"
+        }
+      ],
+      "vo": "How does ZCode stack up against competitors like Cursor, Claude Code, and GitHub Copilot? Let's compare the low-cost contender to the industry giants."
+    },
+    {
+      "type": "point",
+      "heading": "**Market Implications**",
+      "bullets": [
+        "**Geopolitical Balkanization of AI Stack**",
+        "**Race to the Bottom in AI Model Pricing**",
+        "**Widespread Adoption Across Industries**"
+      ],
+      "keywords": [
+        "AI Market Trends",
+        "Geopolitical Impact"
+      ],
+      "vo": "Market Implications are significant: ZCode embodies the race to the bottom in A-I pricing, geopolitical AI stack balkanization, and the rise of agentic coding agents."
+    },
+    {
+      "type": "outro",
+      "headline": "ZCode: The Future of Low-Cost AI Coding?",
+      "cta": "Subscribe to The Inference for More Tech Insights",
+      "keywords": [
+        "ZCode Future",
+        "AI Coding Evolution"
+      ],
+      "vo": "ZCode: The Future of Low-Cost AI Coding? As we conclude, one question remains - can ZCode truly revolutionize development with its groundbreaking approach?"
+    }
+  ],
+  "template": "studio",
+  "lang": "en",
+  "engine": "edge"
+}

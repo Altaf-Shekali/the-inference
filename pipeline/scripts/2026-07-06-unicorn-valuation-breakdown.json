@@ -1,0 +1,149 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Business",
+  "accent": "#F5B301",
+  "source": "Zamin.uz, TechCrunch",
+  "voice": "en-US-AvaMultilingualNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "Venice AI Hits $1 Billion Unicorn Status",
+      "headline": "Decoding the $1 Billion Unicorn",
+      "sub": "A Deep Dive into Venice AI's Funding, Valuation, and Future",
+      "keywords": [
+        "AI Unicorn",
+        "Venice AI",
+        "Privacy Tech"
+      ],
+      "vo": "Decoding the $1 Billion Unicorn"
+    },
+    {
+      "type": "headlines",
+      "heading": "Key Highlights",
+      "items": [
+        {
+          "source": "Zamin.uz",
+          "title": "Venice AI Raises $65 Million in First External Funding"
+        },
+        {
+          "source": "TechCrunch",
+          "title": "Achieves $1 Billion Valuation in Record Time"
+        },
+        {
+          "source": "TechCrunch",
+          "title": "Over 850,000 Unique Visitors in Two Years"
+        }
+      ],
+      "vo": "Key Highlights"
+    },
+    {
+      "type": "stat",
+      "value": "$1 Billion",
+      "label": "Market Valuation Post-Funding",
+      "source": "TechCrunch",
+      "vo": "Market Valuation Post-Funding"
+    },
+    {
+      "type": "point",
+      "heading": "**Privacy-First Approach**",
+      "bullets": [
+        "**Client-Side Encryption** for All Data",
+        "**No Personal Info Stored** on Servers",
+        "**Uncensored AI Models** for Unrestricted Use"
+      ],
+      "keywords": [
+        "Privacy AI",
+        "Secure AI Platforms"
+      ],
+      "vo": "**Privacy-First Approach**"
+    },
+    {
+      "type": "outro",
+      "headline": "New here? Subscribe",
+      "cta": "Subscribe to The Inference",
+      "vo": "And if you're watching The Inference for the first time, and you're into AI news, tools and tech breakdowns, do hit subscribe — we drop a fresh one every day.",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "quote",
+      "quote": "AI Should Be a Neutral Tool, Much Like Bitcoin",
+      "attribution": "Erik Voorhees, Founder of Venice AI",
+      "keywords": [
+        "AI Ethics",
+        "Neutral AI Tools"
+      ],
+      "vo": "AI Should Be a Neutral Tool, Much Like Bitcoin"
+    },
+    {
+      "type": "bars",
+      "title": "Growth Metrics",
+      "unit": "Million",
+      "data": [
+        {
+          "label": "Funding Raised",
+          "value": 65
+        },
+        {
+          "label": "Unique Visitors (2 yrs)",
+          "value": 850
+        },
+        {
+          "label": "Valuation (Post-Funding)",
+          "value": 1000
+        }
+      ],
+      "source": "Combined Sources",
+      "vo": "Growth Metrics"
+    },
+    {
+      "type": "point",
+      "heading": "**Market Positioning**",
+      "bullets": [
+        "**Over 200 AI Models** Available",
+        "**Includes OpenAI & Anthropic Developments**",
+        "**Focus on Privacy** Sets It Apart"
+      ],
+      "keywords": [
+        "AI Model Variety",
+        "Privacy-Centric AI"
+      ],
+      "vo": "**Market Positioning**"
+    },
+    {
+      "type": "compare",
+      "title": "Venice AI vs. Traditional AI Platforms",
+      "items": [
+        {
+          "name": "Venice AI",
+          "note": "**Privacy-First**, Uncensored Models"
+        },
+        {
+          "name": "Traditional AI",
+          "note": "Often **Filtered**, Less Transparent"
+        },
+        {
+          "name": "Key Difference",
+          "note": "**Client-Side Encryption** vs. Server-Side"
+        }
+      ],
+      "vo": "Venice AI vs. Traditional AI Platforms"
+    },
+    {
+      "type": "outro",
+      "headline": "Venice AI: Redefining AI with Privacy at Its Core",
+      "cta": "Subscribe to The Inference for More Insights",
+      "keywords": [
+        "AI Innovation",
+        "Privacy Tech Unicorns"
+      ],
+      "vo": "Venice AI: Redefining AI with Privacy at Its Core"
+    }
+  ],
+  "template": "ledger",
+  "lang": "en",
+  "engine": "edge"
+}

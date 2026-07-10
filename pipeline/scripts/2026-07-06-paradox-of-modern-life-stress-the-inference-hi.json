@@ -1,0 +1,145 @@
+{
+  "channelName": "अवचेतन",
+  "topicTag": "मानव व्यवहार",
+  "accent": "#3B9EFF",
+  "source": "Asia Research News (Modern life may be outpacing the human mind), Phys.org (Modern life may be outpacing the human mind)",
+  "voice": "hi-IN-SwaraNeural",
+  "music": "",
+  "showCaptions": true,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "मानव व्यवहार",
+      "headline": "दिमाग पुराना, दुनिया नई",
+      "sub": "हमारा मन क्यों बेचैन है?",
+      "keywords": [
+        "lonely person crowd",
+        "city rush",
+        "confused expression"
+      ],
+      "vo": "क्या आपको भी कभी-कभी ऐसा नहीं लगता कि आप एक भीड़ भरे कमरे में अकेले हैं? चारों तरफ लोग, रिश्ते, कनेक्टेड रहने के अनगिनत तरीके, पर फिर भी एक अजीब सा खालीपन, एक बेचैनी? ये सिर्फ आपकी कहानी नहीं, बल्कि हम सब की है।"
+    },
+    {
+      "type": "point",
+      "heading": "तेज़ रफ़्तार ज़िंदगी",
+      "bullets": [],
+      "keywords": [
+        "busy metro station",
+        "scrolling phone screen",
+        "overwhelmed person"
+      ],
+      "vo": "सोचिए, सुबह भागती-दौड़ती मेट्रो की भीड़, दिन भर काम का तनाव, शाम को सोशल मीडिया पर दोस्तों की 'परफेक्ट' तस्वीरें। हर तरफ से जानकारी का अंबार, अपेक्षाओं का बोझ। सब कुछ बहुत तेज़, बहुत ज़्यादा, और लगातार होता हुआ लगता है।"
+    },
+    {
+      "type": "point",
+      "heading": "तुलना और भीड़",
+      "bullets": [],
+      "keywords": [
+        "social media comparison",
+        "vast city landscape",
+        "data overload"
+      ],
+      "vo": "आज हमारी दुनिया कितनी विशाल है! करोड़ों चेहरे हर दिन हमारी आँखों के सामने आते हैं, हर मिनट नई खबर, नई चुनौती। और सबसे बढ़कर, लगातार दूसरों से अपनी तुलना करने का दबाव। क्या हमारा दिमाग वाकई इस सब के लिए बना है?"
+    },
+    {
+      "type": "point",
+      "heading": "दिमाग का पुराना सॉफ्टवेयर",
+      "bullets": [],
+      "keywords": [
+        "ancient brain concept",
+        "human evolution timeline",
+        "old map new territory"
+      ],
+      "vo": "मनोविज्ञान बताता है कि असल में, हमारा दिमाग आज भी हज़ारों साल पुराना 'सॉफ्टवेयर' चला रहा है। ये एक ऐसी दुनिया के लिए तैयार हुआ था जो आज से बहुत अलग थी – एक ऐसी दुनिया जहाँ हमारी ज़रूरतें और चुनौतियाँ बिल्कुल दूसरी थीं।"
+    },
+    {
+      "type": "point",
+      "heading": "छोटे कबीलों की दुनिया",
+      "bullets": [],
+      "keywords": [
+        "ancient tribal village",
+        "close-knit community",
+        "familiar faces"
+      ],
+      "vo": "कल्पना कीजिए, हमारे पूर्वज छोटे-छोटे, करीबी कबीलों में रहते थे। वे सभी एक-दूसरे को अच्छी तरह जानते थे, हर चेहरा पहचाना था। उनके सामने खतरा सीधा और तात्कालिक होता था, और उनका सामाजिक दायरा बेहद सीमित था। सुरक्षा और समुदाय ही उनकी प्राथमिकता थी।"
+    },
+    {
+      "type": "outro",
+      "headline": "यहाँ नए हैं? सब्सक्राइब करें",
+      "cta": "Subscribe to अवचेतन",
+      "vo": "और अगर आप अवचेतन को पहली बार देख रहे हैं, और आपको मन और मनोविज्ञान की दिलचस्प बातें में दिलचस्पी है, तो अभी सब्सक्राइब कर दीजिए — हर दिन एक नई वीडियो।",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "अजनबियों का सागर",
+      "bullets": [],
+      "keywords": [
+        "dense city population",
+        "digital network connections",
+        "isolated in crowd"
+      ],
+      "vo": "लेकिन आज? हम विशालकाय शहरों में अजनबियों के समुद्र में घिरे हैं। डिजिटल दुनिया ने हमारा दायरा इतना असीमित कर दिया है कि हम दुनिया के किसी भी कोने से जुड़ सकते हैं, पर अक्सर असली, गहरा कनेक्शन गायब होता है।"
+    },
+    {
+      "type": "point",
+      "heading": "तनाव और अकेलापन",
+      "bullets": [],
+      "keywords": [
+        "stressed person laptop",
+        "lonely at night",
+        "comparison social media"
+      ],
+      "vo": "यहीं आता है 'Evolutionary Mismatch' – एक विकासवादी बेमेल। हमारा दिमाग इस नई, तेज़ रफ़्तार दुनिया की जटिलताओं के साथ तालमेल नहीं बिठा पा रहा। इसी वजह से हमें लगातार तनाव, गहरा अकेलापन और दूसरों से खुद को कम आंकने की भावना महसूस होती है।"
+    },
+    {
+      "type": "quote",
+      "quote": "मानव मस्तिष्क परिचित चेहरों, तात्कालिक खतरों और छोटे सामाजिक समूहों की दुनिया के लिए विकसित हुआ था।",
+      "attribution": "शोधकर्ता, सिंगापुर यूनिवर्सिटी ऑफ टेक्नोलॉजी एंड डिज़ाइन",
+      "keywords": [
+        "brain evolution",
+        "ancient human group",
+        "psychology insight"
+      ],
+      "vo": "'The human brain evolved for a world of familiar faces, immediate threats, and small social groups' - a stark contrast to our current reality."
+    },
+    {
+      "type": "point",
+      "heading": "अनवरत तुलना का बोझ",
+      "bullets": [],
+      "keywords": [
+        "jealousy social media",
+        "perfect life facade",
+        "brain overload"
+      ],
+      "vo": "हज़ारों साल पहले, हमारे दिमाग को इतनी बड़ी दुनिया में अनगिनत लोगों की 'चमकदार' उपलब्धियों से अपनी तुलना नहीं करनी पड़ती थी। आज हम सोशल मीडिया पर हर किसी की 'परफेक्ट' लाइफ देखते हैं और अनजाने में सोचते हैं कि हम क्यों पीछे हैं?"
+    },
+    {
+      "type": "point",
+      "heading": "जैविक बनाम तकनीकी",
+      "bullets": [],
+      "keywords": [
+        "human brain evolution",
+        "futuristic technology",
+        "slow change fast world"
+      ],
+      "vo": "ये कोई हमारी व्यक्तिगत कमी नहीं, बल्कि एक वैज्ञानिक सच्चाई है कि हमारा जैविक विकास आज के तकनीकी और सामाजिक विकास से बहुत धीमा है। हम अभी भी उस 'पुराने' दिमाग के साथ जी रहे हैं जिसने हमें हज़ारों साल पहले जीवित रखा था।"
+    },
+    {
+      "type": "outro",
+      "headline": "अपना सच पहचानो",
+      "cta": "Follow अवचेतन",
+      "keywords": [
+        "mindfulness reflection",
+        "nature connection",
+        "peaceful mind"
+      ],
+      "vo": "तो अगली बार जब आपको अंदरूनी बेचैनी, अकेलापन या तुलना का बोझ महसूस हो, तो याद रखिएगा – ये सिर्फ आप नहीं, बल्कि हमारा दिमाग एक ऐसी दुनिया में एडजस्ट कर रहा है जो उसके लिए बिल्कुल नई है। शायद हमें अपने 'पुराने' स्वभाव से थोड़ा और जुड़कर, छोटे और गहरे रिश्तों को फिर से तलाशना होगा।"
+    }
+  ],
+  "template": "studio",
+  "lang": "hi",
+  "engine": "edge"
+}

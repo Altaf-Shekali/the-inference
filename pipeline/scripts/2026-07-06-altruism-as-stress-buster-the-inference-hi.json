@@ -1,0 +1,123 @@
+{
+  "channelName": "अवचेतन",
+  "topicTag": "मानव व्यवहार",
+  "accent": "#3B9EFF",
+  "source": "https://spacedaily.com/m-in-a-daily-diary-study-researchers-found-that-on-days-people-did-more-small-kind-things-for-others-the-usual-toll-of-stress-on-their-mood-and-mental-health-tended-to-be-noticeably-softened/",
+  "voice": "hi-IN-SwaraNeural",
+  "music": "",
+  "showCaptions": true,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "मानव व्यवहार",
+      "headline": "आपका तनाव, एक गुप्त दवा!",
+      "sub": "जब जीवन मुश्किल हो, तब क्या करें?",
+      "keywords": [
+        "stressed woman",
+        "city rush",
+        "overthinking brain"
+      ],
+      "vo": "क्या कभी ऐसा दिन आया है, जब आपको लगे कि बस अब और नहीं? सुबह से शाम तक बस चुनौतियां, ऑफिस का प्रेशर, घर की जिम्मेदारियां, और तनाव एक पहाड़ की तरह आप पर हावी हो जाए?"
+    },
+    {
+      "type": "point",
+      "heading": "रीना का बुरा दिन",
+      "bullets": [],
+      "keywords": [
+        "tired woman",
+        "office stress",
+        "frustrated person"
+      ],
+      "vo": "मिलिए रीना से। आज उनका दिन ऐसा ही था। सुबह बच्चों के साथ खींचातानी, ऑफिस में बॉस की डांट, और शाम तक काम का ढेर। वो बस थकी हारी, झुंझलाई हुई घर लौट रही थी।"
+    },
+    {
+      "type": "point",
+      "heading": "मन का बोझ",
+      "bullets": [],
+      "keywords": [
+        "heavy heart",
+        "sadness",
+        "lonely street"
+      ],
+      "vo": "बस में बैठी रीना की आँखें खाली थीं, दिमाग में सिर्फ दिन भर की परेशानियों का शोर। उनका मन इतना भारी था कि उन्हें लगा, जैसे वो अब और कुछ महसूस नहीं कर सकतीं।"
+    },
+    {
+      "type": "point",
+      "heading": "एक छोटा सा पल",
+      "bullets": [],
+      "keywords": [
+        "old woman groceries",
+        "helping hand",
+        "street scene India"
+      ],
+      "vo": "तभी उनकी नज़र एक बुज़ुर्ग महिला पर पड़ी, जो सड़क किनारे अपने भारी थैलों को खींचने की कोशिश कर रही थीं। उनके चेहरे पर भी थकान और बेबसी साफ दिख रही थी।"
+    },
+    {
+      "type": "outro",
+      "headline": "यहाँ नए हैं? सब्सक्राइब करें",
+      "cta": "Subscribe to अवचेतन",
+      "vo": "और अगर आप अवचेतन को पहली बार देख रहे हैं, और आपको मन और मनोविज्ञान की दिलचस्प बातें में दिलचस्पी है, तो अभी सब्सक्राइब कर दीजिए — हर दिन एक नई वीडियो।",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "मदद का हाथ",
+      "bullets": [],
+      "keywords": [
+        "kindness act",
+        "empathy",
+        "stranger help"
+      ],
+      "vo": "रीना खुद परेशान थीं, लेकिन पता नहीं क्यों, वो उठीं और उस महिला के पास जाकर उनके थैले उठाने में मदद करने लगीं। उन्होंने महिला के घर तक सामान पहुंचाने में उनकी मदद की।"
+    },
+    {
+      "type": "point",
+      "heading": "अजीब सा बदलाव",
+      "bullets": [],
+      "keywords": [
+        "calm feeling",
+        "inner peace",
+        "smiling woman"
+      ],
+      "vo": "जैसे ही उन्होंने यह छोटा सा काम किया, रीना को खुद में एक अजीब सा हल्कापन महसूस हुआ। दिन भर का तनाव, जो उनके सिर पर सवार था, थोड़ा कम हो गया था। उनके चेहरे पर एक हल्की सी मुस्कान थी।"
+    },
+    {
+      "type": "point",
+      "heading": "मनोविज्ञान का रहस्य",
+      "bullets": [],
+      "keywords": [
+        "brain science",
+        "psychology research",
+        "mind connection"
+      ],
+      "vo": "ये सिर्फ अच्छा महसूस करना नहीं था। मनोविज्ञान इसे 'प्रोसोशल बिहेवियर' कहता है। 2016 में 'क्लिनिकल साइकोलॉजिकल साइंस' में छपी एक स्टडी ने यही बताया।"
+    },
+    {
+      "type": "point",
+      "heading": "तनाव का कम होना",
+      "bullets": [],
+      "keywords": [
+        "stress relief",
+        "mental health",
+        "happy brain"
+      ],
+      "vo": "शोधकर्ताओं ने पाया कि जिस दिन लोग दूसरों के लिए छोटे-छोटे नेक काम करते हैं, उस दिन तनाव का उनके मूड और मानसिक स्वास्थ्य पर पड़ने वाला नकारात्मक असर काफी कम हो जाता है। जब आप देते हैं, तो आप खुद को भी देते हैं।"
+    },
+    {
+      "type": "outro",
+      "headline": "छोटी सी भलाई, बड़ा सुकून",
+      "cta": "Follow अवचेतन",
+      "keywords": [
+        "peaceful mind",
+        "kindness spread",
+        "community support"
+      ],
+      "vo": "तो अगली बार जब आपको लगे कि तनाव आपको जकड़ रहा है, तो बस किसी के लिए एक छोटी सी भलाई करके देखिए। शायद यही आपकी सबसे अच्छी दवा हो। क्या आपने कभी ऐसा महसूस किया है?"
+    }
+  ],
+  "template": "studio",
+  "lang": "hi",
+  "engine": "edge"
+}

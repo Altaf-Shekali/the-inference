@@ -1,0 +1,85 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "AI News",
+  "accent": "#38BDF8",
+  "source": "CNBC, Fortune, TechCrunch, Goldman Sachs (2026)",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "AI IPO Gold Rush",
+      "headline": "Three AI Giants Are Going Public **At Once**",
+      "sub": "And one of them just warned its own AI may be too dangerous to release.",
+      "keywords": ["new york stock exchange trading floor", "wall street finance", "city skyline finance"],
+      "vo": "Three of the most powerful AI companies on earth are about to go public at the same time. The numbers are staggering. And one of them just warned that its own AI might be too dangerous to release."
+    },
+    {
+      "type": "headlines",
+      "heading": "The race is on",
+      "items": [
+        { "source": "Fortune", "title": "Anthropic files for IPO at a $965B valuation" },
+        { "source": "CNBC", "title": "OpenAI closes the largest funding round in history" },
+        { "source": "Goldman Sachs", "title": "Three near-trillion AI IPOs may hit one quarter" }
+      ],
+      "vo": "The headlines tell the story. Anthropic filed for an I-P-O at a nine hundred sixty five billion dollar valuation. OpenAI closed the largest funding round in history. And Goldman Sachs says three near trillion dollar A-I listings could land in a single quarter."
+    },
+    {
+      "type": "stat",
+      "value": "$852B",
+      "label": "OpenAI's valuation — the most valuable private company in history",
+      "source": "CNBC, 2026",
+      "vo": "Eight hundred fifty two billion dollars. That's OpenAI's valuation, making it the most valuable private company in history."
+    },
+    {
+      "type": "bars",
+      "title": "Valuation vs. annual revenue",
+      "unit": "B",
+      "data": [
+        { "label": "OpenAI valuation", "value": 852 },
+        { "label": "OpenAI revenue", "value": 25 },
+        { "label": "Anthropic valuation", "value": 965 },
+        { "label": "Anthropic revenue", "value": 30 }
+      ],
+      "source": "Valuations: CNBC, Fortune. Revenue: annualized run-rate estimates",
+      "vo": "But here's what should make you pause. OpenAI and Anthropic are each valued at over eight hundred billion dollars. Their actual annual revenue? Around twenty five and thirty billion. The valuations dwarf the real business."
+    },
+    {
+      "type": "point",
+      "heading": "Why go public now?",
+      "bullets": [
+        "AI revenue is growing nearly **10x a year**",
+        "Early investors finally want **liquidity**",
+        "An IPO funds the **trillion-dollar** race for compute"
+      ],
+      "keywords": ["data center servers", "ai computer chip macro", "server room blinking lights"],
+      "vo": "So why rush to go public now? Three reasons. Revenue is growing almost ten times a year. Early investors finally want a payout. And an I-P-O funds the trillion dollar race for computing power."
+    },
+    {
+      "type": "quote",
+      "quote": "Our most powerful models may soon be too dangerous to release.",
+      "attribution": "Anthropic — the same month it filed to go public",
+      "keywords": ["glowing neural network", "artificial intelligence abstract"],
+      "vo": "And yet, the same month it filed to go public, Anthropic warned that its most powerful models may soon be too dangerous to release."
+    },
+    {
+      "type": "point",
+      "heading": "The catch",
+      "bullets": [
+        "The U.S. government **pulled** Anthropic's top models over export rules",
+        "OpenAI killed Sora after reportedly burning **$15M a day**",
+        "Investors are asking if AI spending is **sustainable**"
+      ],
+      "keywords": ["stock market crash red chart", "government capitol building", "warning sign caution"],
+      "vo": "But there's a catch. The U.S. government just pulled Anthropic's most powerful models over export rules. OpenAI shut down Sora after reportedly burning fifteen million dollars a day. And investors are starting to ask the uncomfortable question. Is any of this spending sustainable?"
+    },
+    {
+      "type": "outro",
+      "headline": "Is this the AI top — or just the beginning?",
+      "cta": "Subscribe to The Inference",
+      "keywords": ["new york city skyline night timelapse", "stock ticker board"],
+      "vo": "So is this the top of the A-I bubble, or just the beginning? We break down the business of A-I every week. Subscribe to The Inference."
+    }
+  ]
+}

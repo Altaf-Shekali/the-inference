@@ -1,0 +1,76 @@
+{
+  "channelName": "अवचेतन",
+  "topicTag": "डार्क साइकोलॉजी",
+  "accent": "#F43F5E",
+  "source": "Forbes.com, NeuroscienceNews.com, markets.businessinsider.com",
+  "voice": "hi-IN-MadhurNeural",
+  "music": "",
+  "showCaptions": true,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "डार्क साइकोलॉजी",
+      "headline": "अजनबी पर तुरंत भरोसा क्यों?",
+      "sub": "क्या ये सच्चा कनेक्शन है?",
+      "vo": "क्या कभी आपको ऐसा लगा है कि कोई अजनबी आपको बहुत जल्दी, बहुत गहराई से समझ गया? जैसे आप मिले और पल भर में वो आपके सारे विचारों, सपनों को जान गया हो।",
+      "keywords": [
+        "confused man thinking",
+        "two people connecting",
+        "instant bond"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "एकदम हमजोली?",
+      "bullets": [],
+      "vo": "आप नई जॉब में किसी से मिलते हैं। वो आपके हर आइडिया से सहमत है, उसकी हॉबीज़ बिल्कुल आपकी जैसी हैं, और उसे भी वही फिल्में पसंद हैं जो आपको! आपको लगता है, 'वाह! कितना अच्छा कनेक्शन है।'",
+      "keywords": [
+        "friends talking cafe",
+        "agreeing nodding heads",
+        "shared interests"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "पहचानो चाल को!",
+      "bullets": [],
+      "vo": "पर ठहरिए! कभी-कभी ये सच्चा रिश्ता नहीं होता, बल्कि एक 'चाल' होती है। इसे 'रैपिड रैपोर बिल्डिंग' कहते हैं। सामने वाला जानबूझकर आपकी नक़ल करता है, ताकि आप उस पर तुरंत भरोसा करने लगें और वो आपको प्रभावित कर सके।",
+      "keywords": [
+        "manipulation chess",
+        "fake smile person",
+        "mirroring body language"
+      ]
+    },
+    {
+      "type": "quote",
+      "quote": "जो रिश्ता तेज़ी से बनता है, वो अक्सर खोखला होता है।",
+      "attribution": "मनोविज्ञान की सीख",
+      "vo": "\"A relationship that forms too quickly is often hollow.\" Wise words in a world where connections can be engineered for influence."
+    },
+    {
+      "type": "point",
+      "heading": "असली vs बनावटी",
+      "bullets": [],
+      "vo": "ये आपकी कनेक्शन की चाहत का फायदा उठाता है। असली रिश्ते धीरे-धीरे बनते हैं, उनमें मतभेद और समझदारी दोनों होती है।",
+      "keywords": [
+        "trust issues metaphor",
+        "authentic connection",
+        "slow growth"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "सावधान रहें, सुरक्षित रहें।",
+      "cta": "Follow अवचेतन",
+      "vo": "तो अगली बार जब कोई आपसे 'परफेक्ट मैच' लगे, तो थोड़ा ठहरकर सोचिए। अपने मन की बात सुनिए।",
+      "keywords": [
+        "mind awareness light",
+        "safe hand gesture",
+        "inner voice"
+      ]
+    }
+  ],
+  "template": "horizon",
+  "lang": "hi",
+  "engine": "edge"
+}

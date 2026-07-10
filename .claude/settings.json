@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:youtubeniches.com)",
+      "WebFetch(domain:outlierkit.com)",
+      "WebFetch(domain:fluxnote.io)",
+      "WebFetch(domain:vidiq.com)"
+    ]
+  }
+}

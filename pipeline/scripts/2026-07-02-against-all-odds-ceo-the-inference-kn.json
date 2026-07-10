@@ -1,0 +1,120 @@
+{
+  "channelName": "JAWARI ATMA",
+  "topicTag": "ಯಶೋಗಾಥೆ",
+  "accent": "#3B9EFF",
+  "source": "Business Insider, CNBC, Forbes",
+  "voice": "kn-IN-SapnaNeural",
+  "music": "",
+  "showCaptions": true,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "ಯಶೋಗಾಥೆ",
+      "headline": "ಕತ್ತಲೆಯಿಂದ ಬೆಳಕಿಗೆ ಪಯಣ",
+      "sub": "ಜೈಲಿನಿಂದ ಸಿಇಒ ಸ್ಥಾನಕ್ಕೆ ಏರಿದಳು!",
+      "keywords": [
+        "prison bars",
+        "woman thinking",
+        "wedding ring",
+        "baby cradle"
+      ],
+      "vo": "ಕತ್ತಲೆಯಿಂದ ಬೆಳಕಿಗೆ ಪಯಣ: ಒಂದು ಸೆಲ್ ನಿಂದ ಸೀಟಿಒ ಕ್ಷೇತ್ರದವರೆಗೆ, ಒಂದು ಅನುಭವ."
+    },
+    {
+      "type": "point",
+      "heading": "ಸಂಭ್ರಮದಿಂದ ಸಂಕಷ್ಟಕ್ಕೆ",
+      "bullets": [],
+      "vo": "ಒಂದು ವರ್ಷದ ಅವಧಿಯಲ್ಲಿ ಜೀವನ ಎಷ್ಟು ಬದಲಾಗಬಹುದು ಎಂದು ಯಾರೂ ಊಹಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಅವಳಿಗೆ ಮದುವೆಯಾಗಿತ್ತು, ತಾಯಿ ಆಗುವ ಸಂಭ್ರಮದಲ್ಲಿದ್ದಳು, ಆದರೆ ಇದ್ದಕ್ಕಿದ್ದಂತೆ ಆಕೆಯ ಜಗತ್ತು ತಲೆಕೆಳಗಾಯಿತು. ಹೊಸ್ತಿಲಲ್ಲಿ ಕಾದಿದ್ದ ಆ ದಿನ ಅವಳಿಗಾಗಿಯೇ ಇತ್ತು.",
+      "keywords": [
+        "shocked woman",
+        "news headline",
+        "courtroom drama"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "ಒಂದು ತಪ್ಪು, ದೊಡ್ಡ ಬೆಲೆ",
+      "bullets": [],
+      "vo": "ಒಂದು ಕಾಲದಲ್ಲಿ ಅವಳು ಯಶಸ್ವಿ ಉದ್ಯಮಿಯಾಗಿದ್ದಳು. ತನ್ನದೇ ಸಂವಹನ ಸಂಸ್ಥೆಯನ್ನು ನಡೆಸುತ್ತಿದ್ದಳು. ಆದರೆ ಬ್ಯಾಂಕ್ ಸಾಲ ಪಡೆಯಲು ಸುಳ್ಳು ಹಣಕಾಸಿನ ಮಾಹಿತಿ ನೀಡಿದ ಆರೋಪದಡಿ, 2007ರಲ್ಲಿ, ಅವಳಿಗೆ 46 ತಿಂಗಳ ಜೈಲು ಶಿಕ್ಷೆ ವಿಧಿಸಲಾಯಿತು.",
+      "keywords": [
+        "corporate woman",
+        "financial documents",
+        "handcuffs",
+        "prison gates"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "ಬಂಧನ, ನಂತರ ಕತ್ತಲೆ",
+      "bullets": [],
+      "vo": "ಅಂದರೆ ಸುಮಾರು ನಾಲ್ಕು ವರ್ಷಗಳು! ಮಗುವಿಗೆ ಜನ್ಮ ನೀಡಿದ ತಕ್ಷಣವೇ ಜೈಲಿನ ಕಂಬಿಗಳ ಹಿಂದೆ ಹೋಗುವ ಭೀಕರ ವಾಸ್ತವ ಅವಳ ಎದುರಿಗಿತ್ತು. ಅವಳು ತನ್ನ ನವಜಾತ ಶಿಶುವನ್ನು ಬಿಟ್ಟು, ಕತ್ತಲ ಕೋಣೆಗೆ ಹೆಜ್ಜೆ ಇಟ್ಟಳು.",
+      "keywords": [
+        "mother and baby",
+        "prison cell",
+        "lonely woman",
+        "dark corridor"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "ಜೈಲಿನಲ್ಲಿ ಆತ್ಮಾವಲೋಕನ",
+      "bullets": [],
+      "vo": "ಜೈಲಿನ ಆ ನಾಲ್ಕು ಗೋಡೆಗಳ ಮಧ್ಯೆ ಕಳೆಯುವ ಪ್ರತಿ ದಿನವೂ ನರಕಸದೃಶವಾಗಿತ್ತು. ಆದರೆ ಅವಳು ಕುಗ್ಗಲಿಲ್ಲ, ತನ್ನ ತಪ್ಪುಗಳ ಬಗ್ಗೆ ಆತ್ಮಾವಲೋಕನ ಮಾಡಿದಳು. ಇಲ್ಲಿಂದ ಹೇಗೆ ಹೊರಬಂದು ಮತ್ತೆ ಬದುಕನ್ನು ಕಟ್ಟಿಕೊಳ್ಳಬೇಕು ಎಂದು ಆಲೋಚಿಸತೊಡಗಿದಳು.",
+      "keywords": [
+        "woman meditating",
+        "notebook writing",
+        "prison yard",
+        "thinking woman"
+      ]
+    },
+    {
+      "type": "quote",
+      "quote": "ಪತನವೇ ಪಾಠ, ಪುನರುತ್ಥಾನವೇ ಗುರಿ.",
+      "attribution": "ಟಿ. ರೆನೀ ಸ್ಮಿತ್ (ಆಂತರಿಕ ಚಿಂತನೆ)",
+      "keywords": [
+        "inspirational quote",
+        "hope concept",
+        "rising sun"
+      ],
+      "vo": "\"ಪತನವೇ ಪಾಠ, ಪುನರುತ್ಥಾನವೇ ಗುರಿ.\" ಜೈಲಿನ ಬಿಡುಗಡೆ ನಂತರ, ಪುನಃ ನಿರ್ಮಿಸುವ ಸಂಕಲ್ಪ."
+    },
+    {
+      "type": "point",
+      "heading": "ಸವಾಲುಗಳ ಸರಣಿ",
+      "bullets": [],
+      "vo": "ಜೈಲಿನಿಂದ ಹೊರಬಂದ ನಂತರವೂ ಸವಾಲುಗಳು ಕಾದಿದ್ದವು. ಸಮಾಜದ ಕಣ್ಣುಗಳು, ಕಳೆದ ಬದುಕು, ಭವಿಷ್ಯದ ಅನಿಶ್ಚಿತತೆ. ಆದರೆ ಅವಳು ಸೋಲಲು ಸಿದ್ಧವಿರಲಿಲ್ಲ. ತನ್ನ ಸಾಮರ್ಥ್ಯದ ಮೇಲೆ ನಂಬಿಕೆಯಿಟ್ಟು, ಹೊಸದಾಗಿ ಪ್ರಾರಂಭಿಸಲು ನಿರ್ಧರಿಸಿದಳು.",
+      "keywords": [
+        "job interview stress",
+        "rejection letter",
+        "city street",
+        "walking alone"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "ಹೊಸ ಅಧ್ಯಾಯ, ಹೊಸ ಯಶಸ್ಸು",
+      "bullets": [],
+      "vo": "ಪರಿಶ್ರಮ ಮತ್ತು ಅಚಲ ನಿರ್ಧಾರದೊಂದಿಗೆ, ಟಿ. ರೆನೀ ಸ್ಮಿತ್ ಎಂಬ ಆ ಮಹಿಳೆ ಮತ್ತೆ ಎದ್ದು ನಿಂತಳು. ತನ್ನದೇ ಆದ 'iSuccess Consulting' ಎಂಬ ಸಂಸ್ಥೆಯನ್ನು ಪ್ರಾರಂಭಿಸಿ, ಅದಕ್ಕೆ ತಾನೇ ಸಿಇಒ ಆದಳು. ಇಂದು ಅವಳಿಗೆ 51 ವರ್ಷ.",
+      "keywords": [
+        "successful woman",
+        "office building",
+        "meeting room",
+        "business handshake"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "ಒಂದು ಹೆಣ್ಣಿನ ಅಚಲ ಸಂಕಲ್ಪ",
+      "cta": "Follow JAWARI ATMA",
+      "keywords": [
+        "inspirational story",
+        "resilience journey",
+        "woman looking forward"
+      ],
+      "vo": "ಒಂದು ಹೆಣ್ಣಿನ ಅಚಲ ಸಂಕಲ್ಪ: ಪುನರುತ್ಥಾನದ ಕಥೆ, ಬದಲಾವಣೆಯ ಸಾಕ್ಷಿ."
+    }
+  ],
+  "template": "wire",
+  "lang": "kn",
+  "engine": "edge"
+}

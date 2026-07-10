@@ -1,0 +1,116 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "AI News",
+  "accent": "#38BDF8",
+  "source": "LLM Model Evolution 2024-2026, arXiv:2604.07530, DeployBase, TeamAI",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "AI Models Obsolete in Weeks?",
+      "headline": "**Rapid Obsolescence Alert** in AI Sector",
+      "sub": "2026 Sees Unprecedented Model Replacement Rates",
+      "keywords": [
+        "AI Model Shelf Life",
+        "Tech Obsolescence",
+        "2026 Trends"
+      ]
+    },
+    {
+      "type": "headlines",
+      "heading": "Key 2026 AI News Headlines",
+      "items": [
+        {
+          "source": "LLM Model Evolution",
+          "title": "244 Models Tracked, Open-Source Surges"
+        },
+        {
+          "source": "arXiv",
+          "title": "Model Lifespan Shrinks by 23% Annually"
+        },
+        {
+          "source": "DeployBase",
+          "title": "GPT-4 Turbo 2 vs. Open-Source: Cost vs. Performance"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "value": "27%",
+      "label": "Shorter Time-to-Peak for Each Successive Release Year",
+      "source": "arXiv:2604.07530"
+    },
+    {
+      "type": "bars",
+      "title": "Context Window Growth 2024-2026",
+      "unit": "Token Count (Millions)",
+      "data": [
+        {
+          "label": "2024 Baseline",
+          "value": 8
+        },
+        {
+          "label": "2025 Midpoint (META LLAMA 4)",
+          "value": 10
+        },
+        {
+          "label": "2026 Frontier",
+          "value": 50
+        }
+      ],
+      "source": "LLM Model Evolution 2024-2026"
+    },
+    {
+      "type": "point",
+      "heading": "Implications for Developers & Users",
+      "bullets": [
+        "**Specialization Risks** Due to Rapid Obsolescence",
+        "**Cost Efficiency** of Open-Source Models",
+        "**Continuous Update Needs** for Staying Relevant"
+      ],
+      "keywords": [
+        "AI Development Challenges",
+        "Open-Source Benefits",
+        "Tech Update Cycles"
+      ]
+    },
+    {
+      "type": "quote",
+      "quote": "**Specialization on any single model may be a depreciating investment**",
+      "attribution": "Ana Trišović, arXiv:2604.07530",
+      "keywords": [
+        "AI Investment Strategy",
+        "Model Depreciation"
+      ]
+    },
+    {
+      "type": "compare",
+      "title": "2026 AI Model Comparison Snapshot",
+      "items": [
+        {
+          "name": "GPT-4 Turbo 2",
+          "note": "High Cost, High Performance"
+        },
+        {
+          "name": "Llama 4 Scout",
+          "note": "Balanced Cost-Performance"
+        },
+        {
+          "name": "Claude 3.5 Sonnet",
+          "note": "Niche Excellence in Instruction Following"
+        }
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "**Stay Ahead of AI Obsolescence with The Inference**",
+      "cta": "Subscribe for the Latest AI Insights",
+      "keywords": [
+        "AI News Subscription",
+        "The Inference Tech Updates"
+      ]
+    }
+  ]
+}

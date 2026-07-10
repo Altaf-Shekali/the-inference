@@ -1,0 +1,135 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tech Trend",
+  "accent": "#F43F5E",
+  "source": "markets.businessinsider.com, Finextra Research",
+  "voice": "en-US-AvaMultilingualNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "AI Revolution in Finance",
+      "headline": "**AI Trading Bots** Take Over Global Markets",
+      "sub": "Retail Investors Flock to Automation",
+      "keywords": [
+        "AI Trading Bots",
+        "Financial Markets",
+        "Automation"
+      ],
+      "vo": "Welcome to the revolution where **AI Trading Bots** are transforming global markets, one trade at a time. Get ready to dive into the numbers behind this seismic shift. The future of finance is here, and it's automated."
+    },
+    {
+      "type": "headlines",
+      "heading": "Key Developments in AI Trading",
+      "items": [
+        {
+          "source": "Business Insider",
+          "title": "AI Trading Bot Adoption Surges 40% in Crypto Markets"
+        },
+        {
+          "source": "Finextra",
+          "title": "SoFi Acquires AI-Based Investing Startup Composer"
+        },
+        {
+          "source": "GlobeNewswire",
+          "title": "Toobit Launches AI Trading Assistant for Futures Markets"
+        }
+      ],
+      "vo": "Let's break down the **Key Developments in AI Trading** that are making headlines worldwide, from enhanced efficiency to data-driven decision making."
+    },
+    {
+      "type": "stat",
+      "value": "40%",
+      "label": "Year-on-Year Increase in AI Trading Tool Adoption in Crypto Markets",
+      "source": "markets.businessinsider.com",
+      "vo": "Cryptocurrency markets lead the charge with a staggering **40% year-on-year increase** in AI trading tool adoption. The crypto space is embracing AI faster than ever."
+    },
+    {
+      "type": "stat",
+      "value": "28%",
+      "label": "Growth in Automated Trading System Usage in Stock Markets",
+      "source": "markets.businessinsider.com",
+      "vo": "Meanwhile, stock markets show a significant **28% rise** in automated trading system usage, indicating a broad adoption across asset classes."
+    },
+    {
+      "type": "point",
+      "heading": "Advantages of AI Trading Bots",
+      "bullets": [
+        "**Real-Time Market Analysis**",
+        "**Automated Trend Identification**",
+        "**Reduced Emotional Decision Making**"
+      ],
+      "keywords": [
+        "AI Efficiency",
+        "Market Analysis",
+        "Investment Strategies"
+      ],
+      "vo": "So, what's driving this trend? **Advantages of AI Trading Bots** include real-time market analysis, automated trend identification, and the elimination of emotional trading decisions."
+    },
+    {
+      "type": "quote",
+      "quote": "AI-augmented strategies have become a core component of daily trading.",
+      "attribution": "Fintech Industry Expert",
+      "keywords": [
+        "AI in Trading",
+        "Investment Trends",
+        "Fintech Experts"
+      ],
+      "vo": "\"**AI-augmented strategies have become a core component of daily trading**,\" according to industry experts, with up to 33% of portfolio returns attributed to AI-driven insights."
+    },
+    {
+      "type": "tool",
+      "name": "Toobit's AI Trading Assistant",
+      "category": "Fintech",
+      "oneLiner": "Transforms raw chart data into ready-to-use trade plans.",
+      "features": [
+        "Real-Time Insights",
+        "Customizable Risk-to-Reward Ratios"
+      ],
+      "price": "N/A (Integrated with Toobit)",
+      "verdict": "**Enhances Trading Efficiency**",
+      "keywords": [
+        "Toobit AI",
+        "Trading Assistants",
+        "Crypto Trading Tools"
+      ],
+      "vo": "Platforms like **Toobit's AI Trading Assistant** are at the forefront, offering instant trade plans, from short-term scalps to long-term swings, with customizable risk-to-reward ratios."
+    },
+    {
+      "type": "bars",
+      "title": "AI Trading Adoption Across Markets",
+      "unit": "%",
+      "data": [
+        {
+          "label": "Crypto",
+          "value": 40
+        },
+        {
+          "label": "Stock",
+          "value": 28
+        },
+        {
+          "label": "Forex",
+          "value": 0
+        }
+      ],
+      "source": "markets.businessinsider.com",
+      "vo": "Looking at **AI Trading Adoption Across Markets**, we see a clear multi-asset growth story, with forex markets also witnessing a notable increase in algorithmic trading penetration."
+    },
+    {
+      "type": "outro",
+      "headline": "**The Future of Investing: Automated**",
+      "cta": "Subscribe to The Inference for More Tech Trends",
+      "keywords": [
+        "AI Investing Future",
+        "Automated Trading",
+        "Tech Trends 2026"
+      ],
+      "vo": "As we look to the horizon, one thing is clear: **The Future of Investing: Automated**. AI trading bots are no longer the future - they're the present, reshaping retail investment behavior globally."
+    }
+  ],
+  "template": "horizon",
+  "lang": "en",
+  "engine": "edge"
+}

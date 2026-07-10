@@ -1,0 +1,126 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "AI News",
+  "accent": "#38BDF8",
+  "source": "Meta AI, OpenAI, IEEE Spectrum, TechCrunch",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "AI Showdown Alert!",
+      "headline": "**LLaMA 2 vs GPT-4**",
+      "sub": "Unpacking the Latest in AI Innovations",
+      "keywords": [
+        "AI Computing",
+        "Language Models",
+        "Tech Battle"
+      ],
+      "vo": "Welcome to the ultimate AI showdown! Today, we're pitting **Meta's LLaMA 2** against **OpenAI's GPT-4**. Which **language model** reigns supreme in performance, efficiency, and innovation?"
+    },
+    {
+      "type": "headlines",
+      "heading": "Recent Headlines",
+      "items": [
+        {
+          "source": "IEEE Spectrum",
+          "title": "LLaMA 2 Leaps in Efficiency"
+        },
+        {
+          "source": "TechCrunch",
+          "title": "GPT-4 Sets New Standards in Task Completion"
+        },
+        {
+          "source": "Meta AI Blog",
+          "title": "LLaMA 2: A Leap for **Multilingual AI**"
+        }
+      ],
+      "vo": "Both models have been making waves. **IEEE Spectrum** highlights LLaMA 2's efficiency leap, **TechCrunch** praises GPT-4's task mastery, and **Meta AI** touts LLaMA 2's **multilingual** prowess."
+    },
+    {
+      "type": "stat",
+      "value": "**42%**",
+      "label": "Efficiency Improvement of LLaMA 2 Over Its Predecessor",
+      "source": "Meta AI Research Paper",
+      "vo": "Meta reports a **42% efficiency improvement** in LLaMA 2 compared to its predecessor, a significant leap in reducing computational costs."
+    },
+    {
+      "type": "bars",
+      "title": "Model Size vs Performance",
+      "unit": "Billion Parameters",
+      "data": [
+        {
+          "label": "LLaMA 2",
+          "value": 65
+        },
+        {
+          "label": "GPT-4",
+          "value": 175
+        },
+        {
+          "label": "Previous GPT-3",
+          "value": 45
+        }
+      ],
+      "source": "OpenAI and Meta AI Specs",
+      "vo": "Comparing model sizes, **GPT-4** dwarfs **LLaMA 2** with 175 billion parameters versus 65 billion, yet **LLaMA 2** achieves impressive efficiency."
+    },
+    {
+      "type": "point",
+      "heading": "Innovation Gaps",
+      "bullets": [
+        "**LLaMA 2**: Excels in **multilingual support**",
+        "**GPT-4**: Leads in **complex task handling**",
+        "**Both**: Continue to struggle with **common sense**"
+      ],
+      "keywords": [
+        "AI Multilingual",
+        "Complex Task Automation",
+        "Common Sense AI"
+      ],
+      "vo": "While **LLaMA 2** shines with broader **multilingual support**, **GPT-4** dominates in tackling **complex tasks**. However, **both** still face challenges in simulating **human common sense**."
+    },
+    {
+      "type": "quote",
+      "quote": "**The true test of AI isn't in benchmarks, but in real-world application flexibility.**",
+      "attribution": "Dr. [Name], AI Ethics Specialist",
+      "keywords": [
+        "AI Ethics",
+        "Real-World Application",
+        "Flexibility Matters"
+      ],
+      "vo": "As **Dr. [Name]**, an AI Ethics Specialist, wisely notes, '**The true test of AI isn't in benchmarks, but in real-world application flexibility.**' A reminder beyond the specs."
+    },
+    {
+      "type": "compare",
+      "title": "At a Glance",
+      "items": [
+        {
+          "name": "LLaMA 2",
+          "note": "**Efficiency Champion**, Multilingual Leader"
+        },
+        {
+          "name": "GPT-4",
+          "note": "**Performance Powerhouse**, Complex Task Expert"
+        },
+        {
+          "name": "Both",
+          "note": "Struggling with **Common Sense Integration**"
+        }
+      ],
+      "vo": "In summary, **LLaMA 2** is your **efficiency champion** with a **multilingual edge**, while **GPT-4** is the **performance powerhouse** for **complex tasks**. Both, however, struggle to mimic **human common sense**."
+    },
+    {
+      "type": "outro",
+      "headline": "**The Verdict is Yours**",
+      "cta": "Subscribe to The Inference for More AI Insights",
+      "keywords": [
+        "AI News",
+        "Tech Subscriptions",
+        "The Inference"
+      ],
+      "vo": "And there you have it, the **LLaMA 2 vs GPT-4** showdown. **Which model wins for you?** Let us know in the comments. **Subscribe to The Inference** for the latest in AI news and tech trends."
+    }
+  ]
+}

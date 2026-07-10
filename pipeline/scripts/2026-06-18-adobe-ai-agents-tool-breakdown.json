@@ -1,0 +1,121 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tool Breakdown",
+  "accent": "#34D399",
+  "source": "CNET, CNBC, Zamin.uz, 9to5Mac",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "Adobe Unleashes AI Power",
+      "headline": "**Adobe's Expanded AI Agents** Hit Creative Cloud",
+      "sub": "Revolutionizing Workflows in Premiere, Illustrator, and More",
+      "keywords": [
+        "AI Integration",
+        "Creative Cloud",
+        "Adobe"
+      ],
+      "vo": "Welcome to the future of creativity! Adobe's Expanded AI Agents have landed on Creative Cloud, revolutionizing your workflow. Get ready to unlock unprecedented efficiency!"
+    },
+    {
+      "type": "headlines",
+      "heading": "Key Updates Across Adobe Suite",
+      "items": [
+        {
+          "source": "CNET",
+          "title": "AI Assistants in Public Beta"
+        },
+        {
+          "source": "9to5Mac",
+          "title": "Major Creative Cloud Updates"
+        },
+        {
+          "source": "Zamin.uz",
+          "title": "AI Integration in Premiere & Illustrator"
+        }
+      ],
+      "vo": "Key updates are rolling out across the entire Adobe Suite, integrating AI deeper than ever before. From editing to design, the transformation is vast."
+    },
+    {
+      "type": "stat",
+      "value": "5+",
+      "label": "Adobe Apps with New AI Assistants",
+      "source": "Adobe Announcement via CNET",
+      "vo": "Over 5 major Adobe applications now boast AI Agents, marking a significant milestone in Adobe's AI integration journey."
+    },
+    {
+      "type": "point",
+      "heading": "Capabilities by App",
+      "bullets": [
+        "**Photoshop**: Layer Management & Batch Background Removal",
+        "**Premiere Pro**: Video Sorting, Interview Clip Identification",
+        "**InDesign & Illustrator**: Project Compliance Checks & Layer Reorganization"
+      ],
+      "keywords": [
+        "AI for Video Editing",
+        "Smart Graphic Design Tools"
+      ],
+      "vo": "Capabilities vary by app: Photoshop streamlines layer management and background removal, Premiere Pro sorts and identifies key video clips, and InDesign ensures project compliance automatically."
+    },
+    {
+      "type": "quote",
+      "quote": "**Guide You Down the Happy Path**",
+      "attribution": "Anil Chakravarthy, Adobe President (CNBC)",
+      "keywords": [
+        "AI Assistance Vision",
+        "Adobe"
+      ],
+      "vo": "'Guide You Down the Happy Path' - Adobe's philosophy behind its AI Agents, designed to assist, not overwhelm, ensuring a seamless creative experience."
+    },
+    {
+      "type": "tool",
+      "name": "Adobe AI Assistants",
+      "category": "Creative Productivity",
+      "oneLiner": "**Streamline Creative Workflows** with AI-Powered Tasks",
+      "features": [
+        "Cross-App Compatibility",
+        "Task Automation",
+        "Enhanced Creativity Support"
+      ],
+      "price": "Included with Creative Cloud Subscriptions",
+      "verdict": "**Game-Changer for Professionals**",
+      "keywords": [
+        "Creative Cloud AI",
+        "Productivity Tools"
+      ],
+      "vo": "Meet Adobe AI Assistants: Your new creative partners in Photoshop, Premiere Pro, InDesign, Illustrator, and Frame.io, available now in public beta."
+    },
+    {
+      "type": "compare",
+      "title": "Adobe AI vs. Competitors",
+      "items": [
+        {
+          "name": "Adobe AI",
+          "note": "**Seamless Integration** with Existing Tools"
+        },
+        {
+          "name": "Canva AI",
+          "note": "Limited to Canva Ecosystem"
+        },
+        {
+          "name": "Standalone AI Tools",
+          "note": "**Lack Native Software Integration**"
+        }
+      ],
+      "vo": "Adobe's AI stands out from competitors with its deep integration into industry-standard creative tools, offering a unified AI-powered ecosystem."
+    },
+    {
+      "type": "outro",
+      "headline": "**Unlock Efficiency with Adobe's AI**",
+      "cta": "Subscribe to The Inference for More Tech Insights",
+      "keywords": [
+        "Adobe AI Adoption",
+        "Creative Workflow Efficiency"
+      ],
+      "vo": "Unlock Efficiency with Adobe's AI: Empower your creativity, enhance your productivity, and experience the future of content creation today with Adobe's Expanded AI Agents."
+    }
+  ],
+  "template": "studio"
+}

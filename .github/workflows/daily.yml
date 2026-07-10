@@ -1,0 +1,70 @@
+name: Daily videos
+
+on:
+  # 01:00 UTC = 06:30 IST — idle render window. Each channel still releases at its
+  # own regional peak via YouTube scheduled publish (publishAt), set in ci-daily.mjs.
+  schedule:
+    - cron: "0 1 * * *"
+  # manual "Run workflow" button (optionally a single channel id)
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: "Channel id (blank = all enabled)"
+        required: false
+        default: ""
+
+# let the job commit state (used-topics, uploads.json) back to the repo
+permissions:
+  contents: write
+
+concurrency:
+  group: daily
+  cancel-in-progress: false
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: System libraries for headless Chrome (Remotion)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 libdbus-1-3 libatk1.0-0 libgbm1 libxrandr2 libxkbcommon0 \
+            libxfixes3 libxcomposite1 libxdamage1 libatk-bridge2.0-0 \
+            libpango-1.0-0 libcairo2 libcups2 \
+            && (sudo apt-get install -y libasound2t64 || sudo apt-get install -y libasound2)
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Restore secret files from GitHub Secrets
+        env:
+          GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+          NEMOTRON_KEY: ${{ secrets.NEMOTRON_KEY }}
+          TAVILY_KEY: ${{ secrets.TAVILY_KEY }}
+          PEXELS_KEY: ${{ secrets.PEXELS_KEY }}
+          YT_CREDENTIALS: ${{ secrets.YT_CREDENTIALS }}
+        run: node pipeline/ci-restore-secrets.mjs
+
+      - name: Ensure Chromium for Remotion
+        run: npx remotion browser ensure
+
+      - name: Render + upload the daily videos
+        run: node pipeline/ci-daily.mjs "${{ github.event.inputs.channel }}"
+
+      - name: Persist state back to the repo
+        if: always()
+        run: |
+          git config user.name "pipeline-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pipeline/uploads.json pipeline/channels/*/used-topics.json 2>/dev/null || true
+          git commit -m "state: daily run $(date -u +%F)" || echo "no state changes"
+          git push || echo "nothing to push"

@@ -1,0 +1,59 @@
+[
+  {
+    "id": "the-inference",
+    "name": "The Inference",
+    "lang": "en",
+    "niche": "ainews",
+    "pillars": ["ainews", "tools", "trend", "business"],
+    "voice": "en-US-AvaMultilingualNeural",
+    "region": "US",
+    "uploadTime": "23:30",
+    "renderTime": "08:00",
+    "topics": "AI news, tools and tech breakdowns",
+    "privacy": "private",
+    "enabled": true
+  },
+  {
+    "id": "the-inference-kn",
+    "name": "JAWARI ATMA",
+    "spokenName": "ಜವಾರಿ ಆತ್ಮ",
+    "lang": "kn",
+    "niche": "story",
+    "pillars": ["crime", "scam", "survival", "success", "history", "human"],
+    "voice": "kn-IN-SapnaNeural",
+    "region": "IN",
+    "uploadTime": "18:00",
+    "renderTime": "06:15",
+    "topics": "ನಿಜ ಜೀವನದ ರೋಚಕ ಕಥೆಗಳು",
+    "privacy": "private",
+    "enabled": true
+  },
+  {
+    "id": "the-inference-hi",
+    "name": "अवचेतन",
+    "lang": "hi",
+    "niche": "psych",
+    "pillars": ["bias", "behavior", "relationships", "dark", "mind", "social"],
+    "voice": "hi-IN-SwaraNeural",
+    "region": "IN",
+    "uploadTime": "19:00",
+    "renderTime": "07:00",
+    "topics": "मन और मनोविज्ञान की दिलचस्प बातें",
+    "privacy": "private",
+    "enabled": true
+  },
+  {
+    "id": "current-affairs",
+    "name": "Current Affairs",
+    "lang": "en",
+    "niche": "quiz",
+    "pillars": [],
+    "voice": "",
+    "region": "IN",
+    "uploadTime": "18:30",
+    "renderTime": "09:00",
+    "topics": "daily current affairs and GK for competitive exams",
+    "privacy": "private",
+    "enabled": true
+  }
+]

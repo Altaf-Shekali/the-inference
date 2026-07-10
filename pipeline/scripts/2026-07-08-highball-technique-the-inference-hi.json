@@ -1,0 +1,145 @@
+{
+  "channelName": "अवचेतन",
+  "topicTag": "डार्क साइकोलॉजी",
+  "accent": "#F43F5E",
+  "source": "बीबीसी फ्यूचर, मोटरवन डॉट कॉम",
+  "voice": "hi-IN-SwaraNeural",
+  "music": "",
+  "showCaptions": true,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "डार्क साइकोलॉजी",
+      "headline": "डर की चाल",
+      "sub": "क्या आप जल्दबाज़ी में फ़ैसले लेते हैं?",
+      "keywords": [
+        "anxious man thinking",
+        "stressed person decision",
+        "question mark brain"
+      ],
+      "vo": "डर की चाल: जब डर आपके निर्णयों का मालिक बन जाता है, तब शुरू होती है एक मानसिक जंग।"
+    },
+    {
+      "type": "point",
+      "heading": "एक आम कहानी",
+      "bullets": [],
+      "vo": "क्या कभी आपको ऐसा लगा है कि आपने कोई फैसला हड़बड़ी में कर लिया, बस उस असहजता से बचने के लिए? जैसे कोई अदृश्य शक्ति आपको धक्का दे रही थी?",
+      "keywords": [
+        "everyday life scene",
+        "people making decisions",
+        "shopping mall interior"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "सेल्सपर्सन का जाल",
+      "bullets": [],
+      "vo": "सोचिए आप एक नई गाड़ी खरीदने गए हैं। आपने खूब रिसर्च की है, बजट भी तय है। सेल्सपर्सन आपसे खूब बातें करता है, दोस्ती दिखाता है, और आपको अपनी बातों में उलझा लेता है।",
+      "keywords": [
+        "car showroom",
+        "salesman talking customer",
+        "new car"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "कृत्रिम दबाव",
+      "bullets": [],
+      "vo": "फिर अचानक वह कहता है, 'ये मॉडल तो सिर्फ़ आज के लिए इस दाम पर है। स्टॉक भी ख़त्म होने वाला है। बाद में ये मौका नहीं मिलेगा, ये मेरी गारंटी है।'",
+      "keywords": [
+        "clock ticking",
+        "urgent message",
+        "limited offer sign"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "मन का द्वंद्व",
+      "bullets": [],
+      "vo": "आपको पता है कि आपको सोचने का समय चाहिए, लेकिन मन में एक अजीब सी घबराहट होने लगती है। एक डर बैठ जाता है कि अगर आज नहीं लिया, तो कहीं चूक न जाऊं, कहीं नुकसान न हो जाए।",
+      "keywords": [
+        "person feeling anxious",
+        "inner conflict",
+        "doubt confusion"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "यहाँ नए हैं? सब्सक्राइब करें",
+      "cta": "अवचेतन को सब्सक्राइब करें",
+      "vo": "और अगर आप अवचेतन को पहली बार देख रहे हैं, और आपको मन और मनोविज्ञान की दिलचस्प बातें में दिलचस्पी है, तो अभी सब्सक्राइब कर दीजिए — हर दिन एक नई वीडियो।",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "quote",
+      "quote": "जब डर हावी होता है, तो दिमाग़ सोचना बंद कर देता है, बस प्रतिक्रिया करता है।",
+      "attribution": "मनोवैज्ञानिकों का निष्कर्ष",
+      "keywords": [
+        "fear concept",
+        "brain reacting to fear",
+        "psychological insight"
+      ],
+      "vo": "जब डर हावी होता है, तो दिमाग़ सोचना बंद कर देता है, बस प्रतिक्रिया करता है। - एक सच्चाई जो नेगोशिएटर्स जानते हैं।"
+    },
+    {
+      "type": "point",
+      "heading": "व्यवहारगत प्रतिरक्षा",
+      "bullets": [],
+      "vo": "असल में, हमारे दिमाग़ में एक 'व्यवहारगत प्रतिरक्षा प्रणाली' होती है। जैसे शरीर बीमारियों से बचाता है, वैसे ही ये सिस्टम हमें किसी भी खतरे से बचाने की कोशिश करता है।",
+      "keywords": [
+        "brain neurons activity",
+        "immune system concept",
+        "human psychology"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "जोखिम से बचाव",
+      "bullets": [],
+      "vo": "जब हमें किसी भी तरह का ख़तरा – शारीरिक, सामाजिक या आर्थिक – महसूस होता है, तो हमारा दिमाग़ हमें सुरक्षित रहने के लिए तुरंत एक्शन लेने को कहता है। हम ज़्यादा सहमत और कम आलोचनात्मक हो जाते हैं।",
+      "keywords": [
+        "risk assessment",
+        "conformity behavior",
+        "group thinking"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "चालाक लोगों की चाल",
+      "bullets": [],
+      "vo": "चालाक लोग इसी चीज़ का फ़ायदा उठाते हैं। वे कृत्रिम डर, कमी या जल्दबाजी पैदा करते हैं, ताकि आप बिना सोचे-समझे उनकी बात मान लें और उनसे वही ख़रीदें जो वे चाहते हैं।",
+      "keywords": [
+        "manipulation tactics",
+        "shady deal",
+        "persuasion strategy"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "खुद को बचाएं",
+      "bullets": [],
+      "vo": "अगली बार जब आप पर ऐसा दबाव महसूस हो, तो एक पल रुकें। खुद से पूछें: 'क्या ये डर असली है या बनाया गया है?' समय लें, रिसर्च करें और अपनी शर्तों पर फ़ैसला करें।",
+      "keywords": [
+        "critical thinking",
+        "person making choice",
+        "self-awareness"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "डर नहीं, समझदारी",
+      "cta": "अपनी समझदारी बढ़ाएं, अवचेतन को सब्सक्राइब करें।",
+      "keywords": [
+        "empowered person",
+        "wise decision",
+        "mindfulness"
+      ],
+      "vo": "डर नहीं, समझदारी: जब आप हाईबॉल टेक्नीक को पहचान लेते हैं, तो डर की जगह समझदारी आपके निर्णयों का आधार बनती है।"
+    }
+  ],
+  "template": "horizon",
+  "lang": "hi",
+  "engine": "edge"
+}

@@ -1,0 +1,125 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tool Breakdown",
+  "accent": "#34D399",
+  "source": "Travel Media Group, Hospitality Net, Hotel News Resource, Vizergy",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "**Unlocking AI Visibility** for Hotels",
+      "headline": "Demystifying TMG AI Signal Report",
+      "sub": "Enhance Your Hotel's AI Search Engine Presence",
+      "keywords": [
+        "Hotel AI Visibility",
+        "TMG AI Report",
+        "AI Search Engines"
+      ],
+      "vo": "Unlocking TMG AI Signal Report: Tool Breakdown for Hotels’ AI Visibility. Demystifying the TMG AI Signal Report and its role in hotel AI visibility."
+    },
+    {
+      "type": "headlines",
+      "heading": "Key Insights from Recent Hospitality Tech News",
+      "items": [
+        {
+          "source": "Hospitality Net",
+          "title": "Travel Media Group Launches TMG AI Signal Report"
+        },
+        {
+          "source": "Hotel News Resource",
+          "title": "AI Adoption Accelerates in Hospitality"
+        },
+        {
+          "source": "Vizergy",
+          "title": "Google's New AI Search Guidance for Hoteliers"
+        }
+      ],
+      "vo": "Recent hospitality tech news highlights AI adoption. Hotels shift focus towards AI-powered search visibility, a new frontier in digital presence."
+    },
+    {
+      "type": "stat",
+      "value": "30-50%",
+      "label": "Projected Cost Savings via AI in Hospitality Operations",
+      "source": "Hotel News Resource - AI Adoption Accelerates in Hospitality",
+      "vo": "Hotels leveraging AI can expect operational cost savings between 30% to 50%."
+    },
+    {
+      "type": "point",
+      "heading": "**TMG AI Signal Report** Key Features",
+      "bullets": [
+        "Identifies Top Traveler Questions to AI Search Engines",
+        "Traces Sources Influencing AI Responses",
+        "Offers Actionable Guidance for Improved Visibility"
+      ],
+      "keywords": [
+        "AI Signal Report Features",
+        "Hotel Digital Visibility",
+        "Traveler Questions AI"
+      ],
+      "vo": "**TMG AI Signal Report** features: Identifying top traveler A-I search questions, tracing answer sources, and providing actionable AI visibility strategies."
+    },
+    {
+      "type": "quote",
+      "quote": "**Travel planning is rapidly changing** as consumers embrace AI-powered search experiences.",
+      "attribution": "Dana Singer, President of Travel Media Group",
+      "keywords": [
+        "AI Search Trends",
+        "Travel Planning Evolution",
+        "Dana Singer"
+      ],
+      "vo": "\"Travel planning is rapidly changing with A-I powered search experiences.\" - Dana Singer, on the shift in hotel search visibility."
+    },
+    {
+      "type": "tool",
+      "name": "TMG AI Signal Report",
+      "category": "AI Visibility Enhancement Tool for Hotels",
+      "oneLiner": "Uncover and Improve Your Hotel's AI Search Visibility",
+      "features": [
+        "Analyzes AI Search Engine Responses",
+        "Provides Insights into Influencing Sources",
+        "Offers Customized Improvement Strategies"
+      ],
+      "price": "N/A (Supplier News)",
+      "verdict": "**Essential** for Hotels in the AI Era",
+      "keywords": [
+        "TMG AI Signal Report Tool",
+        "Hotel AI Visibility Tool",
+        "AI Search Insights"
+      ],
+      "vo": "Dive into the **TMG AI Signal Report**: Revealing how A-I platforms represent your hotel, using insights from online reviews, management responses, and more."
+    },
+    {
+      "type": "compare",
+      "title": "Optimizing for AI vs Traditional Search",
+      "items": [
+        {
+          "name": "Traditional SEO",
+          "note": "Focus on Website Optimization"
+        },
+        {
+          "name": "AI Search Optimization",
+          "note": "Emphasizes Destination Role & Beyond Website Content"
+        },
+        {
+          "name": "Future Strategy",
+          "note": "**Combine Both** for Maximum Visibility"
+        }
+      ],
+      "vo": "Optimizing for A-I search vs Traditional Search: Tailor your strategy for the A-I era with TMG AI Signal Report, beyond I-P-O optimization."
+    },
+    {
+      "type": "outro",
+      "headline": "**Enhance Your Hotel's AI Visibility Today**",
+      "cta": "Subscribe to The Inference for More Tech Insights",
+      "keywords": [
+        "Hotel AI Visibility Solutions",
+        "The Inference Tech Channel",
+        "TMG AI Signal Report"
+      ],
+      "vo": "**Enhance Your Hotel's A-I Visibility Today** with insights from TMG AI Signal Report, dominating AI-powered travel search platforms."
+    }
+  ],
+  "template": "studio"
+}

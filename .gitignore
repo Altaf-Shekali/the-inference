@@ -3,5 +3,29 @@ dist
 .DS_Store
 .env
 
+# API keys & credentials — never commit
+pipeline/pexels.key
+pipeline/nemotron.key
+pipeline/tavily.key
+pipeline/gemini.key
+
+# Per-channel YouTube secrets — keep the folder, ignore the tokens + clients
+pipeline/channels/*/youtube.token.json
+pipeline/channels/*/youtube.client.json
+pipeline/youtube.client.json
+pipeline/youtube.token.json
+
 # Ignore the output video from Git but not videos you import into src/.
 out
+
+# Kokoro local TTS — Python venv + large model files (re-creatable, see README)
+pipeline/.venv-tts
+pipeline/kokoro/*.onnx
+pipeline/kokoro/*.bin
+
+# ---- extra safety for the PUBLIC repo: never commit any key/token/secret ----
+**/*.key
+**/youtube.client.json
+**/youtube.token.json
+*.local.txt
+pipeline/github-secrets.local.txt

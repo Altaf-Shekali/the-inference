@@ -1,0 +1,122 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "AI News",
+  "accent": "#3B9EFF",
+  "source": "USA Today, SecurityWeek, TechCrunch, Sensor Tower, Samsung",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "Privacy Revolution",
+      "headline": "70B Parameter AI Model Goes **Offline** on Android",
+      "sub": "Enhancing Privacy, Security, and Accessibility",
+      "keywords": [
+        "Android AI Privacy",
+        "Offline AI Models",
+        "High-End Smartphones"
+      ],
+      "vo": "Welcome to a groundbreaking milestone: a massive 70 Billion Parameter AI Model, now capable of running entirely **Offline** on Android devices, revolutionizing privacy!"
+    },
+    {
+      "type": "headlines",
+      "heading": "Key Developments",
+      "items": [
+        {
+          "source": "USA Today",
+          "title": "LiberaGPT Launches with 70B Parameter Model Offline Capability"
+        },
+        {
+          "source": "SecurityWeek",
+          "title": "Global Call for AI Regulation Amidst Privacy Concerns"
+        },
+        {
+          "source": "TechCrunch",
+          "title": "Data Delivery Identified as AI's Real Bottleneck, Not GPUs"
+        }
+      ],
+      "vo": "Let's dive into the Key Developments behind this technological leap, set to redefine mobile computing's future."
+    },
+    {
+      "type": "stat",
+      "value": "70B",
+      "label": "Parameter AI Model Now Runnable **Offline** on High-End Android Devices",
+      "source": "USA Today",
+      "vo": "The numbers speak for themselves: a staggering 70 Billion Parameters, pushing the boundaries of what's possible in AI model complexity."
+    },
+    {
+      "type": "point",
+      "heading": "Implications",
+      "bullets": [
+        "**Enhanced Privacy**: Data Never Leaves Device",
+        "**Improved Security**: Reduced Risk of Data Breaches",
+        "**Increased Accessibility**: High-End AI for More Users"
+      ],
+      "keywords": [
+        "AI Privacy Benefits",
+        "Offline Security Advantages",
+        "Mobile AI Accessibility"
+      ],
+      "vo": "So, what does this mean for you? **Implications** are far-reaching, from enhanced data security to unparalleled privacy control on your mobile device."
+    },
+    {
+      "type": "quote",
+      "quote": "**A new standard for local mobile computing**",
+      "attribution": "5N6 LTD (Developers of LiberaGPT)",
+      "keywords": [
+        "LiberaGPT Quote",
+        "Mobile Computing Standards"
+      ],
+      "vo": "\"**A new standard for local mobile computing**\" - Experts weigh in on the seismic shift enabled by this offline capability."
+    },
+    {
+      "type": "stat",
+      "value": "24GB RAM",
+      "label": "Minimum Required for 70B Parameter Model on Android",
+      "source": "USA Today",
+      "vo": "Making it all possible: Devices with **24GB RAM** are leading the charge, showcasing the power of optimized hardware for AI."
+    },
+    {
+      "type": "bars",
+      "title": "Projected Growth in Generative AI App Engagement",
+      "unit": "Billion Hours",
+      "data": [
+        {
+          "label": "2025 (H1)",
+          "value": 17.2
+        },
+        {
+          "label": "2026 (H1, Projected)",
+          "value": 36
+        }
+      ],
+      "source": "Sensor Tower",
+      "vo": "Looking ahead: **Projected Growth in Generative AI App Engagement** is set to skyrocket, with estimates suggesting a doubling by 2026, according to Sensor Tower's insights."
+    },
+    {
+      "type": "point",
+      "heading": "Technological Alignment",
+      "bullets": [
+        "Samsung’s **UFS 5.0** Enhancing On-Device AI Capabilities",
+        "Future-Proofing for Next-Gen AI Applications"
+      ],
+      "keywords": [
+        "Samsung UFS 5.0",
+        "On-Device AI Enhancements"
+      ],
+      "vo": "The perfect synergy: **Technological Alignment** of advanced AI models with capable mobile hardware, paving the way for a privacy-centric future."
+    },
+    {
+      "type": "outro",
+      "headline": "Revolutionizing Privacy with Offline AI",
+      "cta": "Subscribe to The Inference for More AI Insights",
+      "keywords": [
+        "Offline AI Privacy",
+        "The Inference Channel"
+      ],
+      "vo": "That's a wrap! **Revolutionizing Privacy with Offline AI** - A new era for mobile users worldwide, promising security and innovation in tandem."
+    }
+  ],
+  "template": "wire"
+}

@@ -1,0 +1,31 @@
+{
+  "title": "ऑनलाइन कीमतों का राज़: क्या आप ठगे जा रहे हैं?",
+  "description": "क्या आपको पता है कि आप ऑनलाइन जो कीमत देखते हैं, वह सिर्फ़ आपके लिए ही होती है? जानिए कैसे एल्गोरिथम आपकी खरीदारी की आदतों का फायदा उठाकर आपसे ज़्यादा पैसे वसूलते हैं। #OnlineShopping #DynamicPricing #SurveillancePricing #CognitiveBias #PsychologyInHindi",
+  "tags": [
+    "ऑनलाइन शॉपिंग",
+    "कीमत",
+    "दिमागी जाल",
+    "एल्गोरिथम",
+    "डेटा प्राइवेसी",
+    "सर्वेलांस प्राइसिंग",
+    "डायनामिक प्राइसिंग",
+    "मनोविज्ञान",
+    "अवचेतन",
+    "उपभोक्ता अधिकार",
+    "Online Shopping",
+    "Dynamic Pricing",
+    "Surveillance Pricing",
+    "Cognitive Bias",
+    "Data Privacy",
+    "Psychology"
+  ],
+  "thumbnail": {
+    "badge": "दिमागी जाल",
+    "bigText": "आपकी कीमत अलग?",
+    "subText": "ऑनलाइन कीमतों का खेल",
+    "accent": "#A78BFA",
+    "channelName": "अवचेतन"
+  },
+  "channel": "the-inference-hi",
+  "lang": "hi"
+}

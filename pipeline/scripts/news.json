@@ -1,0 +1,67 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "AI News",
+  "accent": "#38BDF8",
+  "source": "Company filings, The Verge, Reuters",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "Breaking",
+      "headline": "OpenAI Just Made Its **Biggest Move** Yet",
+      "sub": "And almost nobody is talking about what it actually means.",
+      "keywords": ["artificial intelligence abstract", "data center servers", "futuristic technology"],
+      "vo": "OpenAI just made its biggest move yet, and almost nobody is talking about what it actually means."
+    },
+    {
+      "type": "headlines",
+      "heading": "It's everywhere this week",
+      "items": [
+        { "source": "The Verge", "title": "OpenAI ships agentic model at half the price" },
+        { "source": "Reuters", "title": "Rivals scramble to respond within days" },
+        { "source": "Bloomberg", "title": "Enterprise demand spikes overnight" }
+      ],
+      "vo": "It's everywhere this week. The Verge, Reuters, and Bloomberg are all covering the same story."
+    },
+    {
+      "type": "point",
+      "heading": "What happened",
+      "bullets": [
+        "A new model shipped with **agentic tool-use** built in",
+        "Pricing dropped **40%** versus the previous tier",
+        "Enterprise API access opened the same day"
+      ],
+      "keywords": ["coding on screen", "software interface", "typing keyboard macro"],
+      "vo": "Here's what happened. A new model shipped with agentic tool use built right in. Pricing dropped forty percent versus the previous tier. And enterprise API access opened the very same day."
+    },
+    {
+      "type": "stat",
+      "value": "40%",
+      "label": "cheaper than the model it replaces",
+      "source": "OpenAI pricing page",
+      "vo": "Forty percent cheaper than the model it replaces."
+    },
+    {
+      "type": "bars",
+      "title": "Price per million tokens",
+      "unit": "",
+      "data": [
+        { "label": "Old model", "value": 10 },
+        { "label": "New model", "value": 6 },
+        { "label": "Competitor A", "value": 9 },
+        { "label": "Competitor B", "value": 12 }
+      ],
+      "source": "Public pricing pages, June 2026",
+      "vo": "Look at the price per million tokens. The new model undercuts its predecessor and both major competitors."
+    },
+    {
+      "type": "outro",
+      "headline": "We break down AI moves like this every day.",
+      "cta": "Subscribe to The Inference",
+      "keywords": ["city skyline timelapse night", "abstract network connections"],
+      "vo": "We break down AI moves like this every single day. Subscribe to The Inference so you never miss one."
+    }
+  ]
+}

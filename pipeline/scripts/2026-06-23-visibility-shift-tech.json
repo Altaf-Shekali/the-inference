@@ -1,0 +1,127 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tech Trend",
+  "accent": "#F43F5E",
+  "source": "Hospitality Net, Skift, Hotel Yearbook",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "**Visibility Revolution**",
+      "headline": "The Rise of Visibility in Hospitality",
+      "sub": "2026 Tech Trend Analysis",
+      "keywords": [
+        "Hospitality Tech Trends",
+        "Visibility Strategy",
+        "AI in Hotels"
+      ],
+      "vo": "Welcome to 'The Rise of Visibility in Hospitality'. A new era where being seen is just as crucial as being booked."
+    },
+    {
+      "type": "headlines",
+      "heading": "Key Insights from 2026",
+      "items": [
+        {
+          "source": "Hospitality Net",
+          "title": "Visibility as New Distribution Strategy"
+        },
+        {
+          "source": "Skift",
+          "title": "AI Erodes OTA’s First-Click Advantage"
+        },
+        {
+          "source": "Hotel Yearbook",
+          "title": "The Death of Blue Links in Hospitality"
+        }
+      ],
+      "vo": "Let's dive into the key insights from our 2026 analysis, uncovering the shift in hotel distribution strategies."
+    },
+    {
+      "type": "stat",
+      "value": "16%",
+      "label": "Hotels Appearing in AI-Generated Recommendations",
+      "source": "Hotelworld AI Visibility Index",
+      "vo": "A significant 16% increase in bookings is attributed to pre-journey visibility, a game-changer for the industry."
+    },
+    {
+      "type": "point",
+      "heading": "**Why Visibility Matters**",
+      "bullets": [
+        "**AI Assistants** Influence Booking Decisions",
+        "**Maps & Social Platforms** Shape Traveler Choices",
+        "**Pre-Booking Visibility** Crucial for Success"
+      ],
+      "keywords": [
+        "AI in Travel Booking",
+        "Social Media Influence",
+        "Pre-Booking Strategies"
+      ],
+      "vo": "**Why Visibility Matters**: In an answer-based internet, hotels must be cited by AI systems, own accurate data, and convert agent-driven discovery into bookings."
+    },
+    {
+      "type": "quote",
+      "quote": "**Being Understood Matters More Than Being Ranked**",
+      "attribution": "Antonio Picozzi, dAirect",
+      "keywords": [
+        "Generative AI in Hospitality",
+        "Digital Identity Importance"
+      ],
+      "vo": "**Being Understood Matters More Than Being Ranked**. Accuracy in AI-driven recommendations is key to winning the booking."
+    },
+    {
+      "type": "stat",
+      "value": "89%",
+      "label": "Hotels Without True AI Booking Agents",
+      "source": "Aven Hospitality & h2c Research",
+      "vo": "89% of travelers make decisions based on information found outside traditional booking channels, emphasizing the need for broad visibility."
+    },
+    {
+      "type": "compare",
+      "title": "**Adaptation Strategies**",
+      "items": [
+        {
+          "name": "Optimize for AI Visibility",
+          "note": "Future-Proof"
+        },
+        {
+          "name": "Traditional SEO",
+          "note": "Less Effective"
+        },
+        {
+          "name": "Invest in AI Booking Tech",
+          "note": "High Conversion Rates"
+        }
+      ],
+      "vo": "**Adaptation Strategies**: Unlike Walmart's 1/3 conversion rate with Instant Checkout, hotels must master dynamic, accurate, AI-driven listings."
+    },
+    {
+      "type": "point",
+      "heading": "**Action Items for Hotels**",
+      "bullets": [
+        "**Enhance AI Compatibility**",
+        "**Ensure Data Consistency**",
+        "**Invest in Dynamic Pricing Tools**"
+      ],
+      "keywords": [
+        "Hotel Tech Investments",
+        "Data Management",
+        "Dynamic Pricing"
+      ],
+      "vo": "**Action Items for Hotels**: Invest in AI compatibility, streamline data, and ensure vendor stacks support multi-surface bookings."
+    },
+    {
+      "type": "outro",
+      "headline": "Stay Ahead in Hospitality with **The Inference**",
+      "cta": "Subscribe for More Tech Trends",
+      "keywords": [
+        "Hospitality Tech News",
+        "The Inference Channel",
+        "AI in Hospitality"
+      ],
+      "vo": "Stay Ahead in Hospitality with **The Inference**. Navigate the visibility revolution with insights that drive your strategy forward."
+    }
+  ],
+  "template": "horizon"
+}

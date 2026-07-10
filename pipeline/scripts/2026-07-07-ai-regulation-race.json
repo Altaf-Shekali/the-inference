@@ -1,0 +1,139 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "AI News",
+  "accent": "#3B9EFF",
+  "source": "crowell.com, hsfkramer.com, theguardian.com, pbs.org, eurocomply.app, dataversity.net, reuters.com, gizmodo.com",
+  "voice": "en-US-AvaMultilingualNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "US Forges Ahead",
+      "headline": "**Voluntary AI Model Standards**: Global Implications",
+      "sub": "Analyzing the US's Pioneering Move in AI Regulation",
+      "keywords": [
+        "AI Regulation",
+        "US Tech Policy",
+        "Global Impact"
+      ],
+      "vo": "Welcome to the future of AI regulation. The US is forging ahead with **Voluntary AI Model Standards**, and the implications are global. Find out what this means for the world."
+    },
+    {
+      "type": "headlines",
+      "heading": "Key Developments",
+      "items": [
+        {
+          "source": "Reuters",
+          "title": "US Talks with AI Companies for Voluntary Standards"
+        },
+        {
+          "source": "Gizmodo",
+          "title": "Trump Administration Near Deal with Big AI"
+        },
+        {
+          "source": "EuroComply",
+          "title": "EU AI Act vs NIST AI RMF: Mandatory vs Voluntary"
+        }
+      ],
+      "vo": "Key developments are reshaping the AI landscape. From Executive Orders to risk management frameworks, we break down the top updates you need to know."
+    },
+    {
+      "type": "stat",
+      "value": "$35M / 7%",
+      "label": "Max EU AI Act Fine (Turnover % or Flat)",
+      "source": "EuroComply",
+      "vo": "Compliance comes with a price. The EU AI Act imposes fines up to €35M or 7% of global annual turnover, contrasting sharply with the U.S.'s voluntary approach."
+    },
+    {
+      "type": "point",
+      "heading": "**Executive Order Highlights**",
+      "bullets": [
+        "Voluntary framework for pre-release AI model review",
+        "Focus on cybersecurity and national security risks",
+        "Impact on companies like Anthropic and OpenAI"
+      ],
+      "keywords": [
+        "AI Security",
+        "US Executive Order",
+        "Tech Compliance"
+      ],
+      "vo": "**Executive Order Highlights**: Voluntary submission of cutting-edge AI models for federal review, focusing on cybersecurity and national security risks. A new era of cooperation or constraint?"
+    },
+    {
+      "type": "outro",
+      "headline": "New here? Subscribe",
+      "cta": "Subscribe to The Inference",
+      "vo": "And if you're watching The Inference for the first time, and you're into AI news, tools and tech breakdowns, do hit subscribe — we drop a fresh one every day.",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "quote",
+      "quote": "**'Creating a unified AI governance framework aligned to the highest bar'**",
+      "attribution": "Dataversity on Global AI Compliance",
+      "keywords": [
+        "AI Governance",
+        "Global Standards",
+        "Compliance"
+      ],
+      "vo": "'Creating a unified AI governance framework aligned to the highest bar' — the ambitious goal behind the U.S. strategy. But can voluntary standards achieve this lofty aim?"
+    },
+    {
+      "type": "compare",
+      "title": "EU AI Act vs NIST AI RMF",
+      "items": [
+        {
+          "name": "EU AI Act",
+          "note": "Mandatory, Fines up to €35M/7%"
+        },
+        {
+          "name": "NIST AI RMF",
+          "note": "Voluntary, No Enforcement Mechanism"
+        },
+        {
+          "name": "Global Alignment",
+          "note": "NIST seeks global recognition"
+        }
+      ],
+      "vo": "EU AI Act vs NIST AI RMF: Mandatory law with significant fines vs voluntary guidance. How do these differing approaches impact global tech compliance strategies?"
+    },
+    {
+      "type": "stat",
+      "value": "2 August 2026",
+      "label": "EU AI Act High-Risk AI Deadline",
+      "source": "EuroComply",
+      "vo": "Mark your calendars: **2 August 2026**, the deadline for high-risk AI system compliance under the EU AI Act. Will the U.S. voluntary model influence last-minute adjustments?"
+    },
+    {
+      "type": "point",
+      "heading": "**Implications for the Global Tech Landscape**",
+      "bullets": [
+        "Influence on international AI standards",
+        "Potential for patchwork regulations",
+        "Impact on AI innovation and security"
+      ],
+      "keywords": [
+        "Global Tech",
+        "AI Innovation",
+        "Regulatory Landscape"
+      ],
+      "vo": "What do these voluntary standards mean for the **Global Tech Landscape**? From delayed launches to international collaborations, the ripple effects are far-reaching."
+    },
+    {
+      "type": "outro",
+      "headline": "**US Voluntary AI Standards: A New Global Benchmark?**",
+      "cta": "Subscribe to The Inference for More AI Insights",
+      "keywords": [
+        "AI Standards",
+        "US Tech Leadership",
+        "Global AI News"
+      ],
+      "vo": "**US Voluntary AI Standards: A New Global Benchmark?** As the world watches, one question remains — will the rest of the globe follow the U.S. lead or the EU's mandatory path?"
+    }
+  ],
+  "template": "wire",
+  "lang": "en",
+  "engine": "edge"
+}

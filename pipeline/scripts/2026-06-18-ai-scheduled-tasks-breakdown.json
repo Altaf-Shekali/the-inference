@@ -1,0 +1,124 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tool Breakdown",
+  "accent": "#34D399",
+  "source": "9to5Mac, Defense One, Gizmodo, FSR magazine, Thomson Reuters",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "**Unlocking Efficiency** with AI",
+      "headline": "**OpenAI's Scheduled Tasks in ChatGPT**",
+      "sub": "Deep Dive into the Latest Feature for Enhanced Productivity",
+      "keywords": [
+        "AI Productivity Tools",
+        "ChatGPT Updates",
+        "Scheduled Tasks"
+      ],
+      "vo": "[object Object]"
+    },
+    {
+      "type": "headline",
+      "heading": "Key Features of Scheduled Tasks in ChatGPT",
+      "items": [
+        {
+          "source": "9to5Mac",
+          "title": "Scheduled Page for Task Management"
+        },
+        {
+          "source": "9to5Mac",
+          "title": "Faster & More Reliable Task Execution"
+        },
+        {
+          "source": "9to5Mac",
+          "title": "Monitoring Tasks with Web & App Checks"
+        }
+      ],
+      "vo": "[object Object]"
+    },
+    {
+      "type": "stat",
+      "value": "46.4%",
+      "label": "ChatGPT's AI Assistant Market Share (Down from >50%)",
+      "source": "Gizmodo",
+      "vo": "[object Object]"
+    },
+    {
+      "type": "point",
+      "heading": "Implications for Productivity",
+      "bullets": [
+        "**Automated Reminders & Recurring Work**",
+        "**Enhanced Task Management** with Pause, Resume, Edit, Delete",
+        "**Industry Applications** (e.g., Restaurants, Audits) as seen in FSR magazine and Thomson Reuters"
+      ],
+      "keywords": [
+        "AI in Restaurants",
+        "AI for Audits",
+        "Productivity Hacks"
+      ],
+      "vo": "[object Object]"
+    },
+    {
+      "type": "quote",
+      "quote": "**'This update makes tasks easier to find and manage, faster and more reliable, with more useful notifications.'**",
+      "attribution": "OpenAI (via 9to5Mac)",
+      "keywords": [
+        "OpenAI Updates",
+        "ChatGPT Improvements",
+        "Tech Innovations"
+      ],
+      "vo": "[object Object]"
+    },
+    {
+      "type": "tool",
+      "name": "Scheduled Tasks in ChatGPT",
+      "category": "Productivity AI Tool",
+      "oneLiner": "**Schedule tasks from reminders to web monitoring with ease**",
+      "features": [
+        "Scheduled Page for Oversight",
+        "Hourly Task Limit for Efficiency",
+        "Replacement for Pulse"
+      ],
+      "price": "**Included with Plus, Pro, Business, and Enterprise plans**",
+      "verdict": "**A Significant Boost to ChatGPT's Utility**",
+      "keywords": [
+        "ChatGPT Tools",
+        "AI Scheduling",
+        "Productivity Apps"
+      ],
+      "vo": "[object Object]"
+    },
+    {
+      "type": "compare",
+      "title": "ChatGPT's Market Standing",
+      "items": [
+        {
+          "name": "ChatGPT",
+          "note": "46.4% Market Share (Gizmodo)"
+        },
+        {
+          "name": "Anthropic",
+          "note": "Emerging as a Competitive Force"
+        },
+        {
+          "name": "Others",
+          "note": "Growing Competition in AI Assistants"
+        }
+      ],
+      "vo": "[object Object]"
+    },
+    {
+      "type": "outro",
+      "headline": "**Maximize Your Productivity with ChatGPT's Scheduled Tasks**",
+      "cta": "Subscribe to The Inference for More Tech Breakdowns",
+      "keywords": [
+        "AI Productivity Tips",
+        "ChatGPT Tutorials",
+        "The Inference Tech"
+      ],
+      "vo": "[object Object]"
+    }
+  ]
+}

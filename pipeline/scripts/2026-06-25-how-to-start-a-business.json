@@ -1,0 +1,69 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "AI News",
+  "accent": "#3B9EFF",
+  "source": "Forbes, AOL.com",
+  "voice": "am_michael",
+  "music": "",
+  "showCaptions": true,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "B2B Over B2C?",
+      "headline": "**Stable Revenue** in B2B?",
+      "sub": "Why Entrepreneurs Choose B2B",
+      "keywords": [
+        "B2B",
+        "Stable Revenue"
+      ],
+      "vo": "Why are entrepreneurs flocking to **B2B** for **stable revenue**?"
+    },
+    {
+      "type": "stat",
+      "value": "**High-Value Contracts**",
+      "label": "B2B Success Driver",
+      "source": "Forbes",
+      "vo": "**B2B** thrives on **high-value, predictable contracts**."
+    },
+    {
+      "type": "point",
+      "heading": "**Key B2B Opportunities**",
+      "bullets": [
+        "**Consulting**",
+        "**Data Analytics**",
+        "**Cybersecurity**"
+      ],
+      "keywords": [
+        "Consulting",
+        "Data Analytics",
+        "Cybersecurity"
+      ],
+      "vo": "Top B2B areas: **Consulting**, **Data Analytics**, and **Cybersecurity**."
+    },
+    {
+      "type": "point",
+      "heading": "**Starting Advice**",
+      "bullets": [
+        "Align Skills with Market Demands",
+        "**Don't Quit Your Job** (Warren Buffett Disciple)"
+      ],
+      "keywords": [
+        "Market Alignment",
+        "Side Hustle"
+      ],
+      "vo": "Align your skills with the market and **don't quit your day job** initially."
+    },
+    {
+      "type": "outro",
+      "headline": "Dive Deeper into AI-Driven B2B Insights",
+      "cta": "Follow The Inference for More",
+      "keywords": [
+        "AI in B2B",
+        "The Inference"
+      ],
+      "vo": "For more **AI-driven B2B insights**, follow **The Inference**."
+    }
+  ],
+  "template": "wire",
+  "engine": "kokoro"
+}
