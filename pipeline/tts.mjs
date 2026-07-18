@@ -21,10 +21,12 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
  */
 export async function synth(text, voice = "en-US-AndrewNeural", engine = "edge", opts = {}) {
   if (engine === "cartesia") {
+    // strict: throw on failure so the CALLER can drop the whole video to Edge
+    // (keeps one consistent voice per video instead of mixing mid-way).
+    if (opts.strict) return synthCartesia(text, voice, opts.lang || "en");
     try {
       return await synthCartesia(text, voice, opts.lang || "en");
     } catch (e) {
-      // out of credits / bad key / network → finish on Edge so the render never breaks
       console.warn(`  ⚠ Cartesia failed (${e.message}) — falling back to Edge`);
       return synthEdge(text, opts.fallbackVoice || "en-US-AndrewNeural");
     }

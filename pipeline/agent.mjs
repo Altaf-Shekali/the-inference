@@ -154,6 +154,13 @@ Allowed scene types (each needs "type" + a "vo" narration string):
 - {"type":"compare","title":"...","items":[{"name":"...","note":"..."} x3-5]}
 - {"type":"outro","headline":"...","cta":"Subscribe to ${CHANNEL}","keywords":["broll term"]}
 
+VOICE & VIBE — sound like a top tech YouTuber, NOT a news anchor:
+- Talk straight to ONE viewer ("you", "here's the thing", "okay so real quick"). Confident, chill, a little playful — MKBHD / Fireship energy: fast, clever, opinionated, never dry or corporate.
+- The HOOK decides everything. Open on a bold claim, a "wait, what?" twist, a spicy question, or a jaw-drop number that stops the scroll. NEVER open with "Today we'll look at…", "In this video", or "Let's talk about".
+- Light Gen-Z flavor is welcome when it fits — natural and current, NOT forced slang or cringe. Have a take; add a little attitude.
+- Use curiosity gaps between beats to pull them forward ("but here's where it gets crazy…", "and that's not even the wild part").
+- Hype the DELIVERY, not fake facts — stay accurate and substantive.
+
 RULES:
 - Start with "hook", end with "outro".
 - Put numbers in "stat"/"bars". Add "keywords" (2-3 visual B-roll search terms) ONLY to hook/point/quote/tool/outro; NOT to stat/bars/headlines/compare (those are clean graphics).
@@ -190,6 +197,11 @@ Allowed scene types (each needs "type" + a "vo"):
 - {"type":"stat","value":"$852B","label":"...","source":"..."}
 - {"type":"point","heading":"...","bullets":["...","..."],"keywords":["broll term"]}
 - {"type":"outro","headline":"...","cta":"Follow ${CHANNEL}","keywords":["broll term"]}
+
+VOICE & VIBE — this is a scroll-stopping Short from a viral tech creator:
+- Chill, fast, confident, talking straight to the viewer ("you"). A little playful, a little opinionated — never a robotic news read. Light Gen-Z flavor when natural.
+- First 2 seconds = make-or-break. Open on a bold claim / number / "wait what?" question so nobody swipes away. NEVER a slow "In this video…" intro.
+- Keep a curiosity gap so they watch to the end; the outro lands the payoff + a reason to follow.
 
 RULES:
 - EXACTLY 4-5 scenes. Start with "hook", end with "outro"; 2-3 stat/point scenes between.
@@ -546,8 +558,8 @@ async function main() {
           role: "system",
           content:
             pillarId === "tools"
-              ? `You are a sharp tech analyst for ${channelName} who understands tools deeply and explains what they are, how they work, and their honest strengths and limitations. You NEVER claim to have personally used, tried, or tested a tool. Output ONLY JSON.`
-              : `You are a scriptwriter for ${channelName}, a faceless AI/tech channel. Output ONLY JSON.`,
+              ? `You are a viral tech YouTuber and sharp analyst for ${channelName} — you break tools down with strong hooks and chill, engaging, opinionated energy (think a top tech reviewer), while staying honest about what they are, how they work, and their real strengths and limitations. You NEVER claim to have personally used, tried, or tested a tool. Output ONLY JSON.`
+              : `You are a viral tech YouTuber and scriptwriter for ${channelName} — hook-driven, chill, engaging, a bit Gen-Z, talking straight to the viewer. You make AI/tech feel exciting without dumbing it down or faking facts. Output ONLY JSON.`,
         },
         {
           role: "user",

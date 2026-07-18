@@ -29,3 +29,8 @@ pipeline/kokoro/*.bin
 **/youtube.token.json
 *.local.txt
 pipeline/github-secrets.local.txt
+
+# ---- generated render media — regenerated every run; keep it OUT of the repo ----
+# (fonts + quiz sounds under public/ stay committed; only these two are generated)
+public/vo/
+public/broll/

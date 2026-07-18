@@ -155,6 +155,11 @@ async function main() {
   const MAX_BROLL = 3;
   let brollCount = 0;
 
+  // ---- Pass 1: voiceover. For Cartesia we keep ONE voice across the whole video:
+  // if any Cartesia call fails (out of credits / error) we drop the entire video to
+  // Edge and restart this pass, so it's never a mix of the clone + Edge mid-way.
+  let ttsEngine = engine;
+  let ttsVoice = voice;
   for (let i = 0; i < doc.scenes.length; i++) {
     const scene = doc.scenes[i];
     if (!scene.vo) {
@@ -163,19 +168,47 @@ async function main() {
     }
 
     process.stdout.write(`  [${i + 1}/${doc.scenes.length}] ${scene.type} … `);
-    // Edge TTS occasionally returns a CORRUPT/empty buffer or drops word timings
-    // (esp. the first call on a cold connection). Retry until we get BOTH a
-    // valid (non-trivial) audio buffer AND word boundaries.
     const wordCount = scene.vo.trim().split(/\s+/).length;
     const expectWords = wordCount > 1;
     let buffer, words, ext = "mp3";
-    for (let attempt = 1; attempt <= 5; attempt++) {
-      ({ buffer, words, ext } = await synth(scene.vo, voice, engine, { lang: ttsLang, fallbackVoice }));
-      const okAudio = buffer && buffer.length > 3000; // a real ~3s clip is >15KB
-      const okWords = !expectWords || words.length > 0;
-      if (okAudio && okWords) break;
-      process.stdout.write(`retry ${attempt}… `);
-      buffer = null;
+
+    if (ttsEngine === "cartesia") {
+      // strict → throws instead of silently falling back, so we can switch the
+      // WHOLE video (not just this scene) to Edge and keep the voice consistent.
+      // Retry transient errors (rate limit / network); switch to Edge only on a
+      // permanent failure (credits exhausted / bad key) or repeated failure.
+      let got = null;
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          got = await synth(scene.vo, ttsVoice, "cartesia", { lang: ttsLang, strict: true });
+          break;
+        } catch (e) {
+          const permanent = /\b(40[0-3]|quota|credit|insufficient|invalid|unauthor)/i.test(e.message);
+          if (permanent || attempt === 3) {
+            console.log(`\n  ⚠ Cartesia unavailable (${e.message}) — using Edge (${fallbackVoice}) for the whole video`);
+            ttsEngine = "edge";
+            ttsVoice = fallbackVoice;
+            break;
+          }
+          process.stdout.write(`cartesia retry ${attempt}… `);
+        }
+      }
+      if (!got) {
+        i = -1; // switched to Edge → restart the voiceover pass from scene 0
+        continue;
+      }
+      ({ buffer, words, ext } = got);
+    } else {
+      // Edge occasionally returns a corrupt/empty buffer or drops word timings —
+      // retry until we get BOTH a valid buffer AND word boundaries.
+      for (let attempt = 1; attempt <= 5; attempt++) {
+        ({ buffer, words, ext } = await synth(scene.vo, ttsVoice, ttsEngine, { lang: ttsLang, fallbackVoice }));
+        const okAudio = buffer && buffer.length > 3000;
+        const okWords = !expectWords || words.length > 0;
+        if (okAudio && okWords) break;
+        process.stdout.write(`retry ${attempt}… `);
+        buffer = null;
+      }
     }
 
     if (buffer && buffer.length > 3000) {
@@ -193,25 +226,27 @@ async function main() {
       scene.durationInFrames = sec2frame(LEAD + Math.max(2, wordCount / 2.6) + TAIL);
       process.stdout.write(`⚠ TTS failed — silent ${(scene.durationInFrames / FPS).toFixed(1)}s`);
     }
+    console.log("");
+  }
 
-    // auto-source B-roll if the scene asked for it (up to MAX_BROLL per video).
-    // --no-broll skips fetching (used for fast Short rebuilds — motion graphics
-    // + burned captions carry the vertical cut without re-spending Pexels quota).
-    if (canFetch && !flags["no-broll"] && scene.keywords?.length && !scene.broll && brollCount < MAX_BROLL) {
+  // ---- Pass 2: B-roll (separate so a Cartesia→Edge restart never re-fetches it).
+  // --no-broll skips fetching (fast Short rebuilds reuse motion graphics + captions).
+  if (canFetch && !flags["no-broll"]) {
+    for (let i = 0; i < doc.scenes.length; i++) {
+      const scene = doc.scenes[i];
+      if (!scene.keywords?.length || scene.broll || brollCount >= MAX_BROLL) continue;
       const brollRel = path.posix.join("broll", base, `${i}.mp4`);
       const ok = await fetchClip(scene.keywords, path.join(ROOT, "public", brollRel));
-      if (ok) {
-        const normed = await normalizeClip(path.join(ROOT, "public", brollRel));
-        if (normed) {
-          scene.broll = brollRel;
-          brollCount++;
-          process.stdout.write(`, b-roll ✓`);
-        } else {
-          process.stdout.write(`, b-roll skipped (transcode failed)`);
-        }
+      if (!ok) continue;
+      const normed = await normalizeClip(path.join(ROOT, "public", brollRel));
+      if (normed) {
+        scene.broll = brollRel;
+        brollCount++;
+        console.log(`  [${i + 1}/${doc.scenes.length}] b-roll ✓`);
+      } else {
+        console.log(`  [${i + 1}/${doc.scenes.length}] b-roll skipped (transcode failed)`);
       }
     }
-    console.log("");
   }
 
   await fs.mkdir(path.dirname(outPath), { recursive: true });
