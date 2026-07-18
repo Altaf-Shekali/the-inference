@@ -408,7 +408,6 @@ async function main() {
     return npmFlag(name.replace(/^--/, "")) || undefined;
   };
   const topic = flagVal("--topic");
-  const engine = flagVal("--engine");
   const publishAt = flagVal("--at"); // RFC3339 UTC — schedule the public release
 
   // resolve the channel (defaults to "the-inference"); its config drives name,
@@ -416,6 +415,7 @@ async function main() {
   const channel = getChannel(flagVal("--channel") || "the-inference");
   const channelName = channel.spokenName || channel.name; // in-video/narration name (native script if set)
   const voice = flagVal("--voice") || channel.voice || "";
+  const engine = flagVal("--engine") || channel.engine || ""; // "edge" | "kokoro" | "cartesia"
   const lang = flagVal("--lang") || channel.lang || "en";
   const L = LANGS[lang] || LANGS.en;
 
@@ -569,8 +569,16 @@ async function main() {
   // non-English forces Edge (it has the hi/kn neural voices); Kokoro is English-only here
   if (lang !== "en" && engine === "kokoro") console.warn(`   (Kokoro has no ${L.name} voice — using Edge)`);
   script.lang = lang;
-  script.engine = lang === "en" ? engine || "edge" : "edge";
-  script.voice = voice || (lang !== "en" ? L.voice : script.engine === "kokoro" ? "am_michael" : "en-US-AndrewNeural");
+  if (engine === "cartesia") {
+    // Cartesia Sonic handles en/hi/kn natively; the channel's Edge voice is kept
+    // as the fallback for when the Cartesia key runs out of credits.
+    script.engine = "cartesia";
+    script.voice = flagVal("--voice") || channel.cartesiaVoice || "";
+    script.fallbackVoice = channel.voice || (lang !== "en" ? L.voice : "en-US-AndrewNeural");
+  } else {
+    script.engine = lang === "en" ? engine || "edge" : "edge";
+    script.voice = voice || (lang !== "en" ? L.voice : script.engine === "kokoro" ? "am_michael" : "en-US-AndrewNeural");
+  }
   script.music = "";
   script.showCaptions = isGemini || doShort; // Shorts + story/psych videos burn captions on
 

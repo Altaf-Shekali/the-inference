@@ -27,6 +27,10 @@ await write("pipeline/gemini.key", (process.env.GEMINI_KEY || "").trim());
 await write("pipeline/nemotron.key", (process.env.NEMOTRON_KEY || "").trim());
 await write("pipeline/tavily.key", (process.env.TAVILY_KEY || "").trim());
 await write("pipeline/pexels.key", (process.env.PEXELS_KEY || "").trim());
+// Cartesia TTS — per-language keys (own free credits each) + optional shared key
+await write("pipeline/cartesia.kn.key", (process.env.CARTESIA_KN_KEY || "").trim());
+await write("pipeline/cartesia.hi.key", (process.env.CARTESIA_HI_KEY || "").trim());
+await write("pipeline/cartesia.key", (process.env.CARTESIA_KEY || "").trim());
 
 const bundle = process.env.YT_CREDENTIALS;
 if (bundle && bundle.trim()) {

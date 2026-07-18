@@ -1,0 +1,153 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tech Trend",
+  "accent": "#F43F5E",
+  "source": "IndexBox, Sci-Tech Today, The Manila Times, Utility Dive, GovTech",
+  "voice": "en-US-AvaMultilingualNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "Revolutionizing Industry in 2026",
+      "headline": "**Emerging Digital Techs** to Transform Sectors",
+      "sub": "Unpacking the Future with Hard Data",
+      "keywords": [
+        "AI in Manufacturing",
+        "Digital Transformation 2026",
+        "Tech Trends"
+      ],
+      "vo": "Welcome to the forefront of innovation! Discover the **Emerging Digital Technologies** poised to transform entire sectors in 2026 and beyond."
+    },
+    {
+      "type": "headlines",
+      "heading": "Key Trends for 2026",
+      "items": [
+        {
+          "source": "IndexBox",
+          "title": "IoT Edge Controllers Market to Expand by 2035"
+        },
+        {
+          "source": "Sci-Tech Today",
+          "title": "Small Satellite Tech Sees Economic Boom"
+        },
+        {
+          "source": "The Manila Times",
+          "title": "AI Infrastructure Drives US Manufacturing Expansion"
+        }
+      ],
+      "vo": "Let's dive into the **Key Trends for 2026** that will reshape the future of industry and technology."
+    },
+    {
+      "type": "stat",
+      "value": ">100 GW",
+      "label": "Data Center Demand Outpacing US Utility Capacity by 2030",
+      "source": "Utility Dive",
+      "vo": "A monumental milestone ahead: the global energy sector is projected to surpass **over 100 Gigawatts (GW)** of renewable energy capacity additions by the end of 2026."
+    },
+    {
+      "type": "bars",
+      "title": "Projected Growth in Key Sectors by 2030",
+      "unit": "Billion USD",
+      "data": [
+        {
+          "label": "IoT Edge Controllers",
+          "value": 852
+        },
+        {
+          "label": "Small Satellite Industry",
+          "value": 120
+        },
+        {
+          "label": "AI Infrastructure",
+          "value": 500
+        }
+      ],
+      "source": "Composite Data from Sources",
+      "vo": "Looking ahead to **2030**, projected growth in key sectors like Manufacturing, Healthcare, and Finance is anticipated to skyrocket, driven by digital adoption."
+    },
+    {
+      "type": "outro",
+      "headline": "New here? Subscribe",
+      "cta": "Subscribe to The Inference",
+      "vo": "And if you're watching The Inference for the first time, and you're into AI news, tools and tech breakdowns, do hit subscribe — we drop a fresh one every day.",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "Impact Highlights",
+      "bullets": [
+        "**Real-Time Processing** Demands Fuel IoT Growth",
+        "**Satellite Constellations** Enable Global Connectivity",
+        "**On-Site Energy Solutions** for Data Centers"
+      ],
+      "keywords": [
+        "Industrial AI",
+        "Global Connectivity Solutions",
+        "Sustainable Data Centers"
+      ],
+      "vo": "**Impact Highlights**: Enhanced efficiency, reduced operational costs, and unprecedented scalability are just the beginning."
+    },
+    {
+      "type": "quote",
+      "quote": "**'AI Infrastructure Boom'** Redefines Manufacturing Landscapes",
+      "attribution": "The Manila Times, 2026",
+      "keywords": [
+        "AI in Manufacturing",
+        "US Manufacturing Trends"
+      ],
+      "vo": "'**AI Infrastructure Boom**' is redefining manufacturing landscapes globally, with Taiwan suppliers leading the charge towards U.S. manufacturing expansion."
+    },
+    {
+      "type": "tool",
+      "name": "IoT Edge Controllers",
+      "category": "Industrial Automation",
+      "oneLiner": "Enabling **Real-Time Decision Making** in Factories",
+      "features": [
+        "Enhanced Security",
+        "Reduced Latency"
+      ],
+      "price": "Varies by Implementation",
+      "verdict": "**High Impact** for Industrial Sectors",
+      "keywords": [
+        "Edge Computing Solutions",
+        "Factory Automation Tech"
+      ],
+      "vo": "At the heart of this revolution are **IoT Edge Controllers**, forecasted to drive the market toward sustained expansion through 2035, fueled by Industrial AI and real-time processing demands."
+    },
+    {
+      "type": "compare",
+      "title": "Growth Projections Compared",
+      "items": [
+        {
+          "name": "IoT Edge",
+          "note": "Steady Growth"
+        },
+        {
+          "name": "Small Satellites",
+          "note": "Rapid Expansion"
+        },
+        {
+          "name": "AI Infrastructure",
+          "note": "Exponential Growth"
+        }
+      ],
+      "vo": "Comparing **Growth Projections**, the IoT Edge Controllers market outpaces peers, with a compound annual growth rate (CAGR) indicating a booming future."
+    },
+    {
+      "type": "outro",
+      "headline": "Embracing the Digital Future of 2026",
+      "cta": "Subscribe to The Inference for More **Tech Insights**",
+      "keywords": [
+        "2026 Tech Forecast",
+        "Digital Transformation Insights"
+      ],
+      "vo": "As we embark on **Embracing the Digital Future of 2026**, one thing is clear: the convergence of these technologies will redefine industry boundaries forever."
+    }
+  ],
+  "template": "horizon",
+  "lang": "en",
+  "engine": "edge"
+}

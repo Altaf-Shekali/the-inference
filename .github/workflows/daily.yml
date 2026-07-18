@@ -51,6 +51,9 @@ jobs:
           NEMOTRON_KEY: ${{ secrets.NEMOTRON_KEY }}
           TAVILY_KEY: ${{ secrets.TAVILY_KEY }}
           PEXELS_KEY: ${{ secrets.PEXELS_KEY }}
+          CARTESIA_KN_KEY: ${{ secrets.CARTESIA_KN_KEY }}
+          CARTESIA_HI_KEY: ${{ secrets.CARTESIA_HI_KEY }}
+          CARTESIA_KEY: ${{ secrets.CARTESIA_KEY }}
           YT_CREDENTIALS: ${{ secrets.YT_CREDENTIALS }}
         run: node pipeline/ci-restore-secrets.mjs
 

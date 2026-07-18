@@ -112,7 +112,10 @@ async function main() {
   const engine = flags.engine || doc.engine || "edge";
   const voice = flags.voice || doc.voice || (engine === "kokoro" ? "am_michael" : "en-US-AndrewNeural");
   doc.voice = voice; // reflect the voice actually used in the props
-  console.log(`  engine: ${engine}  voice: ${voice}`);
+  // for Cartesia we also need the language + an Edge voice to fall back to on quota/errors
+  const ttsLang = doc.lang || "en";
+  const fallbackVoice = doc.fallbackVoice || (engine === "cartesia" ? "en-US-AndrewNeural" : voice);
+  console.log(`  engine: ${engine}  voice: ${voice}${engine === "cartesia" ? `  lang: ${ttsLang}  fallback: ${fallbackVoice}` : ""}`);
 
   // defaults so the output always validates against aiNewsSchema
   doc.showCaptions ??= false;
@@ -167,7 +170,7 @@ async function main() {
     const expectWords = wordCount > 1;
     let buffer, words, ext = "mp3";
     for (let attempt = 1; attempt <= 5; attempt++) {
-      ({ buffer, words, ext } = await synth(scene.vo, voice, engine));
+      ({ buffer, words, ext } = await synth(scene.vo, voice, engine, { lang: ttsLang, fallbackVoice }));
       const okAudio = buffer && buffer.length > 3000; // a real ~3s clip is >15KB
       const okWords = !expectWords || words.length > 0;
       if (okAudio && okWords) break;
@@ -212,9 +215,10 @@ async function main() {
   }
 
   await fs.mkdir(path.dirname(outPath), { recursive: true });
-  // `engine` is a build-time hint, not a render prop — keep it out of the props
-  // JSON so it never trips Remotion's schema validation.
+  // `engine` / `fallbackVoice` are build-time hints, not render props — keep them
+  // out of the props JSON so they never trip Remotion's schema validation.
   delete doc.engine;
+  delete doc.fallbackVoice;
   await fs.writeFile(outPath, JSON.stringify(doc, null, 2));
 
   const total = doc.scenes.reduce((s, sc) => s + sc.durationInFrames, 0);

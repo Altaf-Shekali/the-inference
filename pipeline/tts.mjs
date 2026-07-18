@@ -19,7 +19,16 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
  *
  * @returns {Promise<{buffer: Buffer, words: {word,start,end}[], ext: string}>}
  */
-export async function synth(text, voice = "en-US-AndrewNeural", engine = "edge") {
+export async function synth(text, voice = "en-US-AndrewNeural", engine = "edge", opts = {}) {
+  if (engine === "cartesia") {
+    try {
+      return await synthCartesia(text, voice, opts.lang || "en");
+    } catch (e) {
+      // out of credits / bad key / network → finish on Edge so the render never breaks
+      console.warn(`  ⚠ Cartesia failed (${e.message}) — falling back to Edge`);
+      return synthEdge(text, opts.fallbackVoice || "en-US-AndrewNeural");
+    }
+  }
   if (engine === "kokoro") {
     if (!kokoroAvailable()) {
       console.warn("  ⚠ Kokoro not installed — falling back to Edge TTS");
@@ -28,6 +37,60 @@ export async function synth(text, voice = "en-US-AndrewNeural", engine = "edge")
     return synthKokoro(text, voice);
   }
   return synthEdge(text, voice);
+}
+
+// ------------------------------------------------------------- Cartesia (cloud)
+// Sonic voices — natural/expressive, supports kn + hi. Per-language API keys so
+// each channel can draw on its own free credits: cartesia.<lang>.key (or the env
+// CARTESIA_<LANG>_KEY), falling back to the shared cartesia.key / CARTESIA_KEY.
+const CARTESIA_VERSION = "2026-03-01";
+const CARTESIA_MODEL = process.env.CARTESIA_MODEL || readLocal("cartesia.model") || "sonic-3.5";
+
+function readLocal(f) {
+  try {
+    return readFileSync(path.join(HERE, f), "utf8").trim();
+  } catch {
+    return "";
+  }
+}
+
+export function cartesiaKey(lang = "") {
+  const L = String(lang).toUpperCase();
+  return (
+    process.env[`CARTESIA_${L}_KEY`] ||
+    readLocal(`cartesia.${lang}.key`) ||
+    process.env.CARTESIA_KEY ||
+    readLocal("cartesia.key") ||
+    ""
+  ).trim();
+}
+
+async function synthCartesia(text, voiceId, lang) {
+  const key = cartesiaKey(lang);
+  if (!key) throw new Error(`no cartesia key for '${lang}' (add pipeline/cartesia.${lang}.key)`);
+  if (!voiceId) throw new Error("no cartesia voice id (set the channel's cartesiaVoice)");
+  const sampleRate = 44100;
+  const r = await fetch("https://api.cartesia.ai/tts/bytes", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${key}`,
+      "Cartesia-Version": CARTESIA_VERSION,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model_id: CARTESIA_MODEL,
+      transcript: sanitize(text),
+      voice: { mode: "id", id: voiceId },
+      language: lang,
+      output_format: { container: "wav", encoding: "pcm_s16le", sample_rate: sampleRate },
+    }),
+  });
+  if (!r.ok) throw new Error(`cartesia ${r.status}: ${(await r.text()).slice(0, 200)}`);
+  const buffer = Buffer.from(await r.arrayBuffer());
+  // WAV pcm_s16le (mono): audio seconds = data bytes / (sampleRate * 2). The 44-byte
+  // header is negligible; Cartesia gives no word timings so we estimate them.
+  const duration = Math.max(0.1, (buffer.length - 44) / (sampleRate * 2));
+  return { buffer, words: estimateWords(text, duration), ext: "wav" };
 }
 
 // ---------------------------------------------------------------- Edge (cloud)

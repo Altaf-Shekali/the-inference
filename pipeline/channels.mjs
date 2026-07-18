@@ -36,7 +36,9 @@ export const DEFAULT_CHANNEL = {
   lang: "en",
   niche: "ainews", // "ainews" = tech-news pillars; "story" = true-story storytelling
   pillars: ["ainews", "tools", "trend", "business"],
-  voice: "", // "" = language default
+  engine: "", // "" = auto (edge); "cartesia" = Cartesia Sonic (needs cartesiaVoice + cartesia.<lang>.key)
+  voice: "", // "" = language default. With engine "cartesia" this is the Edge FALLBACK voice.
+  cartesiaVoice: "", // Cartesia voice UUID (from `node pipeline/cartesia-voices.mjs <lang>`)
   region: "IN",
   uploadTime: "", // "" = use the region's suggested time
   renderTime: "", // "" = render 1h before uploadTime; else a fixed local HH:MM (e.g. idle morning)

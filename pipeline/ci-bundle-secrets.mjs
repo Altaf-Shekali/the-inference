@@ -54,6 +54,9 @@ kv("GEMINI_KEY", await read("pipeline/gemini.key"));
 kv("NEMOTRON_KEY", await read("pipeline/nemotron.key"));
 kv("TAVILY_KEY", await read("pipeline/tavily.key"));
 kv("PEXELS_KEY", await read("pipeline/pexels.key"));
+kv("CARTESIA_KN_KEY", await read("pipeline/cartesia.kn.key"));
+kv("CARTESIA_HI_KEY", await read("pipeline/cartesia.hi.key"));
+kv("CARTESIA_KEY", await read("pipeline/cartesia.key"));
 kv("YT_CREDENTIALS", JSON.stringify(await ytBundle()));
 
 const header =
