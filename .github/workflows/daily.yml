@@ -55,6 +55,8 @@ jobs:
           CARTESIA_KN1_KEY: ${{ secrets.CARTESIA_KN1_KEY }}
           CARTESIA_KN2_KEY: ${{ secrets.CARTESIA_KN2_KEY }}
           CARTESIA_HI_KEY: ${{ secrets.CARTESIA_HI_KEY }}
+          CARTESIA_HI1_KEY: ${{ secrets.CARTESIA_HI1_KEY }}
+          CARTESIA_HI2_KEY: ${{ secrets.CARTESIA_HI2_KEY }}
           CARTESIA_KEY: ${{ secrets.CARTESIA_KEY }}
           YT_CREDENTIALS: ${{ secrets.YT_CREDENTIALS }}
         run: node pipeline/ci-restore-secrets.mjs

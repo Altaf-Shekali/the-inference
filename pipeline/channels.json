@@ -21,7 +21,7 @@
     "niche": "story",
     "pillars": ["crime", "scam", "survival", "success", "history", "human"],
     "engine": "cartesia",
-    "cartesiaVoice": "5c38612a-9b35-4df2-8bae-1cdd627e0274",
+    "cartesiaVoice": "",
     "voice": "kn-IN-SapnaNeural",
     "region": "IN",
     "uploadTime": "18:00",

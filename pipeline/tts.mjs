@@ -82,7 +82,10 @@ export function cartesiaPool(lang = "", singleVoice = "") {
   }
   add(process.env.CARTESIA_KEY);
   add(readLocal("cartesia.key"));
-  return keys.map((key) => ({ key, voice: keys.length === 1 ? singleVoice : "" }));
+  // A provided voice = a shared/stock voice (e.g. Riya) that exists in EVERY account,
+  // so use it for all keys. Blank = a per-account CLONE, so each account's own cloned
+  // voice is auto-resolved at call time.
+  return keys.map((key) => ({ key, voice: singleVoice }));
 }
 
 /** first key for a language — used by the voice lister / single-key setups */
