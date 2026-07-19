@@ -52,6 +52,8 @@ jobs:
           TAVILY_KEY: ${{ secrets.TAVILY_KEY }}
           PEXELS_KEY: ${{ secrets.PEXELS_KEY }}
           CARTESIA_KN_KEY: ${{ secrets.CARTESIA_KN_KEY }}
+          CARTESIA_KN1_KEY: ${{ secrets.CARTESIA_KN1_KEY }}
+          CARTESIA_KN2_KEY: ${{ secrets.CARTESIA_KN2_KEY }}
           CARTESIA_HI_KEY: ${{ secrets.CARTESIA_HI_KEY }}
           CARTESIA_KEY: ${{ secrets.CARTESIA_KEY }}
           YT_CREDENTIALS: ${{ secrets.YT_CREDENTIALS }}

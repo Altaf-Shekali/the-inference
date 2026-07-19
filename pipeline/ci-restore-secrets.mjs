@@ -27,9 +27,16 @@ await write("pipeline/gemini.key", (process.env.GEMINI_KEY || "").trim());
 await write("pipeline/nemotron.key", (process.env.NEMOTRON_KEY || "").trim());
 await write("pipeline/tavily.key", (process.env.TAVILY_KEY || "").trim());
 await write("pipeline/pexels.key", (process.env.PEXELS_KEY || "").trim());
-// Cartesia TTS — per-language keys (own free credits each) + optional shared key
-await write("pipeline/cartesia.kn.key", (process.env.CARTESIA_KN_KEY || "").trim());
-await write("pipeline/cartesia.hi.key", (process.env.CARTESIA_HI_KEY || "").trim());
+// Cartesia TTS — a KEY POOL per language (base + numbered accounts, each with its
+// own free credits); the engine rotates through them. e.g. CARTESIA_KN_KEY,
+// CARTESIA_KN1_KEY, CARTESIA_KN2_KEY → cartesia.kn.key, cartesia.kn1.key, …
+for (const lang of ["kn", "hi"]) {
+  const L = lang.toUpperCase();
+  await write(`pipeline/cartesia.${lang}.key`, (process.env[`CARTESIA_${L}_KEY`] || "").trim());
+  for (let i = 1; i <= 12; i++) {
+    await write(`pipeline/cartesia.${lang}${i}.key`, (process.env[`CARTESIA_${L}${i}_KEY`] || "").trim());
+  }
+}
 await write("pipeline/cartesia.key", (process.env.CARTESIA_KEY || "").trim());
 
 const bundle = process.env.YT_CREDENTIALS;

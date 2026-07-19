@@ -54,9 +54,20 @@ kv("GEMINI_KEY", await read("pipeline/gemini.key"));
 kv("NEMOTRON_KEY", await read("pipeline/nemotron.key"));
 kv("TAVILY_KEY", await read("pipeline/tavily.key"));
 kv("PEXELS_KEY", await read("pipeline/pexels.key"));
-kv("CARTESIA_KN_KEY", await read("pipeline/cartesia.kn.key"));
-kv("CARTESIA_HI_KEY", await read("pipeline/cartesia.hi.key"));
-kv("CARTESIA_KEY", await read("pipeline/cartesia.key"));
+// cartesia key pool (base + numbered accounts) per language — emit only what exists
+for (const lang of ["kn", "hi"]) {
+  const L = lang.toUpperCase();
+  const base = await read(`pipeline/cartesia.${lang}.key`);
+  if (base) kv(`CARTESIA_${L}_KEY`, base);
+  for (let i = 1; i <= 12; i++) {
+    const k = await read(`pipeline/cartesia.${lang}${i}.key`);
+    if (k) kv(`CARTESIA_${L}${i}_KEY`, k);
+  }
+}
+{
+  const shared = await read("pipeline/cartesia.key");
+  if (shared) kv("CARTESIA_KEY", shared);
+}
 kv("YT_CREDENTIALS", JSON.stringify(await ytBundle()));
 
 const header =

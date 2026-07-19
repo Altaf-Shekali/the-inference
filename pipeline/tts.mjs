@@ -21,11 +21,12 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
  */
 export async function synth(text, voice = "en-US-AndrewNeural", engine = "edge", opts = {}) {
   if (engine === "cartesia") {
-    // strict: throw on failure so the CALLER can drop the whole video to Edge
-    // (keeps one consistent voice per video instead of mixing mid-way).
-    if (opts.strict) return synthCartesia(text, voice, opts.lang || "en");
+    const pool = cartesiaPool(opts.lang || "en", voice);
+    // strict: throw only when the WHOLE pool is exhausted, so the CALLER can drop
+    // the whole video to Edge (keeps one consistent voice instead of mixing).
+    if (opts.strict) return synthCartesia(text, pool, opts.lang || "en");
     try {
-      return await synthCartesia(text, voice, opts.lang || "en");
+      return await synthCartesia(text, pool, opts.lang || "en");
     } catch (e) {
       console.warn(`  ⚠ Cartesia failed (${e.message}) — falling back to Edge`);
       return synthEdge(text, opts.fallbackVoice || "en-US-AndrewNeural");
@@ -42,9 +43,11 @@ export async function synth(text, voice = "en-US-AndrewNeural", engine = "edge",
 }
 
 // ------------------------------------------------------------- Cartesia (cloud)
-// Sonic voices — natural/expressive, supports kn + hi. Per-language API keys so
-// each channel can draw on its own free credits: cartesia.<lang>.key (or the env
-// CARTESIA_<LANG>_KEY), falling back to the shared cartesia.key / CARTESIA_KEY.
+// Sonic voices — natural/expressive, supports kn + hi. A KEY POOL per language lets
+// the engine rotate to the next account when one runs out of free credits, only
+// falling back to Edge when ALL are exhausted. Keys are discovered from numbered
+// files: cartesia.<lang>.key, cartesia.<lang>1.key, cartesia.<lang>2.key, … (and the
+// env vars CARTESIA_<LANG>_KEY, CARTESIA_<LANG>1_KEY, … for the cloud).
 const CARTESIA_VERSION = "2026-03-01";
 const CARTESIA_MODEL = process.env.CARTESIA_MODEL || readLocal("cartesia.model") || "sonic-3.5";
 
@@ -56,29 +59,66 @@ function readLocal(f) {
   }
 }
 
-export function cartesiaKey(lang = "") {
+/** ordered list of {key, voice} to try for a language: base key then numbered
+ *  variants (kn, kn1, kn2, …), then the shared key. `voice` is left blank so each
+ *  account's OWN cloned voice is auto-resolved at call time; an explicit single
+ *  voice is used only when there's exactly one key (e.g. a stock voice like Riya). */
+export function cartesiaPool(lang = "", singleVoice = "") {
   const L = String(lang).toUpperCase();
-  return (
-    process.env[`CARTESIA_${L}_KEY`] ||
-    readLocal(`cartesia.${lang}.key`) ||
-    process.env.CARTESIA_KEY ||
-    readLocal("cartesia.key") ||
-    ""
-  ).trim();
+  const seen = new Set();
+  const keys = [];
+  const add = (k) => {
+    k = (k || "").trim();
+    if (k && !seen.has(k)) {
+      seen.add(k);
+      keys.push(k);
+    }
+  };
+  add(process.env[`CARTESIA_${L}_KEY`]);
+  add(readLocal(`cartesia.${lang}.key`));
+  for (let i = 1; i <= 12; i++) {
+    add(process.env[`CARTESIA_${L}${i}_KEY`]);
+    add(readLocal(`cartesia.${lang}${i}.key`));
+  }
+  add(process.env.CARTESIA_KEY);
+  add(readLocal("cartesia.key"));
+  return keys.map((key) => ({ key, voice: keys.length === 1 ? singleVoice : "" }));
 }
 
-async function synthCartesia(text, voiceId, lang) {
-  const key = cartesiaKey(lang);
-  if (!key) throw new Error(`no cartesia key for '${lang}' (add pipeline/cartesia.${lang}.key)`);
-  if (!voiceId) throw new Error("no cartesia voice id (set the channel's cartesiaVoice)");
+/** first key for a language — used by the voice lister / single-key setups */
+export function cartesiaKey(lang = "") {
+  return cartesiaPool(lang)[0]?.key || "";
+}
+
+const burnedKeys = new Set(); // keys that hit their credit limit this run — skip them
+const ownedVoiceCache = new Map(); // key -> that account's cloned voice id
+
+/** find the account's own (cloned) voice for a key; prefer one matching the language */
+async function resolveOwnedVoice(key, lang) {
+  if (ownedVoiceCache.has(key)) return ownedVoiceCache.get(key);
+  const r = await fetch("https://api.cartesia.ai/voices?is_owner=true&limit=100", {
+    headers: { Authorization: `Bearer ${key}`, "Cartesia-Version": CARTESIA_VERSION },
+  });
+  if (!r.ok) throw new Error(`cartesia voices ${r.status}`);
+  const j = await r.json();
+  const arr = Array.isArray(j) ? j : j.data || j.voices || [];
+  const owned = arr.filter((v) => v.is_owner);
+  const pick = owned.find((v) => (v.language || "").startsWith(lang)) || owned[0];
+  const id = pick?.id || "";
+  ownedVoiceCache.set(key, id);
+  return id;
+}
+
+const isCredit = (m) => /\b(401|402|403|429)\b|quota|credit|insufficient|payment|unauthor|limit/i.test(m);
+
+/** one Cartesia synth with a specific key + voice (voice auto-resolved if blank) */
+async function cartesiaOne(text, key, voiceId, lang) {
+  if (!voiceId) voiceId = await resolveOwnedVoice(key, lang);
+  if (!voiceId) throw new Error("no voice on this account (clone your voice there?)");
   const sampleRate = 44100;
   const r = await fetch("https://api.cartesia.ai/tts/bytes", {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Cartesia-Version": CARTESIA_VERSION,
-      "Content-Type": "application/json",
-    },
+    headers: { Authorization: `Bearer ${key}`, "Cartesia-Version": CARTESIA_VERSION, "Content-Type": "application/json" },
     body: JSON.stringify({
       model_id: CARTESIA_MODEL,
       transcript: sanitize(text),
@@ -87,12 +127,33 @@ async function synthCartesia(text, voiceId, lang) {
       output_format: { container: "wav", encoding: "pcm_s16le", sample_rate: sampleRate },
     }),
   });
-  if (!r.ok) throw new Error(`cartesia ${r.status}: ${(await r.text()).slice(0, 200)}`);
+  if (!r.ok) throw new Error(`cartesia ${r.status}: ${(await r.text()).slice(0, 160)}`);
   const buffer = Buffer.from(await r.arrayBuffer());
-  // WAV pcm_s16le (mono): audio seconds = data bytes / (sampleRate * 2). The 44-byte
-  // header is negligible; Cartesia gives no word timings so we estimate them.
+  // WAV pcm_s16le (mono): seconds = data bytes / (sampleRate*2). Cartesia gives no
+  // word timings, so estimate them from the real audio duration.
   const duration = Math.max(0.1, (buffer.length - 44) / (sampleRate * 2));
   return { buffer, words: estimateWords(text, duration), ext: "wav" };
+}
+
+/** try each account in the pool in order; skip/burn exhausted ones; throw only when
+ *  ALL are exhausted (then the caller drops the whole video to Edge). */
+async function synthCartesia(text, pool, lang) {
+  if (!pool || !pool.length) throw new Error(`no cartesia key for '${lang}' (add pipeline/cartesia.${lang}.key)`);
+  let lastErr;
+  for (const entry of pool) {
+    if (burnedKeys.has(entry.key)) continue;
+    try {
+      return await cartesiaOne(text, entry.key, entry.voice, lang);
+    } catch (e) {
+      lastErr = e;
+      if (isCredit(e.message)) {
+        burnedKeys.add(entry.key);
+        console.warn(`  ⚠ Cartesia account out of credits (${lang}) — rotating to next key`);
+      }
+      // otherwise transient — fall through and try the next account
+    }
+  }
+  throw lastErr || new Error(`all cartesia keys exhausted for '${lang}'`);
 }
 
 // ---------------------------------------------------------------- Edge (cloud)
