@@ -807,5 +807,60 @@
     "publishAt": null,
     "title": "रिश्तों का सबसे बड़ा सीक्रेट! | लोग तुम्हें क्यों नहीं समझते?",
     "at": "2026-07-19T05:04:40.441Z"
+  },
+  {
+    "base": "2026-07-19-china-kimi-ai-impact",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "FzDW8P1rFYc",
+    "url": "https://youtu.be/FzDW8P1rFYc",
+    "privacy": "scheduled",
+    "publishAt": "2026-07-19T18:00:00Z",
+    "title": "China's AI Breakthrough: How Kimi K3 Challenges US Dominance",
+    "at": "2026-07-19T09:40:42.906Z"
+  },
+  {
+    "base": "2026-07-19-bear-to-savior-the-inference-kn",
+    "channel": "the-inference-kn",
+    "kind": "long",
+    "videoId": "b4qTclxb6s8",
+    "url": "https://youtu.be/b4qTclxb6s8",
+    "privacy": "scheduled",
+    "publishAt": "2026-07-19T12:30:00Z",
+    "title": "ಕರಡಿ ದಾಳಿಯಿಂದ ಜೀವನ ಬದಲಾಯ್ತು! ಬೇಟೆಗಾರನಾಗಿದ್ದವನು ಪ್ರಾಣಿ ರಕ್ಷಕನಾದ ಕಥೆ!",
+    "at": "2026-07-19T10:36:17.181Z"
+  },
+  {
+    "base": "2026-07-19-emotional-response-delay-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "long",
+    "videoId": "-6u-E6u7Mzw",
+    "url": "https://youtu.be/-6u-E6u7Mzw",
+    "privacy": "scheduled",
+    "publishAt": "2026-07-19T13:30:00Z",
+    "title": "Kyun Log Casual Text ka Instant Reply Karte Hain, Par Emotional Messages Pe Gayab Ho Jaate Hain?",
+    "at": "2026-07-19T11:03:02.327Z"
+  },
+  {
+    "base": "2026-07-19-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "GhcbreOSdxQ",
+    "url": "https://youtu.be/GhcbreOSdxQ",
+    "privacy": "scheduled",
+    "publishAt": "2026-07-19T13:00:00Z",
+    "title": "Daily Current Affairs Quiz - July 19, 2026 | GK MCQs for UPSC SSC Banking",
+    "at": "2026-07-19T11:42:10.827Z"
+  },
+  {
+    "base": "2026-07-19-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "7Dy4UPQ724E",
+    "url": "https://youtu.be/7Dy4UPQ724E",
+    "privacy": "scheduled",
+    "publishAt": "2026-07-19T13:00:00Z",
+    "title": "Daily Current Affairs Quiz - July 19, 2026 | GK MCQs for UPSC SSC Banking #Shorts",
+    "at": "2026-07-19T11:42:18.390Z"
   }
 ]
