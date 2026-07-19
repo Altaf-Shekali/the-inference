@@ -110,7 +110,10 @@ async function main() {
 
   const doc = JSON.parse(await fs.readFile(inPath, "utf8"));
   const engine = flags.engine || doc.engine || "edge";
-  const voice = flags.voice || doc.voice || (engine === "kokoro" ? "am_michael" : "en-US-AndrewNeural");
+  // Cartesia: an empty voice means "auto-resolve each account's own clone" — do NOT
+  // default it to an Edge voice name (that would be sent as an invalid Cartesia id).
+  const voiceDefault = engine === "kokoro" ? "am_michael" : engine === "cartesia" ? "" : "en-US-AndrewNeural";
+  const voice = flags.voice || doc.voice || voiceDefault;
   doc.voice = voice; // reflect the voice actually used in the props
   // for Cartesia we also need the language + an Edge voice to fall back to on quota/errors
   const ttsLang = doc.lang || "en";
