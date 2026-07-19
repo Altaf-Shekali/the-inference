@@ -298,7 +298,11 @@ Craft rules:
 - Talk TO the viewer directly. Use ONE super-relatable everyday moment to set it up, then hit them with the psychology behind it — with a curiosity gap so they stay ("and the reason why is kinda scary…").
 - Be ACCURATE to real psychology / behavioural science. Use the researched facts; name the real effect or experiment if there is one. Relatable scenarios are fine, but NEVER fabricate studies or fake statistics.
 - End on a punchy insight or question that makes them think (and comment/share).
-- ZERO English/Latin letters anywhere. Write EVERYTHING in ${langName} script — including modern/slang/English words and every name, brand, technical term and acronym: transliterate them into ${langName} (e.g. DNA -> ${dna}, AI -> ${ai}, "stress" -> ${langName === "Kannada" ? "ಸ್ಟ್ರೆಸ್" : "स्ट्रेस"}). The voice mispronounces Latin letters, so not one Latin character may appear in the narration or on-screen text.
+${
+  langName === "Hindi"
+    ? `- Write EVERYTHING (narration + on-screen text) in ROMANIZED Hindi — Latin script, natural Hinglish, the way top Hindi YouTubers caption (e.g. "Kya aap jaante hain ki aapka dimaag aapko dhoka deta hai?"). Gen-Z reads Roman Hindi far more easily than Devanagari. Keep everyday English words as-is (AI, stress, brain, mind). Use NO Devanagari.`
+    : `- ZERO English/Latin letters anywhere. Write EVERYTHING in ${langName} script — transliterate modern/slang/English words and every name, brand, technical term and acronym into ${langName} (e.g. DNA -> ${dna}, AI -> ${ai}). Not one Latin character in the narration or on-screen text.`
+}
 - No markdown, no emojis in the narration.`;
 }
 
@@ -329,6 +333,11 @@ export async function geminiNarrative({ persona, kind, langName, facts, category
             tags: '"hindi","hindi kahani","hindi stories","hindi facts","psychology in hindi","manovigyan","india","हिंदी"',
           }
         : { hashtags: "", tags: "" };
+  // Hindi Gen-Z reads Roman Hindi far more easily than Devanagari → write Hindi in
+  // Latin (natural Hinglish); Cartesia's Riya voice pronounces it correctly. Kannada
+  // (and anything else) stays in its native script.
+  const roman = langName === "Hindi";
+  const disp = roman ? "Romanized Hindi (Latin script, natural Hinglish)" : langName + " script";
   const user =
     `Make a ${short ? "~40 second vertical Short" : "2-3 minute"} narrated video.\n` +
     `${opener}\n` +
@@ -341,22 +350,26 @@ export async function geminiNarrative({ persona, kind, langName, facts, category
     `  "channelName":"${channelName}", "topicTag":"${category.topicTag}", "accent":"${category.accent}",\n` +
     `  "source":"<the real sources, comma-separated>", "voice":"${voice}", "music":"", "showCaptions":${short},\n` +
     `  "scenes":[ ${beats} scenes ]\n}\n` +
-    `EVERY scene MUST have a "vo" = the spoken ${langName} narration for that beat. Scene types:\n` +
-    `- {"type":"hook","kicker":"${category.topicTag}","headline":"<a scroll-stopping 3-6 word ${langName} hook>","sub":"<a one-line teaser that opens a curiosity gap>","keywords":["english stock-footage term"]}\n` +
-    `- {"type":"point","heading":"<short evocative ${langName} line, 2-6 words>","bullets":[],"keywords":["english stock-footage term"]}  // a beat; bullets EMPTY, the vo carries it\n` +
-    `- {"type":"quote","quote":"<a striking line, in ${langName}>","attribution":"<who / context>"}  // use once at the peak\n` +
-    `- {"type":"outro","headline":"<closing line in ${langName}>","cta":"<a short ${langName} subscribe line naming ${channelName}>","keywords":["english stock-footage term"]}\n\n` +
+    `EVERY scene MUST have a "vo" = the spoken narration for that beat, written in ${disp}. Scene types:\n` +
+    `- {"type":"hook","kicker":"${category.topicTag}","headline":"<a scroll-stopping 3-6 word hook in ${disp}>","sub":"<a one-line teaser (in ${disp}) that opens a curiosity gap>","keywords":["english stock-footage term"]}\n` +
+    `- {"type":"point","heading":"<short evocative line in ${disp}, 2-6 words>","bullets":[],"keywords":["english stock-footage term"]}  // a beat; bullets EMPTY, the vo carries it\n` +
+    `- {"type":"quote","quote":"<a striking line, in ${disp}>","attribution":"<who / context>"}  // use once at the peak\n` +
+    `- {"type":"outro","headline":"<closing line in ${disp}>","cta":"<a short subscribe line in ${disp} naming ${channelName}>","keywords":["english stock-footage term"]}\n\n` +
     `RULES:\n` +
     `- Start with "hook", end with "outro"; ${midBeats} "point" beats in between that unfold IN ORDER; optionally one "quote" at the peak.\n` +
     `- The HOOK scene MUST have its own spoken "vo" (the punchy opening hook line, spoken aloud) — NEVER leave the hook silent; it is the single most important line of narration.\n` +
-    `- Each "vo" is 1-4 natural spoken ${langName} sentences. TOTAL narration ~${words} ${langName} words.\n` +
-    `- "keywords" are ENGLISH stock-footage search terms matching the mood (e.g. "lonely person window","busy city crowd","brain neurons","old letters"). 2-3 words each. This is the ONLY field that may contain Latin/English — it is never spoken or shown.\n` +
-    `- On-screen text (headline/heading/sub/quote) is short, evocative ${langName}.\n` +
-    `- CRITICAL: every "vo" and every on-screen field must be 100% ${langName} script with ZERO Latin/English letters. Transliterate ALL names, places, brands, numbers-as-words and abbreviations/acronyms (DNA, USA, AI, CEO, GPS…) into ${langName}. The TTS voice mispronounces Latin text, so a single Latin character is a failure. (Only "keywords" and the JSON keys stay English.)\n` +
-    `- "cta" must be written in ${langName} too (e.g. "${channelName} ${langName === "Kannada" ? "ಚಾನೆಲ್ ಅನ್ನು ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ" : "को सब्सक्राइब करें"}"), since it is shown on screen.\n\n` +
-    `- METADATA (title/description/tags) is NOT narration — the description's hashtag line and the tags array SHOULD use Latin/English for discovery; the no-Latin rule above applies ONLY to the spoken "vo" and on-screen scene text.\n` +
+    `- Each "vo" is 1-4 natural spoken ${langName} sentences, written in ${disp}. TOTAL narration ~${words} words.\n` +
+    `- "keywords" are ENGLISH stock-footage search terms matching the mood (e.g. "lonely person window","busy city crowd","brain neurons","old letters"). 2-3 words each.\n` +
+    `- On-screen text (headline/heading/sub/quote) is short and punchy, in ${disp}.\n` +
+    (roman
+      ? `- CRITICAL: write BOTH the spoken "vo" AND all on-screen text in ROMANIZED Hindi — Latin script, natural Hinglish, e.g. "Kya aap jaante hain ki aapka dimaag aapko har roz dhoka deta hai?". This is what the Gen-Z audience reads easily and how top Hindi creators caption. Keep everyday English words as-is (AI, stress, brain, mind). Use NO Devanagari anywhere.\n`
+      : `- CRITICAL: every "vo" and every on-screen field must be 100% ${langName} script with ZERO Latin/English letters. Transliterate ALL names, places, brands, numbers-as-words and abbreviations/acronyms (DNA, USA, AI, CEO, GPS…) into ${langName}. The TTS voice mispronounces Latin text, so a single Latin character is a failure. (Only "keywords" and the JSON keys stay English.)\n`) +
+    (roman
+      ? `- "cta" is a short Roman-Hindi subscribe line naming ${channelName} (e.g. "${channelName} ko subscribe karo").\n\n`
+      : `- "cta" must be written in ${langName} too (e.g. "${channelName} ${langName === "Kannada" ? "ಚಾನೆಲ್ ಅನ್ನು ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ" : "को सब्सक्राइब करें"}"), since it is shown on screen.\n\n`) +
+    (roman ? `` : `- METADATA (title/description/tags) is NOT narration — the description's hashtag line and the tags array SHOULD use Latin/English for discovery; the no-Latin rule above applies ONLY to the spoken "vo" and on-screen scene text.\n`) +
     `- For reach, the description MUST end with a hashtag line STARTING with these exact tags: ${reach.hashtags} — then add 3-5 topic-specific hashtags. And "tags" MUST include these reach tags: ${reach.tags} — plus 8-12 specific topic tags.\n\n` +
-    `"meta" = { "title":"<a clickable, VIRAL-style ${langName} title — curiosity, a bold claim, or a number that makes people click>", "description":"<2-3 ${langName} sentences, then a final line of hashtags beginning with ${reach.hashtags} + topic hashtags>", "tags":[the reach tags above + 8-12 specific topic tags, ${langName} + English], "thumbnail":{"badge":"${category.topicTag}","bigText":"<3-5 punchy ${langName} words>","subText":"<short ${langName}>","accent":"${category.accent}","channelName":"${channelName}"} }`;
+    `"meta" = { "title":"<a clickable, VIRAL-style title in ${disp} — curiosity, a bold claim, or a number that makes people click>", "description":"<2-3 sentences in ${disp}, then a final line of hashtags beginning with ${reach.hashtags} + topic hashtags>", "tags":[the reach tags above + 8-12 specific topic tags], "thumbnail":{"badge":"${category.topicTag}","bigText":"<3-5 punchy words in ${disp}>","subText":"<short, in ${disp}>","accent":"${category.accent}","channelName":"${channelName}"} }`;
 
   const out = extractJson(await generate(user, { temperature: 0.92, system: persona, maxOutputTokens: 8192 }));
   return { script: out.script || out, meta: out.meta || {} };

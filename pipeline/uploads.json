@@ -355,5 +355,38 @@
     "publishAt": null,
     "title": "ಕನಸು ಕಂಡವರನ್ನು ವಂಚಿಸಿದ \"ರೆಡ್ ಲೀಫ್\" ಹಗರಣ",
     "at": "2026-07-18T17:54:20.581Z"
+  },
+  {
+    "base": "2026-07-19-emotional-response-delay-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "long",
+    "videoId": "pAS1-UUfRpA",
+    "url": "https://youtu.be/pAS1-UUfRpA",
+    "privacy": "public",
+    "publishAt": null,
+    "title": "रिश्तों का सबसे बड़ा सीक्रेट! | लोग तुम्हें क्यों नहीं समझते?",
+    "at": "2026-07-19T05:04:40.441Z"
+  },
+  {
+    "base": "2026-07-19-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "B7ecVeZ9ZX4",
+    "url": "https://youtu.be/B7ecVeZ9ZX4",
+    "privacy": "scheduled",
+    "publishAt": "2026-07-19T13:00:00Z",
+    "title": "Daily Current Affairs Quiz - July 19, 2026 | GK MCQs for UPSC SSC Banking",
+    "at": "2026-07-19T05:16:55.702Z"
+  },
+  {
+    "base": "2026-07-19-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "lDKR9UAm1nc",
+    "url": "https://youtu.be/lDKR9UAm1nc",
+    "privacy": "scheduled",
+    "publishAt": "2026-07-19T13:00:00Z",
+    "title": "Daily Current Affairs Quiz - July 19, 2026 | GK MCQs for UPSC SSC Banking #Shorts",
+    "at": "2026-07-19T05:18:52.991Z"
   }
 ]
