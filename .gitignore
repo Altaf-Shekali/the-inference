@@ -3,6 +3,9 @@ dist
 .DS_Store
 .env
 
+# local-only Claude Code settings (per-machine, never commit)
+.claude/settings.local.json
+
 # API keys & credentials — never commit
 pipeline/pexels.key
 pipeline/nemotron.key

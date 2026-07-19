@@ -1,0 +1,8 @@
+# Append-only JSON state files — both the cloud daily run and local runs append to
+# these, so union them on merge instead of conflicting. Needs the local git config:
+#   git config merge.jsonunion.name "union JSON state files"
+#   git config merge.jsonunion.driver "node pipeline/git-merge-union.mjs %O %A %B %P"
+# (setup.ps1 configures this; the .gitattributes below selects which files use it.)
+pipeline/uploads.json            merge=jsonunion
+pipeline/used-topics.json        merge=jsonunion
+pipeline/channels/*/used-topics.json merge=jsonunion
