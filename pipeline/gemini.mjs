@@ -316,6 +316,19 @@ export async function geminiNarrative({ persona, kind, langName, facts, category
     ? `Reveal this psychological truth like a VIRAL creator — open with a scroll-stopping hook, then keep it chill, engaging and conversational, entirely in ${langName}. It must be ACCURATE psychology; you may use ONE relatable everyday scenario, but NEVER fabricate studies or statistics.`
     : `Tell this TRUE story like a VIRAL story-YouTuber — open with a hook that stops the scroll, then keep it gripping, chill and conversational, entirely in ${langName}. It must be a REAL event that actually happened; use ONLY the facts below (add atmosphere, not fake events).`;
   const factsLabel = isConcept ? "RESEARCH (real psychology facts/studies to ground it)" : "RESEARCH (sources & facts)";
+  // Language/region discovery tags so the video reaches the right audience.
+  const reach =
+    langName === "Kannada"
+      ? {
+          hashtags: "#kannada #kannadastories #karnataka #kannadakathegalu #kannadayoutuber",
+          tags: '"kannada","kannada stories","kannada kathegalu","karnataka","kannada channel","kannada youtube","ಕನ್ನಡ","ಕನ್ನಡ ಕಥೆಗಳು"',
+        }
+      : langName === "Hindi"
+        ? {
+            hashtags: "#hindi #hindikahani #hindistories #psychologyfacts #india",
+            tags: '"hindi","hindi kahani","hindi stories","hindi facts","psychology in hindi","manovigyan","india","हिंदी"',
+          }
+        : { hashtags: "", tags: "" };
   const user =
     `Make a ${short ? "~40 second vertical Short" : "2-3 minute"} narrated video.\n` +
     `${opener}\n` +
@@ -341,7 +354,9 @@ export async function geminiNarrative({ persona, kind, langName, facts, category
     `- On-screen text (headline/heading/sub/quote) is short, evocative ${langName}.\n` +
     `- CRITICAL: every "vo" and every on-screen field must be 100% ${langName} script with ZERO Latin/English letters. Transliterate ALL names, places, brands, numbers-as-words and abbreviations/acronyms (DNA, USA, AI, CEO, GPS…) into ${langName}. The TTS voice mispronounces Latin text, so a single Latin character is a failure. (Only "keywords" and the JSON keys stay English.)\n` +
     `- "cta" must be written in ${langName} too (e.g. "${channelName} ${langName === "Kannada" ? "ಚಾನೆಲ್ ಅನ್ನು ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ" : "को सब्सक्राइब करें"}"), since it is shown on screen.\n\n` +
-    `"meta" = { "title":"<a clickable, VIRAL-style ${langName} title — curiosity, a bold claim, or a number that makes people click>", "description":"<2-3 ${langName} sentences + a line of #hashtags>", "tags":[12-18 tags, ${langName} + English], "thumbnail":{"badge":"${category.topicTag}","bigText":"<3-5 punchy ${langName} words>","subText":"<short ${langName}>","accent":"${category.accent}","channelName":"${channelName}"} }`;
+    `- METADATA (title/description/tags) is NOT narration — the description's hashtag line and the tags array SHOULD use Latin/English for discovery; the no-Latin rule above applies ONLY to the spoken "vo" and on-screen scene text.\n` +
+    `- For reach, the description MUST end with a hashtag line STARTING with these exact tags: ${reach.hashtags} — then add 3-5 topic-specific hashtags. And "tags" MUST include these reach tags: ${reach.tags} — plus 8-12 specific topic tags.\n\n` +
+    `"meta" = { "title":"<a clickable, VIRAL-style ${langName} title — curiosity, a bold claim, or a number that makes people click>", "description":"<2-3 ${langName} sentences, then a final line of hashtags beginning with ${reach.hashtags} + topic hashtags>", "tags":[the reach tags above + 8-12 specific topic tags, ${langName} + English], "thumbnail":{"badge":"${category.topicTag}","bigText":"<3-5 punchy ${langName} words>","subText":"<short ${langName}>","accent":"${category.accent}","channelName":"${channelName}"} }`;
 
   const out = extractJson(await generate(user, { temperature: 0.92, system: persona, maxOutputTokens: 8192 }));
   return { script: out.script || out, meta: out.meta || {} };

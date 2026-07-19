@@ -149,10 +149,12 @@ async function main() {
     console.log("  (no PEXELS_API_KEY — B-roll will fall back to motion graphics)");
   }
 
-  // Cap B-roll clips per video: decoding many videos at once destabilizes the
-  // Windows compositor (OOM/crash). 3 footage scenes + motion-graphics for the
-  // rest keeps the cinematic mix while staying renderable.
-  const MAX_BROLL = 3;
+  // B-roll per video. Rendering now runs on cloud Linux (16GB) and scenes play
+  // sequentially (only one clip decodes at a time), so the old Windows-compositor
+  // cap of 3 is gone. Cover the WHOLE video — story/psych scenes have no bullets,
+  // so B-roll IS their visual; without this they go blank after the first few.
+  // One clip per keyworded scene, capped for safety on unusually long videos.
+  const MAX_BROLL = Math.min(doc.scenes.length, 14);
   let brollCount = 0;
 
   // ---- Pass 1: voiceover. For Cartesia we keep ONE voice across the whole video:
