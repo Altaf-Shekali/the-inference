@@ -125,6 +125,18 @@ const BASE_TAGS = {
   business: ["business news", "tech business", "startups", "market analysis", "tech economy", "finance news", "business breakdown", "tech stocks", "company breakdown"],
 };
 
+// Shared "no vague filler" contract, included in every English news/trend/business
+// spec — this is what separates a real US/UK-style breakdown from generic AI hype.
+const SPECIFICITY_RULES = `
+SPECIFICITY (non-negotiable — this is what separates a real breakdown from vague hype):
+- EVERY beat must state at least one CONCRETE fact from the research notes: a real number, date, name, company, price, or step in a mechanism. A beat with no concrete fact is not allowed — cut it or find the fact.
+- BANNED vague filler — in the "vo", AND in meta.title/meta.description (never write these or close equivalents, including other forms of the same word): "game changer", "revolution/revolutionize/revolutionary", "changes everything", "the future of X", "next level", "this could be huge", "mind-blowing", "insane"/"crazy" used as filler, "a lot of people are saying", "some experts believe" (name the expert or drop the line).
+- NEVER leave a placeholder/template artifact in the output (e.g. "[Link to Video]", "[insert X]", "TBD") — every field must be the real, finished content.
+- If the research notes don't support a specific claim, say so plainly ("it's not clear yet whether...") instead of padding with hype.
+- NEVER invent a mechanism, architecture, or technical detail that isn't in the notes. If the notes don't explain HOW something works, say plainly that the detail isn't public yet — do not guess and present it as fact (not even hedged in a parenthetical).
+- Name real people, companies, products, and numbers wherever the research gives them. Generic phrasing ("a major company", "new technology") is a failure.
+`;
+
 const SCRIPT_SPEC = `
 Return ONE JSON object: { "script": {...}, "meta": {...} }.
 
@@ -203,6 +215,7 @@ VOICE & VIBE — this is a scroll-stopping Short from a viral tech creator:
 - First 2 seconds = make-or-break. Open on a bold claim / number / "wait what?" question so nobody swipes away. NEVER a slow "In this video…" intro.
 - Keep a curiosity gap so they watch to the end; the outro lands the payoff + a reason to follow.
 
+${SPECIFICITY_RULES}
 RULES:
 - EXACTLY 4-5 scenes. Start with "hook", end with "outro"; 2-3 stat/point scenes between.
 - TOTAL spoken time ~25-35 seconds. Each "vo" is ONE punchy sentence, MAX ~12 words.
@@ -255,7 +268,7 @@ NON-NEGOTIABLE (this is what stops it sounding like an ad):
 - The "How it works" step-by-step scene (proves deep understanding).
 - The honest "Where it falls short" scene with a real limitation.
 - An outro verdict that also says who should SKIP it.
-
+${SPECIFICITY_RULES}
 WRITING:
 - "vo" is spoken: authoritative, clear and engaging — like an expert who knows it deeply and is explaining it so the viewer truly understands. 1-4 sentences per scene. TOTAL narration ~320-450 words.
 - NEVER say "I used / I tried / I tested / when I set it up / it tripped me up" or imply hands-on use. Use explanatory framing: "Here's how it works...", "Where it struggles is...", "What makes it clever is...", "In practice, this means...".
@@ -264,6 +277,129 @@ WRITING:
 
 "meta" MUST be: { "title":"<clear, curiosity-driven title, e.g. '<Tool>: how it actually works' or 'Everything you need to know about <Tool>' — NOT 'I used...'>", "description":"<2-3 honest sentences + a line of #hashtags>", "tags":[12-18 specific tags: tool name, category, 'explained','how it works','review', alternatives], "thumbnail":{"badge":"Tool Breakdown","bigText":"<3-5 punchy words>","subText":"<short>","accent":"#34D399","channelName":"${CHANNEL}"} }
 `;
+
+// BREAKING AI/TECH NEWS — written like a sharp US/UK tech news explainer: concrete
+// specifics, real context, the actual mechanism behind the headline, and an honest
+// skeptical beat. Never a vague "AI is changing everything" reel.
+const NEWS_SPEC = `
+Return ONE JSON object: { "script": {...}, "meta": {...} }.
+
+This is a BREAKING TECH NEWS EXPLAINER — the kind a sharp US/UK tech YouTuber makes: specific, well-sourced, a little opinionated, genuinely informative. NOT a vague "AI is changing everything" reel.
+
+"script" MUST match this shape:
+{
+  "channelName": "${CHANNEL}",
+  "topicTag": "AI News",
+  "accent": "#3B9EFF",
+  "source": "<the real sources you used>",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [ 9 to 12 scenes, EACH with a "vo" ]
+}
+
+Build the explainer in THIS order (every scene needs "vo" = spoken narration):
+1. {"type":"hook","kicker":"AI News","headline":"<the single most surprising CONCRETE fact/number>","sub":"<one-line teaser>","keywords":["broll term"]}
+2. {"type":"point","heading":"What just happened","bullets":["<who did what, when, the key number(s)>"],"keywords":["broll term"]}  — the concrete news, no fluff
+3. {"type":"point","heading":"Why now","bullets":["<what led here / the context a viewer needs>"],"keywords":["broll term"]}
+4. {"type":"point","heading":"How it actually works","bullets":["<the real mechanism/technical detail behind the news>"],"keywords":["broll term"]}  — the CORE beat: prove you understand the tech, not just the headline
+5. {"type":"stat","value":"<a real number from the notes>","label":"<what it means in plain terms>","source":"..."}
+6. {"type":"point","heading":"Why it matters","bullets":["<a concrete implication for users/devs/the industry>"],"keywords":["broll term"]}
+7. {"type":"point","heading":"The catch","bullets":["<what's unproven, disputed, or the honest limitation>"],"keywords":["broll term"]}  — MANDATORY: a real skeptical beat, not blind hype
+8. {"type":"quote","quote":"<a real quote from a source in the notes>","attribution":"<who>","keywords":["broll term"]}  — OMIT this scene entirely if the notes have no real quote
+9. {"type":"outro","headline":"<the one-line takeaway>","cta":"Subscribe to ${CHANNEL}","keywords":["broll term"]}
+${SPECIFICITY_RULES}
+VOICE & VIBE:
+- Talk straight to the viewer, confident and a little opinionated — like a sharp tech news explainer, not a press release read aloud.
+- Open on the fact, never "today we're talking about" or "let's dive into".
+- Wrap the 1-2 most important words per line in **double asterisks**.
+- PACING: each "vo" is ONE short, punchy sentence — MAX ~16 words. More short scenes beats fewer long ones.
+- Acronyms spoken phonetically ("A-I","I-P-O","C-E-O").
+
+"meta" MUST be: { "title":"<clickable, SPECIFIC YouTube title using the real name/number, not generic hype>", "description":"<2-3 sentences + a line of #hashtags>", "tags":["...", 12-18 SPECIFIC tags: real names/companies/products from the video], "thumbnail":{"badge":"AI News","bigText":"<3-5 punchy words>","subText":"<short>","accent":"#3B9EFF","channelName":"${CHANNEL}"} }
+`;
+
+// TECH TREND DEEP-DIVE — documentary-style analysis (think Cleo Abram / Johnny
+// Harris energy): real data across multiple points, named players, a grounded
+// forecast. Never vague futurism.
+const TREND_SPEC = `
+Return ONE JSON object: { "script": {...}, "meta": {...} }.
+
+This is a TECH TREND DEEP-DIVE — the kind of documentary-style explainer top US/UK tech creators make: grounded in real data, naming real companies/products, tracing WHY something is happening and WHERE it's actually heading. NOT vague futurism.
+
+"script" MUST match this shape:
+{
+  "channelName": "${CHANNEL}",
+  "topicTag": "Tech Trend",
+  "accent": "#F43F5E",
+  "source": "<the real sources you used>",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [ 9 to 12 scenes, EACH with a "vo" ]
+}
+
+Build the deep-dive in THIS order (every scene needs "vo"):
+1. {"type":"hook","kicker":"Tech Trend","headline":"<a striking CONCRETE data point or contrarian claim>","sub":"<one-line teaser>","keywords":["broll term"]}
+2. {"type":"point","heading":"The pattern","bullets":["<what's actually changing, stated concretely>"],"keywords":["broll term"]}
+3. {"type":"bars","title":"...","unit":"...","data":[{"label":"...","value":42} x3-4],"source":"..."}  — real comparative data from the notes (e.g. across years/companies)
+4. {"type":"point","heading":"Why this is happening","bullets":["<the underlying driver(s), concretely>"],"keywords":["broll term"]}
+5. {"type":"point","heading":"Who's leading","bullets":["<real, named companies/products and what they're doing>"],"keywords":["broll term"]}
+6. {"type":"point","heading":"Where it's heading","bullets":["<a grounded near-term forecast tied to evidence in the notes>"],"keywords":["broll term"]}  — mark speculation as speculation
+7. {"type":"point","heading":"What could break this","bullets":["<a real risk, headwind, or counter-argument>"],"keywords":["broll term"]}  — MANDATORY honest tension, not one-sided hype
+8. {"type":"outro","headline":"<the one-line takeaway>","cta":"Subscribe to ${CHANNEL}","keywords":["broll term"]}
+${SPECIFICITY_RULES}
+VOICE & VIBE:
+- Confident, curious, a little cinematic — like a documentary-style tech explainer connecting the dots, not a hype reel.
+- Wrap the 1-2 most important words per line in **double asterisks**.
+- PACING: each "vo" is ONE short, punchy sentence — MAX ~16 words.
+- Acronyms spoken phonetically.
+
+"meta" MUST be: { "title":"<clickable, SPECIFIC title>", "description":"<2-3 sentences + a line of #hashtags>", "tags":["...", 12-18 SPECIFIC tags], "thumbnail":{"badge":"Tech Trend","bigText":"<3-5 punchy words>","subText":"<short>","accent":"#F43F5E","channelName":"${CHANNEL}"} }
+`;
+
+// BUSINESS/MARKET BREAKDOWN — "How Money Works"/Modern-MBA energy: lead with the
+// number, explain the ACTUAL revenue mechanism, name the real risk.
+const BUSINESS_SPEC = `
+Return ONE JSON object: { "script": {...}, "meta": {...} }.
+
+This is a BUSINESS BREAKDOWN — the kind top US/UK business-explainer channels make: lead with the number, explain exactly how the company/deal actually makes money, and be honest about the risk. NOT a vague "big news for the industry" reel.
+
+"script" MUST match this shape:
+{
+  "channelName": "${CHANNEL}",
+  "topicTag": "Business",
+  "accent": "#F5B301",
+  "source": "<the real sources you used>",
+  "voice": "en-US-AndrewNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [ 9 to 12 scenes, EACH with a "vo" ]
+}
+
+Build the breakdown in THIS order (every scene needs "vo"):
+1. {"type":"hook","kicker":"Business","headline":"<the eye-catching CONCRETE number — valuation/revenue/funding/loss>","sub":"<one-line teaser>","keywords":["broll term"]}
+2. {"type":"point","heading":"The business","bullets":["<what the company/deal actually does, plainly>"],"keywords":["broll term"]}
+3. {"type":"stat","value":"<a real financial number>","label":"<what it means>","source":"..."}
+4. {"type":"point","heading":"How they actually make money","bullets":["<the real revenue mechanism, concretely>"],"keywords":["broll term"]}  — the CORE beat: prove you understand the business model, not just the headline
+5. {"type":"point","heading":"The strategy","bullets":["<why this move/deal, right now>"],"keywords":["broll term"]}
+6. {"type":"bars","title":"...","unit":"...","data":[{"label":"...","value":42} x3-4],"source":"..."}  — real comparative data if the notes give one (e.g. revenue over time, competitors)
+7. {"type":"point","heading":"The catch","bullets":["<the real risk, competition, or sustainability concern>"],"keywords":["broll term"]}  — MANDATORY honest tension
+8. {"type":"point","heading":"What's next","bullets":["<a concrete, grounded next step>"],"keywords":["broll term"]}
+9. {"type":"outro","headline":"<the one-line takeaway>","cta":"Subscribe to ${CHANNEL}","keywords":["broll term"]}
+${SPECIFICITY_RULES}
+VOICE & VIBE:
+- Sharp, a little skeptical, numbers-driven — like a business-explainer creator who actually gets finance, not a press release.
+- Wrap the 1-2 most important words per line in **double asterisks**.
+- PACING: each "vo" is ONE short, punchy sentence — MAX ~16 words.
+- Acronyms spoken phonetically.
+
+"meta" MUST be: { "title":"<clickable, SPECIFIC title using the real name/number>", "description":"<2-3 sentences + a line of #hashtags>", "tags":["...", 12-18 SPECIFIC tags], "thumbnail":{"badge":"Business","bigText":"<3-5 punchy words>","subText":"<short>","accent":"#F5B301","channelName":"${CHANNEL}"} }
+`;
+
+// which long-form spec each English pillar uses (falls back to the generic
+// SCRIPT_SPEC for any pillar not listed here)
+const SPEC_FOR_PILLAR = { tools: TOOLS_SPEC, ainews: NEWS_SPEC, trend: TREND_SPEC, business: BUSINESS_SPEC };
 
 async function loadUsed(p) {
   try {
@@ -558,17 +694,24 @@ async function main() {
           role: "system",
           content:
             pillarId === "tools"
-              ? `You are a viral tech YouTuber and sharp analyst for ${channelName} — you break tools down with strong hooks and chill, engaging, opinionated energy (think a top tech reviewer), while staying honest about what they are, how they work, and their real strengths and limitations. You NEVER claim to have personally used, tried, or tested a tool. Output ONLY JSON.`
-              : `You are a viral tech YouTuber and scriptwriter for ${channelName} — hook-driven, chill, engaging, a bit Gen-Z, talking straight to the viewer. You make AI/tech feel exciting without dumbing it down or faking facts. Output ONLY JSON.`,
+              ? `You are a viral tech YouTuber and sharp analyst for ${channelName} — you break tools down with strong hooks and chill, engaging, opinionated energy (think a top tech reviewer), while staying honest about what they are, how they work, and their real strengths and limitations. You NEVER claim to have personally used, tried, or tested a tool. Every claim is a concrete fact from the research — never vague hype. Output ONLY JSON.`
+              : pillarId === "business"
+                ? `You are a sharp business-explainer YouTuber for ${channelName} — think the top US/UK channels that break down company strategy and money with real numbers, not vague industry talk. Confident, a little skeptical, always concrete — you name the real numbers, the real mechanism, the real risk. Output ONLY JSON.`
+                : pillarId === "trend"
+                  ? `You are a documentary-style tech-trend explainer for ${channelName} — think Cleo Abram / Johnny Harris energy: grounded in real data, connecting the dots between named companies and events, honest about what's still uncertain. Never vague futurism. Output ONLY JSON.`
+                  : `You are a sharp tech-news explainer YouTuber for ${channelName} — hook-driven, chill, engaging, always concrete and well-sourced (real names, numbers, mechanisms), never vague AI hype. Output ONLY JSON.`,
         },
         {
           role: "user",
-          content: `Make a ${doShort ? "SHORT (vertical, ~30s)" : "video"} for pillar "${pillar.topicTag}" (accent ${pillar.accent}).\nTopic: ${pick.title}\nAngle: ${pick.angle}\n\nRESEARCH NOTES:\n${notes.join("\n\n---\n\n").slice(0, 12000)}\n\n${(doShort ? SHORT_SPEC : pillarId === "tools" ? TOOLS_SPEC : SCRIPT_SPEC).split(CHANNEL).join(channelName)}${langDirective}`,
+          content: `Make a ${doShort ? "SHORT (vertical, ~30s)" : "video"} for pillar "${pillar.topicTag}" (accent ${pillar.accent}).\nTopic: ${pick.title}\nAngle: ${pick.angle}\n\nRESEARCH NOTES:\n${notes.join("\n\n---\n\n").slice(0, 12000)}\n\n${(doShort ? SHORT_SPEC : SPEC_FOR_PILLAR[pillarId] || SCRIPT_SPEC).split(CHANNEL).join(channelName)}${langDirective}`,
         },
       ],
-      // Indic scripts (Devanagari/Kannada) tokenize ~2-3x heavier than English,
-      // so give non-English generations a much bigger budget or the JSON truncates.
-      { maxTokens: doShort ? (lang === "en" ? 2500 : 5000) : lang === "en" ? 6000 : 11000 },
+      // Indic scripts (Devanagari/Kannada) tokenize ~2-3x heavier than English, so
+      // give non-English generations a much bigger budget or the JSON truncates.
+      // English long-form got a higher ceiling too — the structured NEWS/TREND/
+      // BUSINESS specs (up to 12 scenes, each with heading+bullets+vo) need more
+      // room than the old generic spec, especially on the Gemini fallback path.
+      { maxTokens: doShort ? (lang === "en" ? 2500 : 5000) : lang === "en" ? 8000 : 11000 },
     );
     script = out.script || out;
     meta = out.meta || {};
