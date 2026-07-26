@@ -23,8 +23,16 @@ import { fetchClip, hasPexelsKey } from "./footage.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const FPS = 30;
-const LEAD = 0.25; // silence before speech (s)
-const TAIL = 0.6; // breathing room after speech (s)
+// A flat 0.25s lead + 0.6s tail on EVERY scene adds up to ~0.85s of hard silence
+// after every single beat — with 9-12 short punchy scenes per video that's up to
+// ~10s of accumulated dead air, breaking the narration into disconnected
+// fragments (a real driver of "robotic"/"choppy" viewer complaints, separate from
+// the TTS voice itself). Keep "talking" beats flowing almost continuously; only
+// give a data/quote beat the extra half-second it needs to actually land.
+const LEAD = 0.15; // silence before speech (s)
+const TAIL_TALK = 0.2; // breathing room after a talking beat (hook/point/tool/outro/...)
+const TAIL_DWELL = 0.45; // breathing room after a data/quote beat that needs a moment to read
+const DWELL_TYPES = new Set(["stat", "bars", "quote", "compare", "headlines"]);
 const MAX_WORDS_PER_CUE = 5;
 
 const sec2frame = (s) => Math.round(s * FPS);
@@ -216,19 +224,20 @@ async function main() {
       }
     }
 
+    const tail = DWELL_TYPES.has(scene.type) ? TAIL_DWELL : TAIL_TALK;
     if (buffer && buffer.length > 3000) {
       const rel = path.posix.join("vo", base, `${i}.${ext}`);
       await fs.writeFile(path.join(ROOT, "public", rel), buffer);
       const spokenEnd = words.length ? words[words.length - 1].end : Math.max(2, wordCount / 2.6);
       scene.audio = rel;
       scene.captions = buildCues(words, LEAD);
-      scene.durationInFrames = sec2frame(LEAD + spokenEnd + TAIL);
+      scene.durationInFrames = sec2frame(LEAD + spokenEnd + tail);
       process.stdout.write(`${(scene.durationInFrames / FPS).toFixed(1)}s, ${words.length} words`);
     } else {
       // TTS kept failing — keep the video RENDERABLE: silent scene, estimated length
       delete scene.audio;
       delete scene.captions;
-      scene.durationInFrames = sec2frame(LEAD + Math.max(2, wordCount / 2.6) + TAIL);
+      scene.durationInFrames = sec2frame(LEAD + Math.max(2, wordCount / 2.6) + tail);
       process.stdout.write(`⚠ TTS failed — silent ${(scene.durationInFrames / FPS).toFixed(1)}s`);
     }
     console.log("");
