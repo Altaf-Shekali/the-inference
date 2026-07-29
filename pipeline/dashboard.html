@@ -275,7 +275,7 @@ function minus1h(hhmm){ const [h,m]=String(hhmm).split(':').map(Number); return 
 function renderGenerate(){
   if($('#genConsole')) return; // build once; don't wipe an in-progress log
   const pillars=[['','Auto (rotates by day)'],['ainews','AI News'],['tools','Tool Breakdown'],['trend','Tech Trend'],['business','Business']];
-  const voiceOpts=voiceOptions('Default (Edge · Andrew — standard)');
+  const voiceOpts=voiceOptions('Default (channel\'s voice)');
   const chanOpts=(STATE.channels||[]).map(c=>`<option value="${c.id}">${esc(c.name)}${c.youtube?'':' ⚠'}</option>`).join('');
   $('#generate').innerHTML = `<h2>Generate new content</h2>
     <div class="row" style="align-items:flex-end;gap:12px">
@@ -307,14 +307,13 @@ function renderGenerate(){
 }
 
 function onLangChange(){
-  // effective language = explicit hi/kn, else the selected channel's language.
-  // Non-English auto-picks its native Edge voice, so disable the voice picker.
   const lv=$('#genLang').value;
   const ch=(STATE.channels||[]).find(c=>c.id===$('#genChannel').value);
   const effLang=(lv==='hi'||lv==='kn')?lv:(lv==='en'?'en':(ch?ch.lang:'en'));
   const nonEn=effLang!=='en';
+  const cartesia=ch && ch.engine==='cartesia';
   $('#genVoice').disabled=nonEn; $('#genSampleBtn').disabled=nonEn;
-  $('#genVoice').title=nonEn?'Voice auto-selected for this language':'';
+  $('#genVoice').title=nonEn?'Voice auto-selected for this language':(cartesia?'Cartesia voices available — pick one or use default':'');
 }
 
 async function generate(short){
@@ -377,16 +376,19 @@ function openDrawer(i){
 
     <div class="section"><h4>Shorts</h4>
       ${v.hasShort?`<video controls preload="metadata" src="/api/file?kind=short&base=${encodeURIComponent(v.base)}" style="max-height:420px"></video>`:'<p class="muted">No Short rendered yet.</p>'}
-      <label>Voice</label>
-      <div style="display:flex;gap:8px">
-        <select id="fVoice" style="flex:1">${voiceOptions('Same as long-form (reuse existing audio)')}</select>
-        <button class="ghost" id="sampleBtn" onclick="sampleVoice('fVoice','sampleBtn')" title="Hear this voice">🔊</button>
-      </div>
-      <p class="muted" style="font-size:12px;margin:8px 0 0">A different voice re-renders the Short's narration only — your long-form video is untouched.</p>
-      <div class="btns">
+      <div class="btns" style="margin-bottom:10px">
         <button class="ghost" ${!(v.hasProps||v.hasScript)?'disabled title="render the long-form first"':''} onclick="renderShort()">${v.hasShort?'Re-render Short':'Render Short (9:16)'}</button>
         ${v.hasShort?`<button class="act" onclick="upload('short')">Upload as Short</button>`:''}
       </div>
+      <details style="margin-top:8px;font-size:13px">
+        <summary style="cursor:pointer;color:var(--accent);font-weight:600">Generate standalone Short from scratch ↗</summary>
+        <p class="muted" style="margin:8px 0 0;font-size:12px">Creates a brand-new Short on a related topic — own script, own voiceover, independent of this video.</p>
+        <div style="display:flex;gap:8px;margin:8px 0">
+          <select id="fVoice" style="flex:1">${voiceOptions('Default (channel\'s voice)')}</select>
+          <button class="ghost" id="sampleBtn" onclick="sampleVoice('fVoice','sampleBtn')" title="Hear this voice">🔊</button>
+        </div>
+        <button class="act" onclick="generateStandaloneShort('${esc(v.channel||'the-inference')}')">Generate standalone Short</button>
+      </details>
     </div>
 
     <div class="section"><h4>Edit details</h4>
@@ -432,6 +434,18 @@ async function renderShort(){
   const r = await postJSON('/api/render-short',{base:current.base,voice});
   if(r.error) return flash(r.error);
   streamJob(r.jobId, voice?'Re-voicing narration + rendering Short… (a couple of minutes)':'Rendering Short… (this takes a minute)');
+}
+
+async function generateStandaloneShort(channel){
+  const voice = $('#fVoice').value;
+  const r = await postJSON('/api/generate',{short:true,channel,voice});
+  if(r.error) return flash(r.error);
+  const c=$('#console'); c.classList.add('show');
+  c.textContent='Generating standalone Short (discover → script → render)…\n';
+  const es=new EventSource('/api/job/'+r.jobId);
+  es.onmessage=(e)=>{ c.textContent+=JSON.parse(e.data)+'\n'; c.scrollTop=c.scrollHeight; };
+  es.addEventListener('done',()=>{ es.close(); c.textContent+='\n(done — refreshing Library)\n'; closeDrawer(); load(); });
+  es.onerror=()=>{ es.close(); };
 }
 
 let sampleAudio=null;

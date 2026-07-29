@@ -55,7 +55,7 @@ kv("NEMOTRON_KEY", await read("pipeline/nemotron.key"));
 kv("TAVILY_KEY", await read("pipeline/tavily.key"));
 kv("PEXELS_KEY", await read("pipeline/pexels.key"));
 // cartesia key pool (base + numbered accounts) per language — emit only what exists
-for (const lang of ["kn", "hi"]) {
+for (const lang of ["en", "kn", "hi"]) {
   const L = lang.toUpperCase();
   const base = await read(`pipeline/cartesia.${lang}.key`);
   if (base) kv(`CARTESIA_${L}_KEY`, base);

@@ -135,6 +135,9 @@ SPECIFICITY (non-negotiable — this is what separates a real breakdown from vag
 - If the research notes don't support a specific claim, say so plainly ("it's not clear yet whether...") instead of padding with hype.
 - NEVER invent a mechanism, architecture, or technical detail that isn't in the notes. If the notes don't explain HOW something works, say plainly that the detail isn't public yet — do not guess and present it as fact (not even hedged in a parenthetical).
 - Name real people, companies, products, and numbers wherever the research gives them. Generic phrasing ("a major company", "new technology") is a failure.
+- NEVER let the "vo" simply restate or narrate the on-screen heading/bullets. Each "vo" must ADD something the viewer cannot read on screen — context, reaction, implication, or a real-world hook. If the "vo" starts with the same words as the heading ("Why This Is Happening:", "What it actually is:"), delete that preface and cut straight to the substance.
+- BANNED corporate/press-release language — words and phrases that make the script sound like a company announcement or consulting memo: "paradigm shift", "leverage", "transformative", "embark on", "get ready for a [noun] where", "one question remains", "landscape", "ecosystem", "revolutionize", "game-changing", "on the horizon", "the future of [noun]", "we're witnessing", "as we move into". If a sentence sounds like it could appear in a press release or a McKinsey report, rewrite it as one human telling another something interesting.
+- WORD CHOICE drives vocal energy — the TTS voice conveys attitude through individual words, not just sentence structure. Use sharp, opinionated vocabulary that an intense young speaker would naturally say: "actually", "honestly", "literally", "barely", "somehow", "genuinely", "wild", "terrifyingly", "barely", "genius move", "dumb take", "here's the thing", "so here's why". Avoid passive, formal, or neutral words ("it is believed", "one might consider", "it appears that"). Every word should feel like it came out of a real person's mouth.
 `;
 
 const SCRIPT_SPEC = `
@@ -166,12 +169,14 @@ Allowed scene types (each needs "type" + a "vo" narration string):
 - {"type":"compare","title":"...","items":[{"name":"...","note":"..."} x3-5]}
 - {"type":"outro","headline":"...","cta":"Subscribe to ${CHANNEL}","keywords":["broll term"]}
 
-VOICE & VIBE — sound like a top tech YouTuber, NOT a news anchor:
-- Talk straight to ONE viewer ("you", "here's the thing", "okay so real quick"). Confident, chill, a little playful — MKBHD / Fireship energy: fast, clever, opinionated, never dry or corporate.
+VOICE & VIBE — sound like a top tech YouTuber, NOT a news anchor or press release:
+- Talk straight to ONE viewer ("you", "here's the thing", "okay so real quick"). Fast, opinionated, has a clear take on every topic — MKBHD / Fireship energy: clever, confident, never dry or corporate.
+- Every scene must answer or imply "so what does this mean for YOU?" — make the viewer feel personally addressed.
 - The HOOK decides everything. Open on a bold claim, a "wait, what?" twist, a spicy question, or a jaw-drop number that stops the scroll. NEVER open with "Today we'll look at…", "In this video", or "Let's talk about".
-- Light Gen-Z flavor is welcome when it fits — natural and current, NOT forced slang or cringe. Have a take; add a little attitude.
-- Use curiosity gaps between beats to pull them forward ("but here's where it gets crazy…", "and that's not even the wild part").
+- Have a real take; add attitude. Even "honestly, this is overhyped" or "this is a bigger deal than it sounds" gives the viewer a reason to care.
+- Use curiosity gaps between beats to pull them forward ("but here's where it gets interesting…", "and that's not even the wild part").
 - Hype the DELIVERY, not fake facts — stay accurate and substantive.
+- WORD CHOICE is everything — the voice carries energy through individual words, not sentence length. Use vocabulary that sounds like it came from an intense, smart young person: "literally", "honestly", "barely", "somehow", "actually", "wild", "genius move", "dumb", "terrifyingly". Every word should feel spoken, not written.
 
 RULES:
 - Start with "hook", end with "outro".
@@ -179,6 +184,7 @@ RULES:
 - Wrap the 1-2 most important words per text line in **double asterisks** to highlight them.
 - PACING (critical): each "vo" is ONE short, punchy sentence — MAX ~16 words. Never write 2-3 long sentences in one scene; split into more scenes instead. Aim for fast 4-7 second beats. More short scenes beats fewer long ones.
 - "vo" is spoken narration: natural, energetic, spell acronyms phonetically ("A-I","I-P-O","C-E-O").
+- Never let the "vo" simply restate the on-screen heading or bullets. Each "vo" must ADD something the viewer cannot read on screen.
 - Be ACCURATE — only use facts present in the research notes. No invented numbers.
 
 "meta" MUST be: { "title":"<clickable YouTube title>", "description":"<2-3 sentences + a line of #hashtags>", "tags":["...", 12-18 SPECIFIC tags: real names/companies/products/topics from the video, plus search phrases viewers would type], "thumbnail":{"badge":"<pillar tag>","bigText":"<3-5 punchy words>","subText":"<short>","accent":"<pillar hex>","channelName":"${CHANNEL}"} }
@@ -211,8 +217,8 @@ Allowed scene types (each needs "type" + a "vo"):
 - {"type":"outro","headline":"...","cta":"Follow ${CHANNEL}","keywords":["broll term"]}
 
 VOICE & VIBE — this is a scroll-stopping Short from a viral tech creator:
-- Chill, fast, confident, talking straight to the viewer ("you"). A little playful, a little opinionated — never a robotic news read. Light Gen-Z flavor when natural.
-- First 2 seconds = make-or-break. Open on a bold claim / number / "wait what?" question so nobody swipes away. NEVER a slow "In this video…" intro.
+- AGGRESSIVE pacing — first word must be the biggest number or boldest claim, zero setup, zero context. Fast, confident, talking straight to the viewer ("you"). Opinionated, never a robotic news read.
+- First 1-2 seconds = make-or-break. Open on the BIGGEST number or most surprising fact — no greeting, no "so", no "welcome". NEVER a slow "In this video…" intro.
 - Keep a curiosity gap so they watch to the end; the outro lands the payoff + a reason to follow.
 
 ${SPECIFICITY_RULES}
@@ -221,7 +227,7 @@ RULES:
 - TOTAL spoken time ~25-35 seconds. Each "vo" is ONE punchy sentence, MAX ~12 words.
 - The HOOK must grab attention in the first 2 seconds — bold claim, number, or question.
 - Wrap the 1-2 most important words per line in **double asterisks**.
-- "vo" is spoken narration: energetic, acronyms phonetic ("A-I","I-P-O","C-E-O").
+- "vo" is spoken narration: energetic, acronyms phonetic ("A-I","I-P-O","C-E-O"). Never restate the on-screen heading in the "vo".
 - Be ACCURATE — only facts present in the research notes. No invented numbers.
 
 "meta" MUST be: { "title":"<punchy Shorts title>", "description":"<1-2 sentences + #Shorts and a few #hashtags>", "tags":["...", 10-15 SPECIFIC tags], "thumbnail":{"badge":"<pillar tag>","bigText":"<3-4 punchy words>","subText":"<short>","accent":"<pillar hex>","channelName":"${CHANNEL}"} }
@@ -270,8 +276,9 @@ NON-NEGOTIABLE (this is what stops it sounding like an ad):
 - An outro verdict that also says who should SKIP it.
 ${SPECIFICITY_RULES}
 WRITING:
-- "vo" is spoken: authoritative, clear and engaging — like an expert who knows it deeply and is explaining it so the viewer truly understands. 1-4 sentences per scene. TOTAL narration ~320-450 words.
+- "vo" is spoken: sharp, fast, opinionated — like an expert who knows it deeply and gives you the honest take. 1-2 punchy sentences per scene. TOTAL narration ~280-380 words (tighter = better).
 - NEVER say "I used / I tried / I tested / when I set it up / it tripped me up" or imply hands-on use. Use explanatory framing: "Here's how it works...", "Where it struggles is...", "What makes it clever is...", "In practice, this means...".
+- Every "vo" must say something the on-screen text does NOT. Never narrate the heading or bullets.
 - Wrap the 1-2 most important words per line in **double asterisks**.
 - Acronyms spoken phonetically ("A-I","A-P-I"). "keywords" are ENGLISH stock-footage search terms for the beat's mood.
 
@@ -310,8 +317,10 @@ Build the explainer in THIS order (every scene needs "vo" = spoken narration):
 9. {"type":"outro","headline":"<the one-line takeaway>","cta":"Subscribe to ${CHANNEL}","keywords":["broll term"]}
 ${SPECIFICITY_RULES}
 VOICE & VIBE:
-- Talk straight to the viewer, confident and a little opinionated — like a sharp tech news explainer, not a press release read aloud.
-- Open on the fact, never "today we're talking about" or "let's dive into".
+- Talk straight to the viewer, fast and opinionated — like a sharp tech news explainer with a take, not a press release read aloud. Every scene should imply "here's why YOU should care".
+- Open on the fact — the number or the name — never "today we're talking about" or "let's dive into".
+- Never narrate the heading. If your "vo" starts with "What just happened:" or "Why now:" — delete that label and just say the thing.
+- WORD CHOICE drives the voice's energy. Use words an intense young speaker would actually say: "here's why", "actually", "so here's the thing", "honestly", "literally", "barely", "somehow", "wild". Avoid neutral/formal vocabulary.
 - Wrap the 1-2 most important words per line in **double asterisks**.
 - PACING: each "vo" is ONE short, punchy sentence — MAX ~16 words. More short scenes beats fewer long ones.
 - Acronyms spoken phonetically ("A-I","I-P-O","C-E-O").
@@ -350,7 +359,10 @@ Build the deep-dive in THIS order (every scene needs "vo"):
 8. {"type":"outro","headline":"<the one-line takeaway>","cta":"Subscribe to ${CHANNEL}","keywords":["broll term"]}
 ${SPECIFICITY_RULES}
 VOICE & VIBE:
-- Confident, curious, a little cinematic — like a documentary-style tech explainer connecting the dots, not a hype reel.
+- Fast, grounded, connecting the dots for the viewer — like a documentary-style tech explainer who has a real take, not a hype reel. Every scene must imply "and here's what that means for you".
+- Name real companies and real numbers. Never vague futurism ("the future of X", "on the horizon").
+- Never narrate the heading. The "vo" should add insight, not echo the bullet.
+- Use sharp, specific words that sound like a real person talking: "actually", "honestly", "somehow", "barely", "here's the pattern", "so here's why". No neutral/formal vocabulary.
 - Wrap the 1-2 most important words per line in **double asterisks**.
 - PACING: each "vo" is ONE short, punchy sentence — MAX ~16 words.
 - Acronyms spoken phonetically.
@@ -389,7 +401,9 @@ Build the breakdown in THIS order (every scene needs "vo"):
 9. {"type":"outro","headline":"<the one-line takeaway>","cta":"Subscribe to ${CHANNEL}","keywords":["broll term"]}
 ${SPECIFICITY_RULES}
 VOICE & VIBE:
-- Sharp, a little skeptical, numbers-driven — like a business-explainer creator who actually gets finance, not a press release.
+- Sharp, skeptical, numbers-first, opinionated — like a business-explainer creator who actually gets finance, not a press release. Every scene should make the viewer feel smarter about where the money actually goes.
+- Never narrate the heading. The "vo" must reveal the mechanism or the risk that the on-screen text only labels.
+- Use words that sound like a sharp analyst talking to a friend: "so here's how they actually make money", "the catch?", "honestly", "barely", "here's the real number". No corporate/neutral phrasing.
 - Wrap the 1-2 most important words per line in **double asterisks**.
 - PACING: each "vo" is ONE short, punchy sentence — MAX ~16 words.
 - Acronyms spoken phonetically.
@@ -694,12 +708,12 @@ async function main() {
           role: "system",
           content:
             pillarId === "tools"
-              ? `You are a viral tech YouTuber and sharp analyst for ${channelName} — you break tools down with strong hooks and chill, engaging, opinionated energy (think a top tech reviewer), while staying honest about what they are, how they work, and their real strengths and limitations. You NEVER claim to have personally used, tried, or tested a tool. Every claim is a concrete fact from the research — never vague hype. Output ONLY JSON.`
+              ? `You are a viral tech YouTuber and sharp analyst for ${channelName} — you break tools down with strong hooks and fast, opinionated, high-energy delivery (think a top tech reviewer), while staying honest about what they are, how they work, and their real strengths and limitations. You NEVER claim to have personally used, tried, or tested a tool. Every claim is a concrete fact from the research — never vague hype. Output ONLY JSON.`
               : pillarId === "business"
-                ? `You are a sharp business-explainer YouTuber for ${channelName} — think the top US/UK channels that break down company strategy and money with real numbers, not vague industry talk. Confident, a little skeptical, always concrete — you name the real numbers, the real mechanism, the real risk. Output ONLY JSON.`
+                ? `You are a sharp business-explainer YouTuber for ${channelName} — think the top US/UK channels that break down company strategy and money with real numbers, not vague industry talk. Confident, skeptical, has a strong take — you name the real numbers, the real mechanism, the real risk. Output ONLY JSON.`
                 : pillarId === "trend"
-                  ? `You are a documentary-style tech-trend explainer for ${channelName} — think Cleo Abram / Johnny Harris energy: grounded in real data, connecting the dots between named companies and events, honest about what's still uncertain. Never vague futurism. Output ONLY JSON.`
-                  : `You are a sharp tech-news explainer YouTuber for ${channelName} — hook-driven, chill, engaging, always concrete and well-sourced (real names, numbers, mechanisms), never vague AI hype. Output ONLY JSON.`,
+                  ? `You are a documentary-style tech-trend explainer for ${channelName} — think Cleo Abram / Johnny Harris energy: grounded in real data, connecting the dots between named companies and events, honest about what's still uncertain. Fast, never vague futurism. Output ONLY JSON.`
+                  : `You are a sharp tech-news explainer YouTuber for ${channelName} — hook-driven, fast, opinionated, always concrete and well-sourced (real names, numbers, mechanisms), never vague AI hype. Output ONLY JSON.`,
         },
         {
           role: "user",

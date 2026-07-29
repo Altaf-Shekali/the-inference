@@ -36,10 +36,11 @@ const readJSON = (p, fb) => fs.readFile(p, "utf8").then(JSON.parse).catch(() => 
 const PILLARS = ["ainews", "tools", "trend", "business"];
 
 // Selectable voices. value = "<engine>:<voiceId>". "" = default / reuse.
-//   edge   = Microsoft Edge cloud voices (word-accurate caption timing)
-//   kokoro = local Apache-2.0 voices (offline, commercial-license-clean)
+//   edge    = Microsoft Edge cloud voices (word-accurate caption timing)
+//   kokoro  = local Apache-2.0 voices (offline, commercial-license-clean)
+//   cartesia = Cartesia Sonic cloud voices (en/hi/kn, natural flow)
 const VOICES = [
-  { value: "", label: "Default (Edge · Andrew — standard)" },
+  { value: "", label: "Default (channel’s voice)" },
   { value: "edge:en-US-AndrewMultilingualNeural", label: "Edge · Andrew — natural male" },
   { value: "edge:en-US-AvaMultilingualNeural", label: "Edge · Ava — natural female" },
   { value: "edge:en-US-BrianMultilingualNeural", label: "Edge · Brian — confident male" },
@@ -48,6 +49,15 @@ const VOICES = [
   { value: "kokoro:am_adam", label: "Kokoro · Adam — US male (local)" },
   { value: "kokoro:af_heart", label: "Kokoro · Heart — US female (local)" },
   { value: "kokoro:bm_george", label: "Kokoro · George — UK male (local)" },
+  { value: "cartesia:5ee9feff-1265-424a-9d7f-8e4d431a12c7", label: "Cartesia · Ronald — Thinker (default)" },
+  { value: "cartesia:db6b0ed5-d5d3-463d-ae85-518a07d3c2b4", label: "Cartesia · Skylar — Friendly Guide" },
+  { value: "cartesia:79f8b5fb-2cc8-479a-80df-29f7a7cf1a3e", label: "Cartesia · Theo — Modern Narrator" },
+  { value: "cartesia:a33f7a4c-100f-41cf-a1fd-5822e8fc253f", label: "Cartesia · Lauren — Lively Narrator" },
+  { value: "cartesia:00967b2f-88a6-4a31-8153-110a92134b9f", label: "Cartesia · Asher — Podcaster" },
+  { value: "cartesia:65209f8e-6140-4a20-b819-3cc2e21da19b", label: "Cartesia · Nolan — Expressive Agent" },
+  { value: "cartesia:5abd2130-146a-41b1-bcdb-974ea8e19f56", label: "Cartesia · Sunny — Pep Talker" },
+  { value: "cartesia:156fb8d2-335b-4950-9cb3-a2d33befec77", label: "Cartesia · Jo — Go to Gal" },
+  { value: "cartesia:8d8ce8c9-44a4-46c4-b10f-9a927b99a853", label: "Cartesia · Connie — Candid Conversationalist" },
 ];
 const VOICE_VALUES = new Set(VOICES.map((v) => v.value).filter(Boolean));
 const parseVoice = (v) => {

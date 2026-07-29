@@ -1,0 +1,141 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tech Trend",
+  "accent": "#F43F5E",
+  "source": [
+    "Deloitte's 2026 Global Human Capital Trends",
+    "Globenewswire - Agentic AI in Fraud Detection Market Report 2026",
+    "Startus-Insights Tech Forecast [2026-2030]",
+    "Deloitte - The agentic reality gap"
+  ],
+  "voice": "db6b0ed5-d5d3-463d-ae85-518a07d3c2b4",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "Tech Trend",
+      "headline": "**$55.66 Billion** Agentic AI Fraud Detection Market by 2030",
+      "sub": "Preparing for Silicon-Based Agentic Reality",
+      "keywords": [
+        "Agentic AI",
+        "Fraud Detection"
+      ],
+      "vo": "Welcome to the future of security, where the Agentic AI Fraud Detection Market is projected to skyrocket to **$55.66 Billion** by 2030. Get ready for a paradigm shift in how we combat financial fraud."
+    },
+    {
+      "type": "point",
+      "heading": "The Pattern",
+      "bullets": [
+        "Shift from **tensions to tipping points** in tech adoption (Deloitte 2026)",
+        "**49.1% CAGR** in Agentic AI for Fraud Detection (2025-2026)",
+        "Expected to reach **$55.66 Billion** by 2030"
+      ],
+      "keywords": [
+        "Agentic AI Growth",
+        "CAGR"
+      ],
+      "vo": "It all starts with **The Pattern**: increasing cashless transactions, evolving fraud tactics, and the demand for real-time prevention are aligning to drive this market's exponential growth."
+    },
+    {
+      "type": "bars",
+      "title": "Agentic AI Fraud Detection Market Growth",
+      "unit": "Billions USD",
+      "data": [
+        {
+          "label": "2025",
+          "value": 7.73
+        },
+        {
+          "label": "2026",
+          "value": 11.53
+        },
+        {
+          "label": "2030 (Forecast)",
+          "value": 55.66
+        }
+      ],
+      "source": "Globenewswire - Agentic AI in Fraud Detection Market Report 2026",
+      "vo": "Look at the numbers: from $7.73 Billion in 2025 to $11.53 Billion in 2026, with a CAGR of 49.1%. **Agentic AI Fraud Detection Market Growth** is not just promising, it's explosive."
+    },
+    {
+      "type": "point",
+      "heading": "Why This Is Happening",
+      "bullets": [
+        "**Surge in Cashless Transactions**",
+        "**Evolving Fraud Tactics**",
+        "**Demand for Real-Time Prevention**"
+      ],
+      "keywords": [
+        "Cashless Transactions",
+        "Real-Time Prevention"
+      ],
+      "vo": "**Why This Is Happening**: Innovations like self-learning fraud agents and autonomous response systems are transforming digital finance and regulatory compliance, leaving traditional methods behind."
+    },
+    {
+      "type": "outro",
+      "headline": "New here? Subscribe",
+      "cta": "Subscribe to The Inference",
+      "vo": "And if you're watching The Inference for the first time, and you're into AI news, tools and tech breakdowns, do hit subscribe — we drop a fresh one every day.",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "Who's Leading",
+      "bullets": [
+        "**HPE**: AI Agent 'Alfred' for Operational Performance",
+        "**Toyota**: Agentic Tools for Supply Chain Management",
+        "**Mapfre & Moderna**: Integrating AI Agents with Human Workforce"
+      ],
+      "keywords": [
+        "HPE",
+        "Toyota",
+        "Mapfre",
+        "Moderna"
+      ],
+      "vo": "**Who's Leading** the charge? Companies leveraging AI agents and decision intelligence are at the forefront, with potential for up to $920 Billion in annual net economic benefit by 2026, as highlighted by Morgan Stanley."
+    },
+    {
+      "type": "point",
+      "heading": "Where It's Heading",
+      "bullets": [
+        "**15% of Daily Work Decisions** Autonomously by Agentic AI by 2028 (Gartner)",
+        "**Programmable Money & Decision Intelligence** for Mass Adoption by 2030"
+      ],
+      "keywords": [
+        "Autonomous Decisions",
+        "Programmable Money"
+      ],
+      "vo": "**Where It's Heading**: Towards a future where 15% of daily work decisions will be made autonomously by Agentic AI by 2028, bridging **The Agentic Reality Gap** between promise and practice."
+    },
+    {
+      "type": "point",
+      "heading": "What Could Break This",
+      "bullets": [
+        "**Legacy System Incompatibility** (Gartner: >40% Project Failures by 2027)",
+        "**Inefficient Workflow Redesign** Leading to 'Workslop'"
+      ],
+      "keywords": [
+        "Legacy System Challenges",
+        "Workslop"
+      ],
+      "vo": "**What Could Break This**? Legacy system incompatibility, outdated data architectures, and the failure to adapt processes for autonomous interactions could hinder up to 40% of Agentic AI projects by 2027, warns Gartner."
+    },
+    {
+      "type": "outro",
+      "headline": "**Silicon-Based Agentic Reality: The Next Frontier**",
+      "cta": "Subscribe to The Inference for More Tech Trends",
+      "keywords": [
+        "Agentic Reality",
+        "Tech Trends"
+      ],
+      "vo": "**Silicon-Based Agentic Reality: The Next Frontier**. As we embark on this technological leap, one question remains - will your organization lead the transformation or lag behind?"
+    }
+  ],
+  "template": "horizon",
+  "lang": "en",
+  "engine": "cartesia",
+  "fallbackVoice": "en-US-AvaMultilingualNeural"
+}

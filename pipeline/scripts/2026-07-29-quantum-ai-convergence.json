@@ -1,0 +1,79 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tech Trend",
+  "accent": "#F43F5E",
+  "source": "TQI, IBM, European Central Bank, TechTarget, McKinsey",
+  "voice": "5ee9feff-1265-424a-9d7f-8e4d431a12c7",
+  "music": "",
+  "showCaptions": true,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "$10B",
+      "headline": "Quantum AI Convergence by 2026",
+      "sub": "TQI Predicts Major Disruption",
+      "keywords": [
+        "Quantum AI",
+        "2026 Trends"
+      ],
+      "vo": "You're about to see **$10B** in Quantum AI investments by 2026, disrupting industries in ways you haven't imagined."
+    },
+    {
+      "type": "stat",
+      "value": "**52%**",
+      "label": "Companies Spending $5M+ Annually on Quantum",
+      "source": "McKinsey's Quantum Technology Monitor 2026",
+      "vo": "McKinsey reveals **52%** of analyzed companies are already spending **$5M+ annually** on quantum efforts, a clear sign of commitment."
+    },
+    {
+      "type": "outro",
+      "headline": "New here? Subscribe",
+      "cta": "Subscribe to The Inference",
+      "vo": "And if you're watching The Inference for the first time, and you're into AI news, tools and tech breakdowns, do hit subscribe — we drop a fresh one every day.",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "Key Impacted Industries by 2026",
+      "bullets": [
+        "Pharmaceutical R&D (Simulations)",
+        "Cybersecurity (Quantum Key Distribution)",
+        "Materials Science"
+      ],
+      "keywords": [
+        "Quantum Simulations",
+        "QKD"
+      ],
+      "vo": "From **pharma simulations** to **quantum key distribution** in cybersecurity, and **materials science**, the impact will be profound."
+    },
+    {
+      "type": "point",
+      "heading": "Challenges & Realities",
+      "bullets": [
+        "Operational Costs: Tens of Millions Annually",
+        "Geopolitical Tensions Over Quantum Capabilities"
+      ],
+      "keywords": [
+        "Quantum Costs",
+        "Geopolitical Tensions"
+      ],
+      "vo": "But here's the reality check: **tens of millions in operational costs** and **escalating geopolitical tensions** over quantum capabilities."
+    },
+    {
+      "type": "outro",
+      "headline": "Stay Ahead of the Quantum AI Curve",
+      "cta": "Follow The Inference for Updates",
+      "keywords": [
+        "Quantum AI Updates",
+        "The Inference"
+      ],
+      "vo": "Don't get left behind. **Follow The Inference** for the latest on Quantum AI convergence and its game-changing implications."
+    }
+  ],
+  "template": "horizon",
+  "lang": "en",
+  "engine": "cartesia",
+  "fallbackVoice": "en-US-AvaMultilingualNeural"
+}

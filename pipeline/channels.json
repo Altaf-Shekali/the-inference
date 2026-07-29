@@ -6,7 +6,7 @@
     "niche": "ainews",
     "pillars": ["ainews", "tools", "trend", "business"],
     "engine": "cartesia",
-    "cartesiaVoice": "db6b0ed5-d5d3-463d-ae85-518a07d3c2b4",
+    "cartesiaVoice": "5ee9feff-1265-424a-9d7f-8e4d431a12c7",
     "voice": "en-US-AvaMultilingualNeural",
     "region": "US",
     "uploadTime": "23:30",
