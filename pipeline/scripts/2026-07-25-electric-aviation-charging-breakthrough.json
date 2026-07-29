@@ -1,0 +1,142 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tech Trend",
+  "accent": "#F43F5E",
+  "source": [
+    "Aviation International News (Gulf Air, Virgin Atlantic)",
+    "Fuel Cells Works (Vertical Aerospace)",
+    "Investing.com (Airbus LEIA project)",
+    "Aviation Week (UK CAA Hydrogen Flight)",
+    "Utility Dive (US Power Sector Emissions)"
+  ],
+  "voice": "en-US-AvaMultilingualNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "Tech Trend",
+      "headline": "**4% Rise in US Power Emissions** Fuels Electric Aviation Push",
+      "sub": "Can Vertical Aerospace's High-Power Charging Make Commercial Electric Flight Reality?",
+      "keywords": [
+        "Electric Aviation",
+        "High-Power Charging"
+      ],
+      "vo": "A stark reality: US power emissions have risen by 4%. This surge is catalyzing a push towards electric aviation, a cleaner, quieter future for flights."
+    },
+    {
+      "type": "point",
+      "heading": "The Pattern",
+      "bullets": [
+        "CO2 emissions from the US power sector **rose by 4%** in 2025",
+        "**Electric Aviation** investments surge as airlines seek sustainable options (e.g., Gulf Air, Virgin Atlantic)",
+        "**High-Power Charging** emerges as a critical bottleneck"
+      ],
+      "keywords": [
+        "Electric Aviation",
+        "Sustainability"
+      ],
+      "vo": "The pattern is clear - reduced emissions are a global priority. Airlines like Gulf Air are exploring electric options, such as JetZero’s Z4 blended-wing body airliner."
+    },
+    {
+      "type": "bars",
+      "title": "Electric Aviation Investment Growth",
+      "unit": "% Increase",
+      "data": [
+        {
+          "label": "2023",
+          "value": 10
+        },
+        {
+          "label": "2024",
+          "value": 25
+        },
+        {
+          "label": "2025 (Proj.)",
+          "value": 40
+        }
+      ],
+      "source": "Compiled from Aviation International News & Investing.com trends",
+      "vo": "Electric aviation investment is soaring, with a significant spike in the last year alone. This trend indicates a market shift towards sustainable flight solutions."
+    },
+    {
+      "type": "point",
+      "heading": "Why This Is Happening",
+      "bullets": [
+        "**Regulatory Pressure**: UK CAA aims for hydrogen flight operations by **2035**",
+        "**Environmental Concerns**: Rising emissions highlight need for alternatives",
+        "**Technological Readiness**: Advances in battery tech and **high-power charging**"
+      ],
+      "keywords": [
+        "Regulatory Push",
+        "Technological Advancements"
+      ],
+      "vo": "Why the rush? Regulatory pressures and consumer demand for eco-friendly travel are driving forces. The I-P-O potential for electric aviation startups is immense."
+    },
+    {
+      "type": "outro",
+      "headline": "New here? Subscribe",
+      "cta": "Subscribe to The Inference",
+      "vo": "And if you're watching The Inference for the first time, and you're into AI news, tools and tech breakdowns, do hit subscribe — we drop a fresh one every day.",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "Who's Leading",
+      "bullets": [
+        "**Vertical Aerospace**: Developing **high-power charging** for commercial electric aviation",
+        "**Airbus**: Advances in hybrid-electric aircraft with **LEIA project**",
+        "**Joby & Virgin Atlantic**: Pioneering eVTOL air taxi services"
+      ],
+      "keywords": [
+        "Vertical Aerospace",
+        "Airbus LEIA",
+        "Joby Aviation"
+      ],
+      "vo": "Who’s leading the charge? Vertical Aerospace is at the forefront with its development of high-power charging tech, crucial for commercial electric aviation viability."
+    },
+    {
+      "type": "point",
+      "heading": "Where It's Heading",
+      "bullets": [
+        "**Short-Term (2026-2028)**: Expect first commercial eVTOL services (e.g., Virgin Atlantic & Joby)",
+        "**Mid-Term (2030)**: **High-power charging** standards likely to emerge",
+        "**Long-Term (2035+)**: Hydrogen fuel cell aircraft could dominate long-haul"
+      ],
+      "keywords": [
+        "eVTOL Services",
+        "Hydrogen Fuel Cells"
+      ],
+      "vo": "Where is this heading? Towards integrated transport solutions, like Virgin Atlantic’s eV-T-O-L air taxi alliance with Joby, promising faster, greener commutes, A-I powered for efficiency."
+    },
+    {
+      "type": "point",
+      "heading": "What Could Break This",
+      "bullets": [
+        "**Charging Infrastructure Gaps**",
+        "**Battery Technology Limitations**",
+        "**Regulatory Delays** (e.g., beyond UK CAA’s 2035 target)"
+      ],
+      "keywords": [
+        "Infrastructure Challenges",
+        "Technological Limitations"
+      ],
+      "vo": "What could derail this progress? Scalability of high-power charging infrastructure and stringent regulatory approvals are key challenges to overcome."
+    },
+    {
+      "type": "outro",
+      "headline": "**Electric Aviation's Future Hinges on Charging Tech & Regulation**",
+      "cta": "Subscribe to The Inference for Deep Tech Insights",
+      "keywords": [
+        "Electric Aviation",
+        "The Inference"
+      ],
+      "vo": "**Electric Aviation’s Future Hinges on Two Pivotal Factors:** The widespread adoption of high-power charging technology and harmonized global regulation to make commercial electric flights a everyday reality."
+    }
+  ],
+  "template": "horizon",
+  "lang": "en",
+  "engine": "edge"
+}

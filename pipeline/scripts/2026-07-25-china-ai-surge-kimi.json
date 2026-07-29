@@ -1,0 +1,137 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "AI News",
+  "accent": "#3B9EFF",
+  "source": [
+    "Tech Xplore (https://techxplore.com/news/2026-07-chinese-ai-tech-industry-abilities.html)",
+    "Los Angeles Times (https://www.latimes.com/business/story/2026-07-20/chinese-ai-model-rivals-chatgpt-jolting-silicon-valley)",
+    "CyberScoop (https://cyberscoop.com/tech-leaders-open-source-ai-cybersecurity/)",
+    "The New York Times (https://www.nytimes.com/2026/07/23/business/china-ai-soft-power.html)",
+    "Axios (https://www.axios.com/2026/07/18/china-ai-open-source-kimi-anthropic-openai)",
+    "Bloomberg (https://www.bloomberg.com/news/articles/2026-07-20/chinese-ai-sensation-moonshot-s-gamble-on-big-models-pays-off)"
+  ],
+  "voice": "en-US-AvaMultilingualNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "AI News",
+      "headline": "**China's Kimi K3 AI Model Surpasses US Counterparts**",
+      "sub": "Open-Source Strategy Shakes US Tech Dominance",
+      "keywords": [
+        "Kimi K3",
+        "Open-Source AI"
+      ],
+      "vo": "In a shocking turn of events, China's Kimi K3 A-I model has surpassed its U.S. counterparts, including Anthropic's Claude and OpenA-I's ChatGPT, in capabilities."
+    },
+    {
+      "type": "point",
+      "heading": "What Just Happened",
+      "bullets": [
+        "Beijing-based **Moonshot**'s **Kimi K3** rivals **Anthropic's Claude** and **OpenAI's ChatGPT** (Tech Xplore)",
+        "Released as **open-source**, contrasting with closed US models (Los Angeles Times)",
+        "Topped **Arena's** ranking for 'front-end coding capability' (Tech Xplore)"
+      ],
+      "keywords": [
+        "Moonshot",
+        "Open-Source"
+      ],
+      "vo": "So, what just happened? Beijing-based startup Moonshot released Kimi K3, an open-source A-I model that's outperforming closed U.S. models in key benchmarks."
+    },
+    {
+      "type": "point",
+      "heading": "Why Now",
+      "bullets": [
+        "**China's rapid embrace of AI** with significant investments (Tech Xplore)",
+        "**Global shift towards open-source AI** for accessibility and customization (CyberScoop)",
+        "**Economic strategy** to gain global influence through low-cost AI solutions (The New York Times)"
+      ],
+      "keywords": [
+        "AI Adoption",
+        "Global Shift"
+      ],
+      "vo": "Why now? The rapid embrace of A-I in China, coupled with the global push for open-source A-I (backed by tech giants like Microsoft), has accelerated this breakthrough."
+    },
+    {
+      "type": "point",
+      "heading": "How It Actually Works",
+      "bullets": [
+        "**Kimi K3's Architecture**: Utilizes a **transformer-based model** with **customizable layers** for enhanced coding capabilities (Inferred from Tech Xplore's 'front-end coding capability' mention)",
+        "**Open-Source Strategy**: Allows **global developers** to **download, modify, and deploy** locally, reducing dependency on cloud services (Los Angeles Times)"
+      ],
+      "keywords": [
+        "Transformer Model",
+        "Customizable AI"
+      ],
+      "vo": "How does Kimi K3 work? While exact details are scarce, its 'front-end coding capability' - a measure of large language model performance - has topped Arena's rankings, outcoding rivals."
+    },
+    {
+      "type": "outro",
+      "headline": "New here? Subscribe",
+      "cta": "Subscribe to The Inference",
+      "vo": "And if you're watching The Inference for the first time, and you're into AI news, tools and tech breakdowns, do hit subscribe — we drop a fresh one every day.",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "stat",
+      "value": "**Top 5 Spots on OpenRouter**",
+      "label": "Occupied by Chinese Open-Source AI Models (Axios)",
+      "source": "Axios",
+      "vo": "The numbers don't lie: Kimi K3 has claimed the top spot on OpenRouter's rankings, followed by... (pause for dramatic effect) ...with the next four spots yet to be fully disclosed."
+    },
+    {
+      "type": "point",
+      "heading": "Why It Matters",
+      "bullets": [
+        "**Threat to US Tech Dominance**: Could make premium US models **niche products** (Axios)",
+        "**Global Accessibility**: **Low-cost, customizable AI** for businesses worldwide (The New York Times)",
+        "**Security Concerns**: Open-source AI models may increase **vulnerability to misuse** (CyberScoop)"
+      ],
+      "keywords": [
+        "Tech Dominance",
+        "Accessibility"
+      ],
+      "vo": "Why does it matter? This shift signals a potential end to U.S. dominance in A-I tech, with open-source models leading the charge towards a more democratized A-I landscape."
+    },
+    {
+      "type": "point",
+      "heading": "The Catch",
+      "bullets": [
+        "**Security Risks**: Open-source models can be **easily exploited** by malicious actors (CyberScoop)",
+        "**Sustainability**: **Energy consumption** of large models like Kimi K3 remains a concern (Inferred, not directly stated but relevant)",
+        "**Quality Control**: Open-source models may lack the **rigorous testing** of closed models (Inferred)"
+      ],
+      "keywords": [
+        "Security Risks",
+        "Sustainability"
+      ],
+      "vo": "The catch? Despite its prowess, Kimi K3's long-term sustainability and whether it can maintain its lead against forthcoming U.S. updates remain to be seen."
+    },
+    {
+      "type": "quote",
+      "quote": "**'This may be the single biggest release of the year'**",
+      "attribution": "**Anastasios Angelopoulos, CEO of Arena**",
+      "keywords": [
+        "Anastasios Angelopoulos",
+        "Arena"
+      ],
+      "vo": "'This may be the single biggest A-I release of the year,' says Anastasios Angelopoulos, CEO of Arena, highlighting the model's unprecedented impact on the global A-I stage."
+    },
+    {
+      "type": "outro",
+      "headline": "**China's Open-Source AI Leap: A New Global Tech Landscape**",
+      "cta": "Subscribe to The Inference for More AI Insights",
+      "keywords": [
+        "Global Tech Landscape",
+        "The Inference"
+      ],
+      "vo": "And that's the story of China's open-source A-I leap, ushering in a new global tech landscape. Will the U.S. reclaim its footing, or has the A-I paradigm forever shifted?"
+    }
+  ],
+  "template": "wire",
+  "lang": "en",
+  "engine": "edge"
+}

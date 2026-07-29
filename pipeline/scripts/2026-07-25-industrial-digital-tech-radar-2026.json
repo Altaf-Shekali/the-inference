@@ -1,0 +1,142 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tech Trend",
+  "accent": "#F43F5E",
+  "source": [
+    "MarketScale (Industrial Manufacturing M&A reports)",
+    "iTnews (MMG Digital Twin Deployment)",
+    "Dice.com (Manufacturing IT Talent Crunch)",
+    "TCS (Physical AI in Manufacturing Study)"
+  ],
+  "voice": "en-US-AvaMultilingualNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "Tech Trend",
+      "headline": "**$173 Billion** Industrial Manufacturing M&A Surge in 2026",
+      "sub": "Mega-deals and AI Drive Sector Transformation",
+      "keywords": [
+        "Industrial IoT",
+        "M&A Surge"
+      ],
+      "vo": "Welcome to the revolution in industrial manufacturing, where Mergers and Acquisitions have surged to a staggering **$173 Billion** in 2026, marking a 28% increase from the previous year."
+    },
+    {
+      "type": "point",
+      "heading": "The Pattern",
+      "bullets": [
+        "28% YoY Increase in Industrial Manufacturing M&A (PwC)",
+        "Mega-deals (> $5B) Now 56% of Total Deal Value",
+        "**Convergence Deals** Outpace Single-Theme Investments"
+      ],
+      "keywords": [
+        "Mega-deals",
+        "Convergence Deals"
+      ],
+      "vo": "The Pattern is clear: convergence deals are outpacing single-theme investments, driven by the pursuit of AI infrastructure, grid modernization, and defense-related manufacturing advancements."
+    },
+    {
+      "type": "bars",
+      "title": "Industrial Manufacturing M&A Growth",
+      "unit": "Billion USD",
+      "data": [
+        {
+          "label": "FY 2025",
+          "value": 135
+        },
+        {
+          "label": "FY 2026",
+          "value": 173
+        },
+        {
+          "label": "YoY Growth",
+          "value": 28
+        }
+      ],
+      "source": "PwC's 2026 Midyear Deals Outlook",
+      "vo": "Industrial Manufacturing M&A Growth hits an all-time high, with mega-deals (above $5 billion) now accounting for **56%** of the total deal value, a significant leap from 18% in FY 2024."
+    },
+    {
+      "type": "point",
+      "heading": "Why This Is Happening",
+      "bullets": [
+        "**AI Infrastructure** and Grid Modernization Drive Demand",
+        "Defense-Linked Manufacturing Assets in High Demand",
+        "Supply Chain Convergence for Competitive Advantage"
+      ],
+      "keywords": [
+        "AI Infrastructure",
+        "Supply Chain Convergence"
+      ],
+      "vo": "Why This Is Happening? Strategic buyers are driving the surge, seeking to leverage technologies like Digital Twins, as seen with MMG's successful deployment at their Queensland zinc mine, optimizing plant operations."
+    },
+    {
+      "type": "outro",
+      "headline": "New here? Subscribe",
+      "cta": "Subscribe to The Inference",
+      "vo": "And if you're watching The Inference for the first time, and you're into AI news, tools and tech breakdowns, do hit subscribe — we drop a fresh one every day.",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "Who's Leading",
+      "bullets": [
+        "**MMG** Deploys Digital Twin for Zinc Processing Optimization",
+        "**TCS** Reports **77%** of Manufacturers Expect Warehouse Transformation via Physical AI",
+        "**GoTo** Highlights IT Skills Gap in Smart Manufacturing"
+      ],
+      "keywords": [
+        "MMG",
+        "TCS",
+        "GoTo"
+      ],
+      "vo": "Who's Leading? Companies like MMG, in partnership with innovators such as Hatch, are at the forefront, harnessing the power of digital technologies to transform their operations."
+    },
+    {
+      "type": "point",
+      "heading": "Where It's Heading",
+      "bullets": [
+        "Expected **Further Consolidation** in Industrial Manufacturing by 2027",
+        "**Physical AI** to See **Enterprise-Wide Deployment** in Manufacturing by 2028 (TCS Study)",
+        "**IT Talent Shortage** to Intensify Unless Addressed (Dice.com)"
+      ],
+      "keywords": [
+        "Further Consolidation",
+        "Physical AI Adoption"
+      ],
+      "vo": "Where It's Heading? Towards further integration of AI, with **A-I** visibility solutions becoming crucial for Industrial IoT teams to navigate the converged marketplace effectively."
+    },
+    {
+      "type": "point",
+      "heading": "What Could Break This",
+      "bullets": [
+        "**Supply Chain Disruptions** Impacting Mega-Deal Integrations",
+        "**Talent Gap** Slowing AI and Digital Twin Implementations",
+        "**Regulatory Uncertainty** Around AI in Manufacturing"
+      ],
+      "keywords": [
+        "Supply Chain Risks",
+        "Talent Gap",
+        "Regulatory Uncertainty"
+      ],
+      "vo": "What Could Break This? Supply chain constraints and the challenge of integrating disparate technologies could potentially disrupt the momentum of this **I-P-O** (Industrial, Process, Optimization) driven M&A boom."
+    },
+    {
+      "type": "outro",
+      "headline": "**Industrial Manufacturing's AI-Driven M&A Boom: Here to Stay**",
+      "cta": "Subscribe to The Inference for More Tech Trends",
+      "keywords": [
+        "Industrial Manufacturing",
+        "AI-Driven M&A"
+      ],
+      "vo": "**Industrial Manufacturing's AI-Driven M&A Boom: Here to Stay**. As the sector continues to evolve, one thing is clear - digital transformation is leading the charge."
+    }
+  ],
+  "template": "horizon",
+  "lang": "en",
+  "engine": "edge"
+}

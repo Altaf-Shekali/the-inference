@@ -1,0 +1,144 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Business",
+  "accent": "#F5B301",
+  "source": [
+    "Business Insider",
+    "New York Post",
+    "Semafor",
+    "Zamin.uz",
+    "Reuters"
+  ],
+  "voice": "en-US-AvaMultilingualNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "Business",
+      "headline": "**$200B+ AI Spending** by Big Tech in 2026",
+      "sub": "Can Trillions in AI Investments Yield Expected Returns?",
+      "keywords": [
+        "AI Spending",
+        "Big Tech",
+        "2026"
+      ],
+      "vo": "Welcome to the trillion-dollar question: can Big Tech's **$200B+ AI Spending** in 2026 yield the expected returns?"
+    },
+    {
+      "type": "point",
+      "heading": "The Business",
+      "bullets": [
+        "Big Tech (e.g., Alphabet, Tesla) invests heavily in AI development and integration."
+      ],
+      "keywords": [
+        "Alphabet",
+        "Tesla",
+        "AI Development"
+      ],
+      "vo": "At the heart of this frenzy is **The Business** of AI, where tech giants bet big on innovation to stay ahead."
+    },
+    {
+      "type": "stat",
+      "value": "**$195-$205 Billion** (Alphabet's revised capex for 2026)",
+      "label": "Capital Expenditure for AI and Infrastructure",
+      "source": "New York Post",
+      "vo": "Alphabet sets the pace with a revised capital expenditure forecast of **$195-$205 Billion** for 2026, a significant leap."
+    },
+    {
+      "type": "point",
+      "heading": "How They Actually Make Money",
+      "bullets": [
+        "Monetization through enhanced services (e.g., **Gemini** by Google), potential future AI-driven products."
+      ],
+      "keywords": [
+        "Gemini",
+        "AI-driven Services"
+      ],
+      "vo": "But **How They Actually Make Money** from AI remains a mystery, with investments dwarfing current revenue streams."
+    },
+    {
+      "type": "outro",
+      "headline": "New here? Subscribe",
+      "cta": "Subscribe to The Inference",
+      "vo": "And if you're watching The Inference for the first time, and you're into AI news, tools and tech breakdowns, do hit subscribe — we drop a fresh one every day.",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "The Strategy",
+      "bullets": [
+        "Race to dominate the AI market before competitors (e.g., **ChatGPT**), enhance existing platforms."
+      ],
+      "keywords": [
+        "AI Market Dominance",
+        "ChatGPT"
+      ],
+      "vo": "**The Strategy**? Outspend the competition in the hope of cornering the A-I market before returns materialize."
+    },
+    {
+      "type": "bars",
+      "title": "Capex Increase (YoY)",
+      "unit": "Billion USD",
+      "data": [
+        {
+          "label": "Alphabet (2026 Forecast)",
+          "value": 200
+        },
+        {
+          "label": "Tesla (Q2 2026)",
+          "value": 5.79
+        },
+        {
+          "label": "IBM (Impacted by AI Spending)",
+          "value": 0
+        }
+      ],
+      "source": "New York Post & Provided Notes",
+      "vo": "The numbers tell the tale: a steep **Capex Increase (YoY)** across the board, with Tesla's capex surging 142%."
+    },
+    {
+      "type": "point",
+      "heading": "The Catch",
+      "bullets": [
+        "**Hidden Debts** and Investor Anxiety Over AI Spending Sustainability (e.g., IBM’s stock plunge).",
+        "Market **Volatility** (e.g., Alphabet, Tesla stock drops post AI spending announcements)"
+      ],
+      "keywords": [
+        "Hidden Debts",
+        "Investor Anxiety",
+        "Market Volatility"
+      ],
+      "vo": "**The Catch**: Investors grow wary, punishing stocks (Alphabet down 5%, Tesla down 10%) over concerns of unyielding spending."
+    },
+    {
+      "type": "point",
+      "heading": "What's Next",
+      "bullets": [
+        "Earnings Reports to Reveal **Concrete ROI** on AI Investments",
+        "Potential **Regulatory Scrutiny** on AI Development Costs"
+      ],
+      "keywords": [
+        "ROI on AI",
+        "Regulatory Scrutiny"
+      ],
+      "vo": "**What's Next**? A delicate balance between cutting-edge A-I investments and the quest for tangible, investor-pleasing returns."
+    },
+    {
+      "type": "outro",
+      "headline": "**The AI Spending Conundrum**",
+      "cta": "Subscribe to The Inference for More",
+      "keywords": [
+        "AI Spending",
+        "Big Tech",
+        "The Inference"
+      ],
+      "vo": "And so, we're left with **The AI Spending Conundrum**: will trillions in investment pave the way to unprecedented success, or signal a bubble waiting to burst?"
+    }
+  ],
+  "template": "ledger",
+  "lang": "en",
+  "engine": "edge"
+}

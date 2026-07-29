@@ -1,0 +1,146 @@
+{
+  "channelName": "The Inference",
+  "topicTag": "Tech Trend",
+  "accent": "#F43F5E",
+  "source": [
+    "CyberScoop",
+    "LinkedIn",
+    "Help Net Security",
+    "TechCrunch",
+    "Dark Reading",
+    "Axios"
+  ],
+  "voice": "en-US-AvaMultilingualNeural",
+  "music": "",
+  "showCaptions": false,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "Tech Trend",
+      "headline": "**Zero to Exploited in Hours**: AI's Cyber Warfare Shift",
+      "sub": "The race to fix bugs before they're exploited",
+      "keywords": [
+        "AI Cyber Warfare",
+        "Bug Fixing Race"
+      ],
+      "vo": "Welcome to the new frontier of cyber warfare, where AI can turn a vulnerability into an exploited threat in just hours. The race is on. **Zero to Exploited in Hours**"
+    },
+    {
+      "type": "point",
+      "heading": "The Pattern",
+      "bullets": [
+        "AI models can now exploit vulnerabilities **in hours**, not days/weeks",
+        "**47% drop** in mean time to remediation (Synack's 2026 Report)",
+        "**48,244 Published CVEs** in 2025, a 20% YoY increase"
+      ],
+      "keywords": [
+        "AI Exploitation Speed",
+        "Vulnerability Remediation"
+      ],
+      "vo": "The pattern is clear: AI models, like those from Anthropic and OpenAI, are closing the gap between discovery and exploitation at an alarming rate, leaving little time for response."
+    },
+    {
+      "type": "bars",
+      "title": "Published CVEs Growth",
+      "unit": "Number of CVEs",
+      "data": [
+        {
+          "label": "2022",
+          "value": 40000
+        },
+        {
+          "label": "2023",
+          "value": 43000
+        },
+        {
+          "label": "2024",
+          "value": 45000
+        },
+        {
+          "label": "2025",
+          "value": 48244
+        }
+      ],
+      "source": "Help Net Security, citing Synack's Report",
+      "vo": "Published CVEs (Common Vulnerabilities and Exposures) are on the rise, a stark reminder of the growing battlefield. The numbers don't lie; the threat landscape is expanding exponentially."
+    },
+    {
+      "type": "point",
+      "heading": "Why This is Happening",
+      "bullets": [
+        "**AI-Driven Vulnerabilities** outpace traditional defense strategies",
+        "Government **export controls** (e.g., on Anthropic’s Mythos) are temporary solutions",
+        "**OpenAI's GPT-5.5** already nearing Anthropic's capabilities"
+      ],
+      "keywords": [
+        "AI Vulnerabilities",
+        "Export Controls Limitations"
+      ],
+      "vo": "Why is this happening? Simply put, AI's capability to find and exploit vulnerabilities outpaces human defenses, and blocking models is merely a temporary fix, as seen with Mythos and Fable."
+    },
+    {
+      "type": "outro",
+      "headline": "New here? Subscribe",
+      "cta": "Subscribe to The Inference",
+      "vo": "And if you're watching The Inference for the first time, and you're into AI news, tools and tech breakdowns, do hit subscribe — we drop a fresh one every day.",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "Who's Leading",
+      "bullets": [
+        "**Anthropic** with Mythos, despite export control challenges",
+        "**OpenAI** pushing boundaries with GPT-5.5",
+        "**Google** highlighting the shift in its zero-day tracking"
+      ],
+      "keywords": [
+        "Anthropic",
+        "OpenAI",
+        "Google's Zero-Day Insights"
+      ],
+      "vo": "Who's leading the charge against this shift? While companies like Anthropic and OpenAI innovate, experts argue only a cohesive government strategy can provide long-term defense."
+    },
+    {
+      "type": "point",
+      "heading": "Where It's Heading",
+      "bullets": [
+        "**Increased Investment** in AI for **proactive vulnerability management** by 2027",
+        "Government Strategies to regulate and defend against AI-driven threats (speculation, based on current trends)",
+        "**Continuous Security Validation** as the new norm"
+      ],
+      "keywords": [
+        "Proactive Vulnerability Management",
+        "AI Regulation"
+      ],
+      "vo": "Where is this heading? Towards a future where mean time to remediation continues to drop, but so does the window for response, necessitating a 'fix first, discover later' paradigm."
+    },
+    {
+      "type": "point",
+      "heading": "What Could Break This",
+      "bullets": [
+        "**False Positives in LLMs** overwhelming security teams (Dark Reading)",
+        "**Lack of Context** in current AI vulnerability scanning tools",
+        "**Regulatory Challenges** in keeping pace with AI advancements"
+      ],
+      "keywords": [
+        "LLM False Positives",
+        "Regulatory Gaps"
+      ],
+      "vo": "What could break this cycle? A shift towards continuous security validation and the development of AI that prioritizes vulnerability patching over exploitation capabilities."
+    },
+    {
+      "type": "outro",
+      "headline": "**The New Cyber Arms Race: Fix First, Discover Later**",
+      "cta": "Subscribe to The Inference for more Tech Trends",
+      "keywords": [
+        "Cyber Arms Race Evolution"
+      ],
+      "vo": "**The New Cyber Arms Race: Fix First, Discover Later**. The future of cybersecurity hangs in the balance, where the ability to fix bugs before they're exploited will be the decisive factor."
+    }
+  ],
+  "template": "horizon",
+  "lang": "en",
+  "engine": "edge"
+}
