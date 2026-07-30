@@ -659,8 +659,9 @@ async function main() {
   for (const q of (pick.queries || []).slice(0, 4)) {
     const res = await search(q, 4);
     for (const r of res.slice(0, 2)) {
+      if (/\.(png|jpg|jpeg|gif|webp|svg)(\?|$)/i.test(r.url)) continue;
       const body = r.content || (await fetchText(r.url, 2500));
-      if (body) notes.push(`SOURCE: ${r.title} (${r.url})\n${body.slice(0, 2000)}`);
+      if (body) notes.push(`SOURCE: ${r.title} (${r.url})\n${body.replace(/!\[.*?\]\(.*?\)/g, "").slice(0, 2000)}`);
     }
   }
   // grounding guard: if fetches failed (e.g. search rate-limited), at least
