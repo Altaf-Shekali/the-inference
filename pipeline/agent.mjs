@@ -675,9 +675,17 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
   }
   const KNOWN_JOB_SCENES = new Set(["introCard", "table", "facts", "outro"]);
   script.scenes = (Array.isArray(script.scenes) ? script.scenes : []).filter((s) => s && KNOWN_JOB_SCENES.has(s.type));
+  // the channel's signature sign-off — used whenever the model leaves the outro
+  // vo empty (falling back to the headline made videos end mid-thought)
+  const OUTRO_VO =
+    "ವಿಡಿಯೋವನ್ನ ಪೂರ್ತಿಯಾಗಿ ನೋಡಿದ್ದಕ್ಕೆ ಧನ್ಯವಾದಗಳು. ಇನ್ನು ನಮ್ಮ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿಲ್ಲ ಅಂದ್ರೆ ಈಗಲೇ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ, ಪಕ್ಕದಲ್ಲಿರುವ ಬೆಲ್ ಐಕಾನ್ ಪ್ರೆಸ್ ಮಾಡಿ. ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ಅಧಿಕೃತ ವೆಬ್‌ಸೈಟ್‌ನಲ್ಲಿ ಎಲ್ಲಾ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ. ಥ್ಯಾಂಕ್ ಯು.";
   script.scenes.forEach((s) => {
-    if (!s.vo || !String(s.vo).trim()) s.vo = s.heading || s.title || s.headline || "";
+    if (!s.vo || !String(s.vo).trim()) s.vo = s.type === "outro" ? OUTRO_VO : s.heading || s.title || s.headline || "";
   });
+  // guarantee the video always closes properly
+  if (!script.scenes.some((s) => s.type === "outro")) {
+    script.scenes.push({ type: "outro", headline: script.title || "", cta: `${channelName} ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ`, disclaimer: "ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ಅಧಿಕೃತ ವೆಬ್‌ಸೈಟ್‌ನಲ್ಲಿ ಎಲ್ಲಾ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ", vo: OUTRO_VO });
+  }
   if (script.scenes.length < 3) throw new Error("Gemini returned too few usable slides");
   if (!script.scenes[0].title) script.scenes[0].title = script.title;
 
@@ -685,6 +693,28 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
   meta.lang = "kn";
   meta.categoryId = "27"; // Education — the standard category for job/exam info channels
   if (!meta.title) meta.title = pick.title;
+  // the channel's evergreen generic tags (same set the original videos always used),
+  // merged in front of the notification-specific ones, deduped, capped ~480 chars
+  {
+    const GENERIC = ["kannada", "karnataka", "karnataka jobs", "kannada jobs", "kannada job news", "10th pass job", "govt jobs karnataka", "government jobs", "sarkari naukri", "free job alert", "ಸರ್ಕಾರಿ ಉದ್ಯೋಗ", "ಉದ್ಯೋಗ ಮಾಹಿತಿ", "ಕನ್ನಡ"];
+    const seen = new Set();
+    const merged = [];
+    for (const t of [...GENERIC, ...(Array.isArray(meta.tags) ? meta.tags : [])]) {
+      const tt = String(t).trim();
+      const k = tt.toLowerCase();
+      if (tt && !seen.has(k)) {
+        seen.add(k);
+        merged.push(tt);
+      }
+    }
+    let len = 0;
+    meta.tags = [];
+    for (const tt of merged) {
+      if (len + tt.length + 1 > 480) break;
+      meta.tags.push(tt);
+      len += tt.length + 1;
+    }
+  }
   if (meta.thumbnail) {
     meta.thumbnail.channelName = channelName;
     meta.thumbnail.accent = "#D9A514";
