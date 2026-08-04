@@ -19,13 +19,20 @@ const readLocal = (f) => {
   }
 };
 
-const loadKey = () =>
-  (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || readLocal("gemini.key") || "").trim();
+// Cache the key after the first successful read — when the repo lives on a flaky
+// network share, a mid-run file-read blip must not kill generation #2 of a run.
+let KEY_CACHE = "";
+const loadKey = () => {
+  if (KEY_CACHE) return KEY_CACHE;
+  KEY_CACHE = (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || readLocal("gemini.key") || "").trim();
+  return KEY_CACHE;
+};
 const MODEL = process.env.GEMINI_MODEL || readLocal("gemini.model") || "gemini-2.5-flash";
 
 export const hasGemini = () => loadKey().length > 0;
 
-/** first balanced JSON array/object in a string */
+/** first balanced JSON array/object in a string — string-aware, so braces and
+ *  brackets inside dialogue/text values never confuse the depth counter */
 function extractJson(text) {
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/);
   const body = fenced ? fenced[1] : text;
@@ -34,9 +41,19 @@ function extractJson(text) {
   const open = body[start];
   const close = open === "{" ? "}" : "]";
   let depth = 0;
+  let inStr = false;
+  let esc = false;
   for (let i = start; i < body.length; i++) {
-    if (body[i] === open) depth++;
-    else if (body[i] === close && --depth === 0) return JSON.parse(body.slice(start, i + 1));
+    const ch = body[i];
+    if (inStr) {
+      if (esc) esc = false;
+      else if (ch === "\\") esc = true;
+      else if (ch === '"') inStr = false;
+      continue;
+    }
+    if (ch === '"') inStr = true;
+    else if (ch === open) depth++;
+    else if (ch === close && --depth === 0) return JSON.parse(body.slice(start, i + 1));
   }
   throw new Error("unbalanced JSON in Gemini output");
 }
@@ -68,18 +85,25 @@ function salvageObjects(text) {
 const sleep = (ms) => new Promise((s) => setTimeout(s, ms));
 
 /** call `makeFetch` (a thunk returning a fresh fetch promise), retrying on 429
- *  (rate limit) and 5xx with backoff. Free-tier per-minute quota resets quickly,
- *  so a short wait recovers instead of silently failing. Returns the final Response. */
+ *  (rate limit), 5xx AND network-level fetch failures ("fetch failed" on a flaky
+ *  hotspot/link) with backoff. Returns the final Response, or throws the last
+ *  network error only after all tries are exhausted. */
 async function withRetry(makeFetch, { tries = 3, base = 20000 } = {}) {
   let r;
+  let lastErr = null;
   for (let i = 0; i < tries; i++) {
-    r = await makeFetch();
-    if (r.status !== 429 && r.status < 500) return r;
-    if (i < tries - 1) {
+    try {
+      r = await makeFetch();
+      lastErr = null;
+      if (r.status !== 429 && r.status < 500) return r;
       if (process.env.QUIZ_DEBUG) console.error(`[gemini] ${r.status} — retrying in ${(base * (i + 1)) / 1000}s`);
-      await sleep(base * (i + 1)); // 20s, 40s
+    } catch (e) {
+      lastErr = e; // network drop — wait and retry
+      if (process.env.QUIZ_DEBUG) console.error(`[gemini] ${e.message} — retrying in ${(base * (i + 1)) / 1000}s`);
     }
+    if (i < tries - 1) await sleep(base * (i + 1)); // 20s, 40s
   }
+  if (lastErr) throw lastErr;
   return r;
 }
 
@@ -419,4 +443,113 @@ export async function geminiJobs({ facts, category, channelName, sourceUrl = "" 
 
   const out = extractJson(await generate(user, { temperature: 0.4, system, maxOutputTokens: 8192 }));
   return { script: out.script || out, meta: out.meta || {} };
+}
+
+// ---- SERIALIZED HINDI DRAMA (Pocket FM / KukuFM style) ----------------------
+// Roman Hindi (Hinglish) micro-drama series: 6 parts, hard cliffhanger per part.
+// The persona carries ORIGINAL reference excerpts (written for this channel, not
+// copied from any platform) so the model matches the exact addictive style.
+
+const DRAMA_STYLE_REFERENCE = `
+REFERENCE EXCERPTS — this is the EXACT style, rhythm and quality bar (original samples; match the craft, never reuse these plots):
+
+[HOOK — how a part opens]
+"Shaadi ke mandap par, poore khandaan ke saamne, Aarav ko thappad maara gaya. 'Yeh waiter hai waiter! Iske paas toh khud ki gaadi tak nahi!' Poora hall hans pada. Aarav ne bas apni muthi bheench li... kyunki sirf woh jaanta tha — jis aadmi ka yeh log mazaak uda rahe hain, wahi is sheher ki sabse badi company ka maalik hai. Aur kal subah 9 baje... inhi logon ki kismat uske ek signature se badalne wali thi."
+
+[SCENE — how tension is dramatized, not summarized]
+"Meera ki saans ruk gayi. Conference room ka darwaza khula... aur andar aaya woh hi ladka jise usne kal raat bhikari samajh kar 100 rupaye diye the. Wahi phati jacket. Wahi purani chappal. Lekin aaj... poora board room khada ho gaya. 'Good morning, Sir,' CEO ne jhuk kar kaha. Meera ke haath se file gir gayi."
+
+[DIALOGUE — short, cutting, filmy]
+"'Tum? YEH company tumhari hai?' Meera ki aawaaz kaanp rahi thi.
+Aarav muskuraya. 'Nahi. Yeh company... aur woh bank jisme tumhare papa kaam karte hain... dono meri hain.'
+'Toh kal raat tumne mujhe bataya kyun nahi?'
+'Kyunki kal raat,' Aarav uske paas aaya, 'pehli baar kisi ne mujhse mera naam nahi... mera haal poocha tha.'"
+
+[CLIFFHANGER — how every part ENDS (no resolution, cut at the sharpest moment)]
+"Meera ne darwaza khola... aur uske haath se phone chhoot gaya. Saamne wahi aadmi khada tha jise duniya chhe mahine pehle mar chuka maan chuki thi. 'Surprise,' usne muskura kar kaha. 'Ab khel shuru hota hai.'"
+`;
+
+export function dramaPersona() {
+  return `You are the head writer of a wildly addictive Hindi micro-drama channel — the kind of serialized stories that top Pocket FM / KukuFM charts and vertical-drama apps. You write in ROMAN HINDI (Hinglish, Latin script) for narration by a young female voice.
+
+Your craft rules (non-negotiable):
+- SHOW, don't summarize. Never write "phir usne yeh kiya, phir woh hua" — dramatize every beat as a living scene with action, dialogue and reaction. Summary-style narration is a FAILURE.
+- Dialogue is your weapon: short, cutting, filmy lines in quotes — the voice actor performs them. At least a third of each episode is dialogue.
+- Emotion through concrete detail: a trembling hand, a dropped file, a held breath — not "woh bahut dukhi thi".
+- A turn every 30-45 seconds: a reveal, a humiliation, a rescue, a betrayal, a flashback punch. Never let two flat minutes pass.
+- The audience must ALWAYS know something a character doesn't (dramatic irony) — that's the addiction engine.
+- Every part ends EXACTLY on the sharpest cliffhanger moment — mid-confrontation, mid-reveal, door opening. NEVER resolve it, never soften it with a closing summary line.
+- Natural Hinglish: everyday English words stay English (CEO, office, contract, board meeting, phone). No Devanagari anywhere.
+- Original characters and plots every series. Tropes are shared property; specific existing stories are not — never imitate a named show.
+${DRAMA_STYLE_REFERENCE}
+Output ONLY JSON.`;
+}
+
+/** Create a new series: concept, characters, and a part-by-part arc plan. */
+export async function geminiDramaConcept({ trope, guidance, totalParts = 6, avoidTitles = [] }) {
+  const user =
+    `Create a NEW ${totalParts}-part serialized Hindi micro-drama for the trope: ${trope} — ${guidance}\n` +
+    `${avoidTitles.length ? `Already made (do NOT resemble): ${avoidTitles.join("; ")}\n` : ""}` +
+    `Design it like a chart-topping Pocket FM serial: a killer premise with a secret the AUDIENCE knows early, escalating humiliations/reversals, and a finale payoff worth 6 parts of waiting.\n\n` +
+    `Return ONE JSON object:\n` +
+    `{ "title":"<short, thumbnail-ready Roman-Hindi series title, e.g. 'Secret CEO Ki Dulhan'>",\n` +
+    `  "slug":"<kebab-case-series-slug>",\n` +
+    `  "logline":"<2 sentences: the hook of the whole series>",\n` +
+    `  "characters":"<compact sheet: each main character - name, role, secret, want>",\n` +
+    `  "arc":[ EXACTLY ${totalParts} strings — one per part: "Part N: the beats of that part, ending with its exact cliffhanger" ] }`;
+  // Gemini 2.5 thinking tokens share this budget — keep generous headroom.
+  // Creative dialogue occasionally breaks JSON escaping — resample on parse failure.
+  let lastErr;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      return extractJson(await generate(user, { temperature: 0.95, system: dramaPersona(), maxOutputTokens: 12000 }));
+    } catch (e) {
+      lastErr = e;
+      console.warn(`   concept attempt ${attempt} failed (${e.message}) — retrying`);
+    }
+  }
+  throw lastErr;
+}
+
+/**
+ * Write ONE episode of the current series + a Shorts teaser + updated state.
+ * Scenes use the AINews template shape (hook/point/quote/outro with vo+keywords)
+ * so the existing build/render pipeline works unchanged.
+ */
+export async function geminiDramaEpisode({ series, part, channelName }) {
+  const isFirst = part === 1;
+  const isLast = part === series.totalParts;
+  const user =
+    `Write PART ${part} of ${series.totalParts} of the serialized drama "${series.title}".\n\n` +
+    `SERIES BIBLE:\nLogline: ${series.logline}\nCharacters:\n${series.characters}\n\nFULL ARC PLAN:\n${series.arc.join("\n")}\n\n` +
+    `STORY SO FAR (through Part ${part - 1}): ${isFirst ? "(this is Part 1 — nothing yet)" : series.soFar}\n` +
+    `${!isFirst ? `LAST PART ENDED ON THIS CLIFFHANGER (continue from EXACTLY here after the recap): ${series.cliffhanger}\n` : ""}\n` +
+    `EPISODE REQUIREMENTS:\n` +
+    `- Follow the arc plan for Part ${part} (adapt freely for drama, but hit its planned cliffhanger).\n` +
+    `- ${isFirst ? `COLD OPEN: the series' most explosive hook in the first two lines.` : `Open with a 25-35 second dramatic recap ("Ab tak aapne dekha...") that makes NEW viewers desperate to watch earlier parts, then continue the scene from the cliffhanger.`}\n` +
+    `- ${isLast ? `This is the FINALE: deliver the full payoff the series promised, punish/redeem who deserves it, land an emotional final beat — then a 1-line tease that a NEW story starts tomorrow.` : `End EXACTLY on Part ${part}'s cliffhanger + a spoken CTA: "Part ${part + 1} miss mat karna — subscribe kar lo abhi."`}\n` +
+    `- Narration total ~750-950 Roman-Hindi words. EVERY scene needs "vo".\n\n` +
+    `Return ONE JSON object: { "script":{...}, "short":{...}, "meta":{...}, "state":{...} }\n\n` +
+    `"script" = { "channelName":"${channelName}", "scenes":[ 10-14 scenes ] } — scene types:\n` +
+    `- {"type":"hook","kicker":"Part ${part}","headline":"<3-6 word Roman-Hindi punch>","sub":"<one-line tease>","keywords":["cinematic broll term"],"vo":"..."}  (first scene)\n` +
+    `- {"type":"point","heading":"<2-5 word Roman-Hindi beat title>","bullets":[],"keywords":["cinematic broll term"],"vo":"<the scene: narration + dialogue>"}  (most scenes; bullets stay EMPTY)\n` +
+    `- {"type":"quote","quote":"<the most chilling line of the episode>","attribution":"<character name>","keywords":["cinematic broll term"],"vo":"..."}  (use once at the peak)\n` +
+    `- {"type":"outro","headline":"<cliffhanger text on screen>","cta":"Part ${part + 1} — kal | Subscribe","keywords":["cinematic broll term"],"vo":"<the cliffhanger + CTA>"}  (last scene)\n` +
+    `- "keywords" = ENGLISH stock-footage terms matching each scene's mood ("luxury office night","rain window sad","wedding hall drama","city lights car"). 2-3 words.\n\n` +
+    `"short" = { "scenes":[ 4 scenes, same types, TOTAL ~60-80 words ] } — a Shorts teaser: THE single most dramatic moment of this part, cut to end mid-tension with vo CTA "poora part channel par hai".\n\n` +
+    `"meta" = { "title":"${series.title} - Part ${part} | <curiosity subtitle in Roman Hindi, max 45 chars>", "description":"<2-3 Roman-Hindi sentences selling THIS part, no spoilers of its ending>", "tags":[14-18 tags: hindi kahani, hindi story, suspense story hindi, pocket fm style story, audio story hindi, drama story, plus series/trope-specific], "thumbnail":{"badge":"PART ${part}","bigText":"<3-4 word Roman-Hindi shock line>","subText":"<short tease>","accent":"#E11D48","channelName":"${channelName}"} }\n\n` +
+    `"state" = { "soFar":"<updated 120-180 word summary of the story through THIS part — written for the writer of the next part>", "cliffhanger":"<the EXACT cliffhanger moment this part ended on, 1-2 sentences>" }`;
+  // Big response (full episode + teaser + meta + state) AND Gemini 2.5 spends
+  // "thinking" tokens from the same budget — 8192 truncated mid-JSON.
+  // Dialogue-heavy fiction occasionally breaks JSON escaping — resample on failure.
+  let lastErr;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      return extractJson(await generate(user, { temperature: 0.9, system: dramaPersona(), maxOutputTokens: 20000 }));
+    } catch (e) {
+      lastErr = e;
+      console.warn(`   episode attempt ${attempt} failed (${e.message}) — retrying`);
+    }
+  }
+  throw lastErr;
 }

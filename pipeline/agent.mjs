@@ -16,7 +16,7 @@ import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 import { chat, chatJSON, hasKey, modelName } from "./llm.mjs";
 import { search, fetchText } from "./search.mjs";
-import { hasGemini, geminiTranslate, geminiNarrative, storyPersona, psychPersona, geminiQuiz, geminiJobs } from "./gemini.mjs";
+import { hasGemini, geminiTranslate, geminiNarrative, storyPersona, psychPersona, geminiQuiz, geminiJobs, geminiDramaConcept, geminiDramaEpisode } from "./gemini.mjs";
 import { getChannel, channelUsedTopicsPath } from "./channels.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -105,6 +105,17 @@ const JOB_CATS = {
     guidance: "FACTUAL information about a REAL upcoming Karnataka government exam: dates, pattern, syllabus highlights, eligibility, admit-card/result updates. No coaching advice — information only.",
   },
 };
+
+// Serialized Hindi micro-drama tropes (niche "drama") — one series (~6 parts,
+// one part/day) per trope, rotating. The proven Pocket FM / KukuFM formulas.
+const DRAMA_TROPES = {
+  secretrich: { topicTag: "Secret Rich", guidance: "A hidden billionaire/CEO living as ordinary (waiter, driver, 'poor' spouse) is humiliated by people who don't know who they are — the audience knows. Escalating disrespect → devastating reveal → power reversal." },
+  revenge: { topicTag: "Revenge", guidance: "Someone betrayed, cheated or left for dead returns — richer, stronger, unrecognizable — to systematically take everything back from those who destroyed them." },
+  contractmarriage: { topicTag: "Contract Marriage", guidance: "A fake/contract marriage between strangers with opposing agendas slowly turns real — while a secret one of them is hiding threatens to burn it all down." },
+  betrayal: { topicTag: "Betrayal", guidance: "The person they trusted most — spouse, best friend, sibling — has been lying all along. The discovery, the gaslighting, and the quiet plan to turn the tables." },
+  underestimated: { topicTag: "Underestimated", guidance: "The 'useless' one everyone mocks — the ghar-jamai, the dropout, the plain sister — is secretly extraordinary, and circumstances force the reveal one layer at a time." },
+};
+const DRAMA_ORDER = ["secretrich", "revenge", "contractmarriage", "betrayal", "underestimated"];
 
 // Languages for localized channels. Non-English forces the Edge engine (it has
 // native hi/kn neural voices; Kokoro doesn't). The Remotion template renders
@@ -644,7 +655,14 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
   script.accent = "#D9A514";
   script.template = "jobs";
   script.lang = "kn";
-  script.logo = channel.logo || "";
+  // logo only if the file actually exists — a missing image would 404 in the
+  // renderer and CANCEL the whole render (Remotion <Img> retries then aborts).
+  script.logo = "";
+  if (channel.logo) {
+    const logoAbs = path.join(ROOT, "public", channel.logo);
+    if (await fs.access(logoAbs).then(() => true).catch(() => false)) script.logo = channel.logo;
+    else console.warn(`   ⚠ logo not found (public/${channel.logo}) — rendering without it`);
+  }
   script.music = "";
   script.showCaptions = false;
   if ((channel.engine || "") === "cartesia") {
@@ -705,6 +723,195 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
     const privacyFlag = publishAt ? "" : channel.privacy === "public" ? " --public" : channel.privacy === "unlisted" ? " --unlisted" : "";
     console.log(`\n⑤ uploading to YouTube (${publishAt ? `scheduled ${publishAt}` : channel.privacy || "private"})…`);
     execSync(`node pipeline/publish.mjs "${base}" --channel=${channel.id}${privacyFlag}${atFlag}`, { cwd: ROOT, stdio: "inherit" });
+  }
+}
+
+/** Serialized Hindi micro-drama pipeline (niche "drama") — one part per day.
+ *  Series state (bible, story-so-far, cliffhanger) lives in
+ *  pipeline/channels/<id>/series-state.json so each day continues EXACTLY where
+ *  the last part stopped. Every part also gets a Shorts teaser, and each part's
+ *  description links all previously uploaded parts (the binge loop). */
+async function runDrama({ channel, channelName, dateStr, doRender, doUpload, publishAt }) {
+  console.log(`Agent: Drama  |  ${channelName}  |  ${dateStr}`);
+  const stateDir = path.dirname(channelUsedTopicsPath(channel.id));
+  const statePath = path.join(stateDir, "series-state.json");
+  let state = { current: null, completed: [] };
+  try {
+    state = JSON.parse(await fs.readFile(statePath, "utf8"));
+  } catch {
+    /* first run */
+  }
+
+  // ① SERIES — continue the running one, or create the next series (new trope)
+  if (!state.current) {
+    const tropeId = DRAMA_ORDER[(state.completed?.length || 0) % DRAMA_ORDER.length];
+    const t = DRAMA_TROPES[tropeId];
+    console.log(`① creating a new series (trope: ${tropeId})…`);
+    const c = await geminiDramaConcept({
+      trope: t.topicTag,
+      guidance: t.guidance,
+      totalParts: 6,
+      avoidTitles: (state.completed || []).map((s) => s.title),
+    });
+    if (!c?.title || !Array.isArray(c.arc) || c.arc.length < 4) throw new Error("series concept generation failed");
+    state.current = {
+      slug: slugify(c.slug || c.title),
+      title: c.title,
+      trope: tropeId,
+      logline: c.logline || "",
+      characters: c.characters || "",
+      arc: c.arc,
+      totalParts: c.arc.length,
+      part: 0,
+      soFar: "",
+      cliffhanger: "",
+    };
+    console.log(`   series: "${state.current.title}" (${state.current.totalParts} parts)`);
+    // persist the concept NOW — if the episode call fails, the series survives
+    // and the retry continues it instead of inventing a new one.
+    await fs.mkdir(stateDir, { recursive: true });
+    await fs.writeFile(statePath, JSON.stringify(state, null, 2));
+  }
+  const series = state.current;
+  const part = series.part + 1;
+  console.log(`② writing "${series.title}" — Part ${part}/${series.totalParts}…`);
+
+  // ② EPISODE — retry once at the shape level too (a rare sample returns valid
+  // JSON with a wrong/short structure; a resample almost always fixes it).
+  let ep;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    ep = await geminiDramaEpisode({ series, part, channelName });
+    const ok = Array.isArray(ep?.script?.scenes) && ep.script.scenes.length >= 6 && ep?.state?.soFar && ep?.state?.cliffhanger;
+    if (ok) break;
+    console.warn(`   episode shape invalid (attempt ${attempt}) — ${attempt < 2 ? "resampling" : "giving up"}`);
+  }
+  const script = ep.script || {};
+  const tropeTag = DRAMA_TROPES[series.trope]?.topicTag || "Drama";
+  script.channelName = channelName;
+  script.topicTag = tropeTag;
+  script.template = "horizon";
+  script.accent = "#E11D48";
+  script.lang = "hi";
+  script.music = "";
+  script.showCaptions = true;
+  if ((channel.engine || "") === "cartesia") {
+    script.engine = "cartesia";
+    script.voice = channel.cartesiaVoice || "";
+    script.fallbackVoice = channel.voice || "hi-IN-SwaraNeural";
+  } else {
+    script.engine = "edge";
+    script.voice = channel.voice || "hi-IN-SwaraNeural";
+  }
+  script.scenes = normalizeScenes(script.scenes);
+  script.scenes.forEach((s) => {
+    if (!s.vo || !String(s.vo).trim()) s.vo = s.headline || s.heading || s.quote || s.cta || "";
+  });
+  if (script.scenes.length < 6) throw new Error("episode came back with too few scenes");
+  if (!ep.state?.soFar || !ep.state?.cliffhanger) throw new Error("episode did not return updated series state");
+
+  // Shorts teaser — its own tiny script sharing the episode's look/voice
+  const shortDoc = {
+    channelName,
+    topicTag: tropeTag,
+    template: script.template,
+    accent: script.accent,
+    lang: "hi",
+    music: "",
+    showCaptions: true,
+    engine: script.engine,
+    voice: script.voice,
+    fallbackVoice: script.fallbackVoice,
+    source: "",
+    scenes: normalizeScenes(ep.short?.scenes || []),
+  };
+  shortDoc.scenes.forEach((s) => {
+    if (!s.vo || !String(s.vo).trim()) s.vo = s.headline || s.heading || "";
+  });
+
+  // ③ META + cross-links to previously uploaded parts (the binge loop)
+  const meta = ep.meta || {};
+  meta.title = meta.title || `${series.title} - Part ${part}`;
+  meta.channel = channel.id;
+  meta.lang = "hi";
+  meta.categoryId = "24"; // Entertainment
+  if (meta.thumbnail) {
+    meta.thumbnail.channelName = channelName;
+    meta.thumbnail.badge = `PART ${part}`;
+  }
+  try {
+    const uploads = JSON.parse(await fs.readFile(path.join(ROOT, "pipeline", "uploads.json"), "utf8"));
+    const prev = uploads
+      .filter((u) => u.kind !== "short" && String(u.base || "").includes(`-${series.slug}-part-`))
+      .map((u) => ({ n: Number(/-part-(\d+)-/.exec(u.base)?.[1] || 0), url: u.url }))
+      .filter((p) => p.n > 0 && p.n < part)
+      .sort((a, b) => a.n - b.n);
+    if (prev.length) meta.description = `${meta.description || ""}\n\nPichhle parts yahan dekho:\n${prev.map((p) => `Part ${p.n}: ${p.url}`).join("\n")}`;
+  } catch {
+    /* no uploads yet */
+  }
+  meta.description = `${meta.description || ""}\n\n#hindikahani #hindistory #suspensestory #dramastory #hindikahaniyan #audiostory`;
+
+  const base = `${dateStr}-${series.slug}-part-${part}-${channel.id}`;
+  await fs.mkdir(SCRIPTS, { recursive: true });
+  const scriptPath = path.join(SCRIPTS, `${base}.json`);
+  const shortScriptPath = path.join(SCRIPTS, `${base}.short.json`);
+  await fs.writeFile(scriptPath, JSON.stringify(script, null, 2));
+  await fs.writeFile(shortScriptPath, JSON.stringify(shortDoc, null, 2));
+  await fs.writeFile(path.join(SCRIPTS, `${base}.meta.json`), JSON.stringify(meta, null, 2));
+
+  // ④ update the series state (next run continues from here)
+  series.part = part;
+  series.soFar = ep.state.soFar;
+  series.cliffhanger = ep.state.cliffhanger;
+  if (part >= series.totalParts) {
+    state.completed = [...(state.completed || []), { slug: series.slug, title: series.title, trope: series.trope, parts: part }];
+    state.current = null;
+    console.log(`   🏁 series finale — a new series starts next run`);
+  }
+  await fs.mkdir(stateDir, { recursive: true });
+  await fs.writeFile(statePath, JSON.stringify(state, null, 2));
+
+  console.log(`\n✓ script: pipeline/scripts/${base}.json (${script.scenes.length} scenes + ${shortDoc.scenes.length}-scene teaser)`);
+  console.log(`  title: ${meta.title}`);
+
+  if (!doRender) {
+    console.log(`\n  Next: node pipeline/build.mjs pipeline/scripts/${base}.json  &&  npx remotion render AINews out/${base}.mp4 --props=out/${base}.props.json`);
+    return;
+  }
+
+  console.log("\n③ building voiceover + B-roll…");
+  execSync(`node pipeline/build.mjs "${scriptPath}"`, { cwd: ROOT, stdio: "inherit" });
+  console.log("\n③ building the Shorts teaser…");
+  execSync(`node pipeline/build.mjs "${shortScriptPath}" "out/${base}.short.props.json" --base=${base}.short --captions`, { cwd: ROOT, stdio: "inherit" });
+
+  const renderLong = `npx remotion render AINews out/${base}.mp4 --props=out/${base}.props.json`;
+  const renderShort = `npx remotion render AINewsShort out/${base}.short.mp4 --props=out/${base}.short.props.json`;
+  for (const [label, cmd, propsFile] of [
+    ["episode", renderLong, path.join(ROOT, "out", `${base}.props.json`)],
+    ["teaser", renderShort, path.join(ROOT, "out", `${base}.short.props.json`)],
+  ]) {
+    console.log(`\n④ rendering ${label}…`);
+    try {
+      execSync(`${cmd} --concurrency=1`, { cwd: ROOT, stdio: "inherit" });
+    } catch {
+      console.warn(`\n⚠ ${label} render failed (likely B-roll) — retrying graphics-only…`);
+      const props = JSON.parse(await fs.readFile(propsFile, "utf8"));
+      props.scenes.forEach((s) => {
+        delete s.broll;
+        delete s.bgImage;
+      });
+      await fs.writeFile(propsFile, JSON.stringify(props, null, 2));
+      execSync(cmd, { cwd: ROOT, stdio: "inherit" });
+    }
+  }
+  console.log(`\n✓ done: out/${base}.mp4 + out/${base}.short.mp4`);
+
+  if (doUpload) {
+    const atFlag = publishAt ? ` --at=${publishAt}` : "";
+    const privacyFlag = publishAt ? "" : channel.privacy === "public" ? " --public" : channel.privacy === "unlisted" ? " --unlisted" : "";
+    console.log(`\n⑤ uploading Part ${part} + teaser…`);
+    execSync(`node pipeline/publish.mjs "${base}" --channel=${channel.id}${privacyFlag}${atFlag}`, { cwd: ROOT, stdio: "inherit" });
+    execSync(`node pipeline/publish.mjs "${base}" --short --channel=${channel.id}${privacyFlag}${atFlag}`, { cwd: ROOT, stdio: "inherit" });
   }
 }
 
@@ -781,6 +988,16 @@ async function main() {
       process.exit(1);
     }
     await runJobs({ channel, channelName, dateStr, doRender, doUpload, publishAt, topic });
+    return;
+  }
+
+  // Serialized Hindi micro-drama (one part per day, series state on disk)
+  if (niche === "drama") {
+    if (!hasGemini()) {
+      console.error("Drama niche needs Gemini — add pipeline/gemini.key.");
+      process.exit(1);
+    }
+    await runDrama({ channel, channelName, dateStr, doRender, doUpload, publishAt });
     return;
   }
 

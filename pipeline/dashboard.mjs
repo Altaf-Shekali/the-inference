@@ -382,8 +382,8 @@ const server = createServer(async (req, res) => {
       // add/update a channel
       if (p === "/api/channels/add") {
         if (!body.id || !/^[a-z0-9-]+$/.test(body.id)) return send(res, 400, { error: "id must be lowercase letters, numbers, hyphens" });
-        const niche = ["story", "psych", "quiz", "jobs"].includes(body.niche) ? body.niche : "ainews";
-        const pillarsFor = { story: ["crime", "scam", "survival", "success", "history", "human"], psych: ["bias", "behavior", "relationships", "dark", "mind", "social"], quiz: [], jobs: ["govtjob", "privatejob", "examprep"], ainews: ["ainews", "tools", "trend", "business"] };
+        const niche = ["story", "psych", "quiz", "jobs", "drama"].includes(body.niche) ? body.niche : "ainews";
+        const pillarsFor = { story: ["crime", "scam", "survival", "success", "history", "human"], psych: ["bias", "behavior", "relationships", "dark", "mind", "social"], quiz: [], jobs: ["govtjob", "privatejob", "examprep"], drama: ["secretrich", "revenge", "contractmarriage", "betrayal", "underestimated"], ainews: ["ainews", "tools", "trend", "business"] };
         const ch = await addChannel({
           id: body.id,
           name: body.name || body.id,
