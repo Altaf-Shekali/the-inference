@@ -51,6 +51,9 @@ jobs:
           NEMOTRON_KEY: ${{ secrets.NEMOTRON_KEY }}
           TAVILY_KEY: ${{ secrets.TAVILY_KEY }}
           PEXELS_KEY: ${{ secrets.PEXELS_KEY }}
+          CARTESIA_EN_KEY: ${{ secrets.CARTESIA_EN_KEY }}
+          CARTESIA_EN1_KEY: ${{ secrets.CARTESIA_EN1_KEY }}
+          CARTESIA_EN2_KEY: ${{ secrets.CARTESIA_EN2_KEY }}
           CARTESIA_KN_KEY: ${{ secrets.CARTESIA_KN_KEY }}
           CARTESIA_KN1_KEY: ${{ secrets.CARTESIA_KN1_KEY }}
           CARTESIA_KN2_KEY: ${{ secrets.CARTESIA_KN2_KEY }}
