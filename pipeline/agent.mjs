@@ -16,7 +16,7 @@ import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 import { chat, chatJSON, hasKey, modelName } from "./llm.mjs";
 import { search, fetchText } from "./search.mjs";
-import { hasGemini, geminiTranslate, geminiNarrative, storyPersona, psychPersona, geminiQuiz } from "./gemini.mjs";
+import { hasGemini, geminiTranslate, geminiNarrative, storyPersona, psychPersona, geminiQuiz, geminiJobs } from "./gemini.mjs";
 import { getChannel, channelUsedTopicsPath } from "./channels.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -81,6 +81,30 @@ const PSYCH_CATS = {
   social: { topicTag: "सामाजिक मनोविज्ञान", accent: "#F5B301", template: "ledger", discover: "famous social psychology experiment crowd behavior fascinating", guidance: "A social-psychology insight or famous experiment about how groups shape us." },
 };
 const PSYCH_ORDER = ["bias", "behavior", "relationships", "dark", "mind", "social"];
+
+// JOB factor categories (niche "jobs") — govtjob is the PRIORITY track (a fresh
+// real notification beats everything); the other two are the daily fallback so
+// the channel never goes dark when no new government notification exists.
+const JOB_CATS = {
+  govtjob: {
+    topicTag: "Govt Job",
+    onScreenTag: "ಸರ್ಕಾರಿ ಉದ್ಯೋಗ",
+    discover: "Karnataka government job recruitment notification apply online last date vacancies",
+    guidance: "A REAL, currently-open government job notification relevant to Karnataka job seekers (district courts, KPSC, banking, railways, police, teachers, PSUs, central govt).",
+  },
+  privatejob: {
+    topicTag: "Private Job",
+    onScreenTag: "ಖಾಸಗಿ ಉದ್ಯೋಗ",
+    discover: "Karnataka Bengaluru company hiring freshers job vacancy apply online this week",
+    guidance: "A REAL, currently-open private-sector job opening relevant to Karnataka job seekers (IT, manufacturing, banking, retail — company, role, location, how to apply).",
+  },
+  examprep: {
+    topicTag: "Exam Info",
+    onScreenTag: "ಪರೀಕ್ಷಾ ಮಾಹಿತಿ",
+    discover: "KPSC KEA Karnataka government exam notification date syllabus exam pattern admit card",
+    guidance: "FACTUAL information about a REAL upcoming Karnataka government exam: dates, pattern, syllabus highlights, eligibility, admit-card/result updates. No coaching advice — information only.",
+  },
+};
 
 // Languages for localized channels. Non-English forces the Edge engine (it has
 // native hi/kn neural voices; Kokoro doesn't). The Remotion template renders
@@ -547,6 +571,143 @@ async function runQuiz({ channel, channelName, dateStr, doRender, doUpload, publ
   }
 }
 
+/** JOB factor pipeline (niche "jobs") — priority govt-notification track with a
+ *  private-job / exam-info fallback so the channel uploads every day. Renders the
+ *  "Jobs" slide-deck composition (no B-roll — pure info graphics). HIGH-STAKES
+ *  accuracy: refuses to write when the notification can't be researched. */
+async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publishAt, topic }) {
+  console.log(`Agent: Jobs  |  ${channelName}  |  ${dateStr}`);
+  const usedPath = channelUsedTopicsPath(channel.id);
+  const used = await loadUsed(usedPath);
+  const covered = used.slice(-40).map((u) => u.title);
+
+  // ① DISCOVER — govt notifications first; fallback rotates by day so quiet days
+  // alternate between private jobs and exam info.
+  const day = Math.floor(Date.now() / 864e5);
+  const tracks = topic ? ["govtjob"] : ["govtjob", ...(day % 2 ? ["privatejob", "examprep"] : ["examprep", "privatejob"])];
+  let pick = null;
+  let cat = null;
+  for (const id of tracks) {
+    const c = JOB_CATS[id];
+    console.log(`① searching ${id}…`);
+    const hits = await search(topic || c.discover, 10);
+    const candidates = hits.map((h, i) => `${i + 1}. ${h.title} — ${h.url}`).join("\n");
+    if (!candidates) {
+      console.log(`   no search results for ${id} — trying next track`);
+      continue;
+    }
+    try {
+      const out = await chatJSON(
+        [
+          { role: "system", content: "You screen job/exam notifications for a Karnataka job-alert channel. Only pick REAL, CURRENT, specific postings — never expired, never vague listicles. Reply JSON only." },
+          {
+            role: "user",
+            content: `Category: ${c.guidance}\n\nSearch results:\n${candidates}\n\nAlready covered (NEVER repeat):\n${covered.join("\n") || "(none)"}\n\nPick ONE notification that is (a) real and specific, (b) still open or upcoming, (c) NOT in the covered list. The title MUST name a notification that actually appears in the search results above — copy its name from the results; NEVER invent one. If none qualifies, return {"found":false}.\nReply JSON: {"found":true,"slug":"kebab-slug","title":"<the notification's official English name, taken from the search results>","official":"<official website or url if visible>","queries":["3 web searches to get the FULL notification details: posts, vacancies, eligibility, dates, fee, how to apply"]}`,
+          },
+        ],
+        { maxTokens: 1200 },
+      );
+      if (out && out.found !== false && out.title) {
+        pick = out;
+        cat = { id, ...c };
+        break;
+      }
+      console.log(`   no fresh ${id} pick — trying next track`);
+    } catch (e) {
+      console.warn(`   ${id} pick failed (${e.message}) — trying next track`);
+    }
+  }
+  if (!pick) throw new Error("no usable job/exam topic found today (all tracks empty)");
+  console.log(`   topic [${cat.id}]: ${pick.title}`);
+
+  // ② RESEARCH — the notification details are the entire video; refuse to write blind.
+  console.log("② researching the notification…");
+  const notes = [];
+  for (const q of (pick.queries || [pick.title]).slice(0, 4)) {
+    const res = await search(q, 4);
+    for (const r of res.slice(0, 2)) {
+      const body = r.content || (await fetchText(r.url, 2500));
+      if (body) notes.push(`SOURCE: ${r.title} (${r.url})\n${body.slice(0, 2200)}`);
+    }
+  }
+  if (!notes.length) throw new Error("could not fetch any notification details — refusing to publish unverified job info");
+  console.log(`   gathered ${notes.length} sources`);
+
+  // ③ SCRIPT — Gemini writes the Kannada slide deck, grounded in the notification.
+  console.log("③ writing the Kannada job report with Gemini…");
+  const { script, meta } = await geminiJobs({ facts: notes.join("\n\n---\n\n"), category: cat, channelName, sourceUrl: pick.official || "" });
+
+  // enforce invariants
+  script.channelName = channelName;
+  script.title = script.title || pick.title;
+  script.topicTag = cat.onScreenTag;
+  script.accent = "#D9A514";
+  script.template = "jobs";
+  script.lang = "kn";
+  script.logo = channel.logo || "";
+  script.music = "";
+  script.showCaptions = false;
+  if ((channel.engine || "") === "cartesia") {
+    script.engine = "cartesia";
+    script.voice = channel.cartesiaVoice || ""; // "" = auto-resolve the account's clone
+    script.fallbackVoice = channel.voice || "kn-IN-GaganNeural";
+  } else {
+    script.engine = "edge";
+    script.voice = channel.voice || "kn-IN-GaganNeural";
+  }
+  const KNOWN_JOB_SCENES = new Set(["introCard", "table", "facts", "outro"]);
+  script.scenes = (Array.isArray(script.scenes) ? script.scenes : []).filter((s) => s && KNOWN_JOB_SCENES.has(s.type));
+  script.scenes.forEach((s) => {
+    if (!s.vo || !String(s.vo).trim()) s.vo = s.heading || s.title || s.headline || "";
+  });
+  if (script.scenes.length < 3) throw new Error("Gemini returned too few usable slides");
+  if (!script.scenes[0].title) script.scenes[0].title = script.title;
+
+  meta.channel = channel.id;
+  meta.lang = "kn";
+  meta.categoryId = "27"; // Education — the standard category for job/exam info channels
+  if (!meta.title) meta.title = pick.title;
+  if (meta.thumbnail) {
+    meta.thumbnail.channelName = channelName;
+    meta.thumbnail.accent = "#D9A514";
+  }
+
+  // name + dedup by what was ACTUALLY written (meta.title) — the research can
+  // surface a different notification than the discovery pick, and the script
+  // follows the research; the filename and covered-history must follow it too.
+  const finalTitle = meta.title || pick.title;
+  const base = `${dateStr}-${slugify(finalTitle)}-${channel.id}`;
+  await fs.mkdir(SCRIPTS, { recursive: true });
+  const scriptPath = path.join(SCRIPTS, `${base}.json`);
+  await fs.writeFile(scriptPath, JSON.stringify(script, null, 2));
+  await fs.writeFile(path.join(SCRIPTS, `${base}.meta.json`), JSON.stringify(meta, null, 2));
+
+  used.push({ date: dateStr, pillar: cat.id, slug: base, title: finalTitle });
+  await fs.mkdir(path.dirname(usedPath), { recursive: true });
+  await fs.writeFile(usedPath, JSON.stringify(used, null, 2));
+
+  console.log(`\n✓ script: pipeline/scripts/${base}.json (${script.scenes.length} slides)`);
+  console.log(`  title: ${meta.title}`);
+
+  if (!doRender) {
+    console.log(`\n  Next: node pipeline/build.mjs pipeline/scripts/${base}.json  &&  npx remotion render Jobs out/${base}.mp4 --props=out/${base}.props.json`);
+    return;
+  }
+
+  console.log("\n④ building voiceover…");
+  execSync(`node pipeline/build.mjs "${scriptPath}"`, { cwd: ROOT, stdio: "inherit" });
+  console.log("\n④ rendering the slide deck…");
+  execSync(`npx remotion render Jobs out/${base}.mp4 --props=out/${base}.props.json`, { cwd: ROOT, stdio: "inherit" });
+  console.log(`\n✓ done: out/${base}.mp4`);
+
+  if (doUpload) {
+    const atFlag = publishAt ? ` --at=${publishAt}` : "";
+    const privacyFlag = publishAt ? "" : channel.privacy === "public" ? " --public" : channel.privacy === "unlisted" ? " --unlisted" : "";
+    console.log(`\n⑤ uploading to YouTube (${publishAt ? `scheduled ${publishAt}` : channel.privacy || "private"})…`);
+    execSync(`node pipeline/publish.mjs "${base}" --channel=${channel.id}${privacyFlag}${atFlag}`, { cwd: ROOT, stdio: "inherit" });
+  }
+}
+
 async function main() {
   if (!hasKey()) {
     console.error("No Nemotron key. Add it to pipeline/nemotron.key (one line) and retry.");
@@ -609,6 +770,17 @@ async function main() {
       process.exit(1);
     }
     await runQuiz({ channel, channelName, dateStr, doRender, doUpload, publishAt, doShort, doLong });
+    return;
+  }
+
+  // Jobs niche (JOB factor) has its own pipeline — priority govt-notification
+  // track with private-job/exam-info fallback, rendered as the Jobs slide deck.
+  if (niche === "jobs") {
+    if (!hasGemini()) {
+      console.error("Jobs niche needs Gemini — add pipeline/gemini.key.");
+      process.exit(1);
+    }
+    await runJobs({ channel, channelName, dateStr, doRender, doUpload, publishAt, topic });
     return;
   }
 

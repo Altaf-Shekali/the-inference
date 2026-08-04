@@ -49,6 +49,24 @@
     "enabled": true
   },
   {
+    "id": "jobfactor",
+    "name": "JOB factor",
+    "spokenName": "ಜಾಬ್ ಫ್ಯಾಕ್ಟರ್",
+    "lang": "kn",
+    "niche": "jobs",
+    "pillars": ["govtjob", "privatejob", "examprep"],
+    "engine": "cartesia",
+    "cartesiaVoice": "",
+    "voice": "kn-IN-GaganNeural",
+    "logo": "logo/jobfactor.png",
+    "region": "IN",
+    "uploadTime": "08:30",
+    "renderTime": "06:45",
+    "topics": "ಉದ್ಯೋಗ ಮತ್ತು ಪರೀಕ್ಷಾ ಮಾಹಿತಿ",
+    "privacy": "private",
+    "enabled": true
+  },
+  {
     "id": "current-affairs",
     "name": "Current Affairs",
     "lang": "en",

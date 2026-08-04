@@ -11,6 +11,7 @@ import {
 } from "./KavalPromo";
 import { AINews, aiNewsSchema, calculateAINewsMetadata } from "./AINews";
 import { Quiz, quizSchema, calculateQuizMetadata, sampleQuiz } from "./Quiz";
+import { Jobs, jobsSchema, calculateJobsMetadata, sampleJobs } from "./Jobs";
 import { AINewsThumbnail, thumbnailSchema } from "./AINews/Thumbnail";
 import {
   sampleAINews,
@@ -102,6 +103,18 @@ export const RemotionRoot: React.FC = () => {
         schema={quizSchema}
         defaultProps={sampleQuiz}
         calculateMetadata={calculateQuizMetadata}
+      />
+      {/* JOB factor — narrated Kannada job-notification slide deck (16:9) */}
+      <Composition
+        id="Jobs"
+        component={Jobs}
+        durationInFrames={480}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={jobsSchema}
+        defaultProps={sampleJobs}
+        calculateMetadata={calculateJobsMetadata}
       />
       {/* Thumbnails — render as stills: npx remotion still AINewsThumbnail out/thumb.png */}
       <Composition

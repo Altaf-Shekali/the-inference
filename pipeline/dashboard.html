@@ -157,7 +157,7 @@ function renderChannels(){
   const chs=STATE.channels||[];
   const langName={en:'English',hi:'Hindi',kn:'Kannada'};
   const rows=chs.map(c=>`<div class="uprow" style="flex-wrap:wrap;gap:8px">
-      <span class="k" style="min-width:170px">${esc(c.name)} <span class="b">${langName[c.lang]||c.lang}</span>${c.niche&&c.niche!=='ainews'?` <span class="b">${c.niche==='psych'?'🧠 psych':c.niche==='quiz'?'❓ quiz':'📖 stories'}</span>`:''}${c.enabled?'':' <span class="b" style="color:var(--warn)">off</span>'}</span>
+      <span class="k" style="min-width:170px">${esc(c.name)} <span class="b">${langName[c.lang]||c.lang}</span>${c.niche&&c.niche!=='ainews'?` <span class="b">${c.niche==='psych'?'🧠 psych':c.niche==='quiz'?'❓ quiz':c.niche==='jobs'?'💼 jobs':'📖 stories'}</span>`:''}${c.enabled?'':' <span class="b" style="color:var(--warn)">off</span>'}</span>
       <span style="display:flex;align-items:center;gap:6px" title="upload time (local)">🕒
         <input type="time" id="ct-${c.id}" value="${esc(c.uploadTime||'19:30')}" style="width:105px;padding:6px 8px">
         <button class="ghost" onclick="saveChannelTime('${c.id}')" style="padding:7px 10px">Save</button>
@@ -175,7 +175,7 @@ function renderChannels(){
         <div style="min-width:120px"><label style="margin-top:0">Language</label>
           <select id="chLang"><option value="en">English</option><option value="hi">Hindi</option><option value="kn">Kannada</option></select></div>
         <div style="min-width:130px"><label style="margin-top:0">Niche</label>
-          <select id="chNiche"><option value="ainews">AI / Tech news</option><option value="story">True stories</option><option value="psych">Psychology stories</option><option value="quiz">Current-affairs quiz</option></select></div>
+          <select id="chNiche"><option value="ainews">AI / Tech news</option><option value="story">True stories</option><option value="psych">Psychology stories</option><option value="quiz">Current-affairs quiz</option><option value="jobs">Job notifications</option></select></div>
         <div style="min-width:130px"><label style="margin-top:0">Upload time (local)</label>
           <input id="chTime" type="time" value="19:30"/></div>
         <div style="min-width:110px"><label style="margin-top:0">Privacy</label>

@@ -374,3 +374,37 @@ export async function geminiNarrative({ persona, kind, langName, facts, category
   const out = extractJson(await generate(user, { temperature: 0.92, system: persona, maxOutputTokens: 8192 }));
   return { script: out.script || out, meta: out.meta || {} };
 }
+
+/**
+ * JOB factor — Gemini writes a Kannada job-notification "slide deck" script
+ * (introCard → table → facts slides → outro) for the Jobs composition, plus meta.
+ * HIGH-STAKES accuracy: viewers may act on this (deadlines, fees) — every value
+ * must come from the researched notification; unknown fields are OMITTED, never
+ * guessed. Returns { script, meta }.
+ */
+export async function geminiJobs({ facts, category, channelName, sourceUrl = "" }) {
+  const system = `You are the writer for "${channelName}", a Kannada YouTube channel that reports job notifications and exam information for Karnataka job seekers. Your tone is a clear, trustworthy INFORMATION ANNOUNCER — warm and direct, never hype, never storytelling. Viewers make real decisions (application deadlines, fees) based on you, so accuracy is everything. Output ONLY JSON.`;
+  const user =
+    `Make a narrated Kannada video reporting THIS job/exam information. Category: ${category.topicTag} — ${category.guidance}\n\n` +
+    `RESEARCHED NOTIFICATION (the ONLY source of truth):\n${String(facts).slice(0, 12000)}\n\n` +
+    `Return ONE JSON object: { "script": {...}, "meta": {...} }.\n\n` +
+    `"script" = { "channelName":"${channelName}", "topicTag":"${category.onScreenTag}", "accent":"#D9A514", "source":"<the real source(s)>", "music":"", "showCaptions":false, "scenes":[...] }\n\n` +
+    `Scene types (EVERY scene needs "vo" = the spoken Kannada narration for that slide):\n` +
+    `- {"type":"introCard","title":"<Kannada headline of the opportunity>","highlights":[{"label":"<ಸಂಬಳ/ಸ್ಥಳ/ಹುದ್ದೆಗಳು/ಕೊನೆಯ ದಿನಾಂಕ...>","value":"<short value>"} x3-4]}  — open the video; highlights are the 3-4 MOST decision-relevant facts\n` +
+    `- {"type":"table","heading":"<Kannada heading>","columns":["<col1>","<col2>"],"rows":[{"cells":["<name>","<count>"],"bold":false},...,{"cells":["ಒಟ್ಟು","<total>"],"bold":true}]}  — use for post-wise vacancies (or fee by category / important dates as label→value rows)\n` +
+    `- {"type":"facts","heading":"<Kannada heading>","bullets":["<fact with the key value wrapped in **double asterisks**>", ...]}  — eligibility, dates, fee, selection process, how to apply\n` +
+    `- {"type":"outro","headline":"<short Kannada closing>","cta":"${channelName} ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ","disclaimer":"ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ಅಧಿಕೃತ ವೆಬ್‌ಸೈಟ್‌ನಲ್ಲಿ ಎಲ್ಲಾ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ"}\n\n` +
+    `STRUCTURE: introCard first, outro last. In between: a "table" for post-wise vacancies when there are 2+ posts, then "facts" slides IN THIS ORDER when the data exists — ವಿದ್ಯಾರ್ಹತೆ (eligibility incl. age limit), ಪ್ರಮುಖ ದಿನಾಂಕಗಳು (dates), ಅರ್ಜಿ ಶುಲ್ಕ (fee), ಆಯ್ಕೆ ಪ್ರಕ್ರಿಯೆ (selection), ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ವಿಧಾನ (how to apply). 5 to 8 scenes total.\n\n` +
+    `ACCURACY (non-negotiable — this is job information people act on):\n` +
+    `- EVERY number, date, fee, post name and count MUST come from the researched notification above. NEVER estimate, infer, or fill a gap with a typical value.\n` +
+    `- If a field (e.g. fee, age limit) is NOT in the research, OMIT that slide/bullet entirely — do not guess, do not write "ಸುಮಾರು" values.\n` +
+    `- If the research is ambiguous about a critical value, say plainly in the vo that viewers should confirm it on the official website.\n\n` +
+    `LANGUAGE:\n` +
+    `- "vo" is SPOKEN Kannada: natural announcer style, 1-3 sentences per slide, ~200-320 words total. Write numbers/dates in the vo as Kannada words or Kannada-script forms the TTS reads correctly (e.g. "ಇನ್ನೂರು ರೂಪಾಯಿ", "ಆಗಸ್ಟ್ ಹದಿನೈದು"). NO Latin letters in the vo — transliterate abbreviations (ಎಸ್‌ಸಿ, ಎಸ್‌ಟಿ, ಕೆಪಿಎಸ್‌ಸಿ).\n` +
+    `- ON-SCREEN text (title/headings/highlights/cells/bullets) is Kannada, but KEEP standard digits (33, ₹200, 18-35) and essential short English terms job seekers expect (10th, 12th, SC/ST, Exam, Online) — exactly how Karnataka job channels write slides.\n` +
+    `- The intro vo greets briefly and states the opportunity + the single most attractive fact; the outro vo asks to subscribe AND reminds viewers to verify on the official website before applying.\n\n` +
+    `"meta" = { "title":"<SEARCHABLE English/Roman title with year + post count, e.g. 'Dharwad District Court Recruitment 2026 - 33 Peon & Typist Posts'>", "description":"<2-3 Kannada sentences summarising the notification, then${sourceUrl ? ` the official link: ${sourceUrl},` : " the official website name,"} then the line 'ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ಅಧಿಕೃತ ವೆಬ್‌ಸೈಟ್‌ನಲ್ಲಿ ಪರಿಶೀಲಿಸಿ.', then a hashtag line starting with #karnatakajobs #kannadajobs #kannada #sarkarinaukri plus 3-4 topic hashtags>", "tags":["karnataka jobs","kannada jobs","govt jobs karnataka","ಸರ್ಕಾರಿ ಉದ್ಯೋಗ","ಉದ್ಯೋಗ ಮಾಹಿತಿ", plus 8-10 SPECIFIC tags for this posting], "thumbnail":{"badge":"${category.onScreenTag}","bigText":"<3-5 punchy Kannada words — the most attractive fact>","subText":"<short: salary or last date>","accent":"#D9A514","channelName":"${channelName}"} }`;
+
+  const out = extractJson(await generate(user, { temperature: 0.4, system, maxOutputTokens: 8192 }));
+  return { script: out.script || out, meta: out.meta || {} };
+}

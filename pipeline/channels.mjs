@@ -39,6 +39,7 @@ export const DEFAULT_CHANNEL = {
   engine: "", // "" = auto (edge); "cartesia" = Cartesia Sonic (needs cartesiaVoice + cartesia.<lang>.key)
   voice: "", // "" = language default. With engine "cartesia" this is the Edge FALLBACK voice.
   cartesiaVoice: "", // Cartesia voice UUID (from `node pipeline/cartesia-voices.mjs <lang>`)
+  logo: "", // staticFile path to the channel logo (e.g. "logo/jobfactor.png"), used by logo-aware templates
   region: "IN",
   uploadTime: "", // "" = use the region's suggested time
   renderTime: "", // "" = render 1h before uploadTime; else a fixed local HH:MM (e.g. idle morning)
