@@ -135,7 +135,17 @@ async function generate(prompt, { temperature = 0.3, system = null, maxOutputTok
 export async function geminiChatJSON(messages, { maxTokens } = {}) {
   const system = messages.filter((m) => m.role === "system").map((m) => m.content).join("\n") || null;
   const user = messages.filter((m) => m.role !== "system").map((m) => m.content).join("\n\n");
-  return extractJson(await generate(user, { temperature: 0.6, system, maxOutputTokens: maxTokens || 6000 }));
+  // This is the last-resort fallback (Nemotron already failed) — a malformed
+  // sample here must not be the final failure, so resample before giving up.
+  let lastErr;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      return extractJson(await generate(user, { temperature: 0.6, system, maxOutputTokens: maxTokens || 6000 }));
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  throw lastErr;
 }
 
 /** Daily current-affairs + static-GK MCQ set for competitive exams — grounded in
@@ -395,8 +405,20 @@ export async function geminiNarrative({ persona, kind, langName, facts, category
     `- For reach, the description MUST end with a hashtag line STARTING with these exact tags: ${reach.hashtags} — then add 3-5 topic-specific hashtags. And "tags" MUST include these reach tags: ${reach.tags} — plus 8-12 specific topic tags.\n\n` +
     `"meta" = { "title":"<a clickable, VIRAL-style title in ${disp} — curiosity, a bold claim, or a number that makes people click>", "description":"<2-3 sentences in ${disp}, then a final line of hashtags beginning with ${reach.hashtags} + topic hashtags>", "tags":[the reach tags above + 8-12 specific topic tags], "thumbnail":{"badge":"${category.topicTag}","bigText":"<3-5 punchy words in ${disp}>","subText":"<short, in ${disp}>","accent":"${category.accent}","channelName":"${channelName}"} }`;
 
-  const out = extractJson(await generate(user, { temperature: 0.92, system: persona, maxOutputTokens: 8192 }));
-  return { script: out.script || out, meta: out.meta || {} };
+  // Literary/dramatic prose occasionally breaks JSON escaping (an unescaped quote
+  // in a dramatic line) — one bad sample used to fail the whole channel for the
+  // day. Resample instead of dying on the first malformed response.
+  let lastErr;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const out = extractJson(await generate(user, { temperature: 0.92, system: persona, maxOutputTokens: 8192 }));
+      return { script: out.script || out, meta: out.meta || {} };
+    } catch (e) {
+      lastErr = e;
+      console.warn(`   narrative attempt ${attempt} failed (${e.message}) — retrying`);
+    }
+  }
+  throw lastErr;
 }
 
 /**
@@ -441,8 +463,18 @@ export async function geminiJobs({ facts, category, channelName, sourceUrl = "" 
     `- The intro vo = short greeting ("ಎಲ್ಲರಿಗೂ ನಮಸ್ಕಾರ ಸ್ನೇಹಿತರೆ") + straight into the HOOK: which notification this is and its single most attractive fact. NO subscribe/bell ask in the intro. The outro vo = the SIGNATURE SIGN-OFF (thanks for watching + subscribe/bell + ಥ್ಯಾಂಕ್ ಯು) AND reminds viewers to verify on the official website before applying.\n\n` +
     `"meta" = { "title":"<SEARCHABLE English/Roman title with year + post count, e.g. 'Dharwad District Court Recruitment 2026 - 33 Peon & Typist Posts'>", "description":"<2-3 Kannada sentences summarising the notification, then${sourceUrl ? ` the official link: ${sourceUrl},` : " the official website name,"} then the line 'ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ಅಧಿಕೃತ ವೆಬ್‌ಸೈಟ್‌ನಲ್ಲಿ ಪರಿಶೀಲಿಸಿ.', then a hashtag line starting with EXACTLY these (the channel's signature set): #kannada #karnataka #karnatakajobs #kannadajobs #10thpassjob #sarkarinaukri — plus 3-4 notification-specific hashtags (e.g. #kpsc #policejobs)>", "tags":["karnataka jobs","kannada jobs","govt jobs karnataka","ಸರ್ಕಾರಿ ಉದ್ಯೋಗ","ಉದ್ಯೋಗ ಮಾಹಿತಿ", plus 8-10 SPECIFIC tags for this posting], "thumbnail":{"badge":"${category.onScreenTag}","bigText":"<3-5 punchy Kannada words — the most attractive fact>","subText":"<short: salary or last date>","accent":"#D9A514","channelName":"${channelName}"} }`;
 
-  const out = extractJson(await generate(user, { temperature: 0.4, system, maxOutputTokens: 8192 }));
-  return { script: out.script || out, meta: out.meta || {} };
+  // One malformed sample used to fail the whole channel for the day — resample.
+  let lastErr;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const out = extractJson(await generate(user, { temperature: 0.4, system, maxOutputTokens: 8192 }));
+      return { script: out.script || out, meta: out.meta || {} };
+    } catch (e) {
+      lastErr = e;
+      console.warn(`   jobs-writer attempt ${attempt} failed (${e.message}) — retrying`);
+    }
+  }
+  throw lastErr;
 }
 
 // ---- SERIALIZED HINDI DRAMA (Pocket FM / KukuFM style) ----------------------
