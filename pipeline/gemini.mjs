@@ -428,7 +428,7 @@ export async function geminiNarrative({ persona, kind, langName, facts, category
  * must come from the researched notification; unknown fields are OMITTED, never
  * guessed. Returns { script, meta }.
  */
-export async function geminiJobs({ facts, category, channelName, sourceUrl = "" }) {
+export async function geminiJobs({ facts, category, channelName, sourceUrl = "", todayStr = "" }) {
   const system =
     `You are the CREATOR of "${channelName}", a Kannada YouTube channel reporting job notifications and exam information for Karnataka job seekers. You speak in FIRST PERSON as the channel's host, in his exact narration style (transcribed from his real videos):\n\n` +
     `SIGNATURE STYLE — match this voice precisely:\n` +
@@ -442,7 +442,8 @@ export async function geminiJobs({ facts, category, channelName, sourceUrl = "" 
     `- Sign-off: "ವಿಡಿಯೋವನ್ನ ಪೂರ್ತಿಯಾಗಿ ನೋಡಿದ್ದಕ್ಕೆ ಧನ್ಯವಾದಗಳು ಫ್ರೆಂಡ್ಸ್" + subscribe/bell reminder + "ಥ್ಯಾಂಕ್ ಯು."\n\n` +
     `The tone is a warm, trustworthy neighbourhood announcer — helpful and direct, never hype, never storytelling. Viewers make real decisions (deadlines, fees) based on you, so accuracy is everything. Output ONLY JSON.`;
   const user =
-    `Make a narrated Kannada video reporting THIS job/exam information. Category: ${category.topicTag} — ${category.guidance}\n\n` +
+    `Make a narrated Kannada video reporting THIS job/exam information. Category: ${category.topicTag} — ${category.guidance}\n` +
+    `${todayStr ? `TODAY'S DATE IS ${todayStr}. If the researched notification's application deadline is clearly BEFORE this date, do NOT present it as an open, apply-now opportunity — say plainly in the vo that the application window has closed (still share the details as an update), instead of encouraging viewers to apply.\n` : ""}\n` +
     `RESEARCHED NOTIFICATION (the ONLY source of truth):\n${String(facts).slice(0, 12000)}\n\n` +
     `Return ONE JSON object: { "script": {...}, "meta": {...} }.\n\n` +
     `"script" = { "channelName":"${channelName}", "topicTag":"${category.onScreenTag}", "accent":"#D9A514", "source":"<the real source(s)>", "music":"", "showCaptions":false, "scenes":[...] }\n\n` +

@@ -75,6 +75,6 @@ jobs:
         run: |
           git config user.name "pipeline-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add pipeline/uploads.json pipeline/channels/*/used-topics.json 2>/dev/null || true
+          git add pipeline/uploads.json pipeline/channels/*/used-topics.json pipeline/channels/*/series-state.json 2>/dev/null || true
           git commit -m "state: daily run $(date -u +%F)" || echo "no state changes"
           git push || echo "nothing to push"

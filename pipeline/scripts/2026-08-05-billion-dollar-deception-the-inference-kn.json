@@ -1,0 +1,135 @@
+{
+  "channelName": "ಜವಾರಿ ಆತ್ಮ",
+  "topicTag": "ಹಗರಣ",
+  "accent": "#F5B301",
+  "source": "How the Biggest Fraud in German History Unravelled | The New Yorker,Finance fraud is not a deviation from the norm but a reflection of it | Aeon Essays,Wirecard bosses' fraud trial begins after scandal that rocked Germany | Reuters,Former Wirecard CEO Markus Braun arrested | CNBC,Wirecard Scandal: When All Lines of Defense Against Corporate Fraud Fail,9 of the Biggest Financial Fraud Cases in Recent History",
+  "voice": "",
+  "music": "",
+  "showCaptions": true,
+  "scenes": [
+    {
+      "type": "hook",
+      "kicker": "ಹಗರಣ",
+      "headline": "೨ ಬಿಲಿಯನ್ ಯೂರೋ ಕಣ್ಮರೆ!",
+      "sub": "ಜರ್ಮನಿಯ ದೊಡ್ಡ ಕಂಪನಿಯ ಸತ್ಯ ಬಯಲು",
+      "keywords": [
+        "missing money",
+        "fraud scandal",
+        "german finance"
+      ],
+      "vo": "ನಂಬ್ತೀರಾ? ಒಂದು ಕಂಪನಿ, ಅದರ ಖಾತೆಯಿಂದ ಬರೋಬ್ಬರಿ ೨ ಬಿಲಿಯನ್ ಯೂರೋ ಕಣ್ಮರೆಯಾಗಿದೆ! ಇದು ಜರ್ಮನಿ ಕಂಡ ಅತಿದೊಡ್ಡ ಹಗರಣ. ಇಡೀ ದೇಶವನ್ನೇ ಬೆಚ್ಚಿ ಬೀಳಿಸಿದ ಕಥೆ ಇದು."
+    },
+    {
+      "type": "point",
+      "heading": "ಜರ್ಮನಿಯ ಹೆಮ್ಮೆ",
+      "bullets": [],
+      "keywords": [
+        "tech company",
+        "innovation",
+        "city skyline"
+      ],
+      "vo": "ವೈರ್‌ಕಾರ್ಡ್ ಅನ್ನೋ ಈ ಫಿನ್‌ಟೆಕ್ ಕಂಪನಿ, ಜರ್ಮನಿಯ ಹಣಕಾಸು ಜಗತ್ತಿನಲ್ಲಿ ಒಂದು ಅದ್ಭುತ ಅಂತೆ ಕಾಣಿಸಿತ್ತು. ಪೇಪಾಲ್‌ಗೆ ಯುರೋಪಿನ ಉತ್ತರ ಅಂತ ಇದನ್ನ ಕರೆದಿದ್ದರು."
+    },
+    {
+      "type": "point",
+      "heading": "ಮಾಂತ್ರಿಕ ಮಾರ್ಸಲೆಕ್",
+      "bullets": [],
+      "keywords": [
+        "charismatic leader",
+        "young entrepreneur",
+        "business meeting"
+      ],
+      "vo": "ಇದರ ಸಿಒಒ ಆಗಿದ್ದ ಜಾನ್ ಮಾರ್ಸಲೆಕ್ ಅನ್ನೋ ವ್ಯಕ್ತಿ, ತುಂಬಾನೇ ಮಾಂತ್ರಿಕನಂತೆ ಮಾತಾಡೋನು. ಯಾವುದೇ ಅಧಿಕೃತ ಪದವಿ ಇಲ್ಲದೆ, ಇಪ್ಪತ್ತನೇ ವಯಸ್ಸಿಗೆ ಈ ಕಂಪನಿ ಸೇರಿ, ಅದನ್ನ ಹೊಸ ಎತ್ತರಕ್ಕೆ ಕೊಂಡೊಯ್ದಿದ್ದ."
+    },
+    {
+      "type": "point",
+      "heading": "ಗಣ್ಯರ ವಿಶ್ವಾಸ",
+      "bullets": [],
+      "keywords": [
+        "political leaders",
+        "handshake deal",
+        "corporate trust"
+      ],
+      "vo": "ಆತನ ಮಾತು ಚಮತ್ಕಾರದಿಂದ, ಕಂಪನಿಯು ಜರ್ಮನಿಯ ರಾಜಕೀಯ ಮತ್ತು ಹಣಕಾಸು ವಲಯದ ಗಣ್ಯರ ವಿಶ್ವಾಸ ಗೆದ್ದಿತ್ತು. ಜರ್ಮನಿಯ ಚಾನ್ಸೆಲರ್ ಏಂಜೆಲಾ ಮರ್ಕೆಲ್ ಕೂಡ ಇದರ ಬೆಳವಣಿಗೆಗೆ ಬೆಂಬಲ ನೀಡಿದ್ದರು."
+    },
+    {
+      "type": "point",
+      "heading": "ಮಾಯವಾದ ಹಣ",
+      "bullets": [],
+      "keywords": [
+        "empty vault",
+        "financial crisis",
+        "shocked people"
+      ],
+      "vo": "ಆದರೆ, ೨೦೨೦ರ ಜೂನ್ ೧೮ರಂದು ವೈರ್‌ಕಾರ್ಡ್ ಒಂದು ಘೋಷಣೆ ಮಾಡ್ತು. ಕಂಪನಿಯ ಖಾತೆಯಲ್ಲಿ ಇದ್ದ ೨ ಬಿಲಿಯನ್ ಯೂರೋ ಕಾಣೆಯಾಗಿದೆ ಅಂತ. ಆ ಹಣ ಕಳುವಾಗಿದೆಯಾ ಅಥವಾ ಅದು ಎಂದೂ ಇರಲೇ ಇಲ್ವಾ ಅನ್ನೋ ಪ್ರಶ್ನೆ ಎದುರಾಯ್ತು."
+    },
+    {
+      "type": "outro",
+      "headline": "ಹೊಸಬರೇ? ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ",
+      "cta": "ಜವಾರಿ ಆತ್ಮ ಚಾನೆಲ್ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ",
+      "vo": "ಮತ್ತು ನೀವು ಜವಾರಿ ಆತ್ಮ ಅನ್ನು ಮೊದಲ ಬಾರಿ ನೋಡುತ್ತಿದ್ದರೆ, ನಿಜ ಜೀವನದ ರೋಚಕ ಕಥೆಗಳು ನಿಮಗೆ ಇಷ್ಟವಾದರೆ, ಈಗಲೇ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ — ಪ್ರತಿದಿನ ಒಂದು ಹೊಸ ವಿಡಿಯೋ.",
+      "keywords": [
+        "subscribe youtube notification bell"
+      ]
+    },
+    {
+      "type": "point",
+      "heading": "ಸುಳ್ಳು ಲೆಕ್ಕಗಳು",
+      "bullets": [],
+      "keywords": [
+        "fraud investigation",
+        "fake documents",
+        "paper trail"
+      ],
+      "vo": "ಆಮೇಲೆ ತನಿಖೆ ಶುರುವಾಯ್ತು. ಕಂಪನಿಯ ಕಾರ್ಯನಿರ್ವಾಹಕರು ಸುಳ್ಳು ಲೆಕ್ಕಗಳನ್ನು ಸೃಷ್ಟಿಸಿದ್ದರು, ನಕಲಿ ಹಣದ ಹರಿವನ್ನು ತೋರಿಸಿದ್ದರು. ಅಷ್ಟೇ ಅಲ್ಲ, ಇಲ್ಲದ ಶೆಲ್ ಕಂಪನಿಗಳ ಮೂಲಕ ಹಣವನ್ನು ತಿರುಗಿಸಿದ್ದರು."
+    },
+    {
+      "type": "point",
+      "heading": "ಅಡಗಿದ ಸಾಲ",
+      "bullets": [],
+      "keywords": [
+        "debt pile",
+        "hidden ledger",
+        "financial collapse"
+      ],
+      "vo": "ಅವರು ಕೇವಲ ಸುಳ್ಳು ಲಾಭ ತೋರಿಸಿರಲಿಲ್ಲ, ಬರೋಬ್ಬರಿ ೩.೫ ಬಿಲಿಯನ್ ಯೂರೋ ಸಾಲವನ್ನು ಮುಚ್ಚಿಟ್ಟಿದ್ದರು. ಇಡೀ ಕಂಪನಿಯ ಅಡಿಪಾಯವೇ ಸುಳ್ಳಿನ ಮೇಲೆ ನಿಂತಿತ್ತು."
+    },
+    {
+      "type": "point",
+      "heading": "ಮಾರ್ಸಲೆಕ್‌ನ ರಹಸ್ಯ",
+      "bullets": [],
+      "keywords": [
+        "secret mansion",
+        "spy meeting",
+        "embezzlement"
+      ],
+      "vo": "ಮಾರ್ಸಲೆಕ್, ಮ್ಯೂನಿಚ್‌ನಲ್ಲಿ ರಷ್ಯನ್ ಕಾನ್ಸುಲೇಟ್ ಹತ್ತಿರ ರಹಸ್ಯ ಬಂಗಲೆ ಇಟ್ಟುಕೊಂಡು, ಬೇಹುಗಾರರು ಮತ್ತು ಅಧಿಕಾರಿಗಳ ಜೊತೆ ಮೀಟಿಂಗ್ ಮಾಡ್ತಿದ್ದನಂತೆ. ಆತ ವೈರ್‌ಕಾರ್ಡ್‌ನಿಂದಲೇ ಕೋಟಿಗಟ್ಟಲೆ ಹಣವನ್ನು ಕಬಳಿಸಿದ್ದ."
+    },
+    {
+      "type": "point",
+      "heading": "ಮಾರುಕಟ್ಟೆಗೆ ಆಘಾತ",
+      "bullets": [],
+      "keywords": [
+        "arrested man",
+        "fugitive escape",
+        "market crash"
+      ],
+      "vo": "ಈ ಹಗರಣ ವಿಶ್ವ ಮಾರುಕಟ್ಟೆಗಳಿಗೆ ದೊಡ್ಡ ಆಘಾತ ನೀಡಿ, ಹೂಡಿಕೆದಾರರ ನಂಬಿಕೆಗೆ ಧಕ್ಕೆ ತಂದಿತು. ಸಿಇಒ ಮಾರ್ಕಸ್ ಬ್ರೌನ್ ಬಂಧನಕ್ಕೊಳಗಾದ, ಆದರೆ ಮಾರ್ಸಲೆಕ್ ಓಡಿಹೋದ."
+    },
+    {
+      "type": "outro",
+      "headline": "ಒಂದು ಪಾಠ",
+      "cta": "ಜವಾರಿ ಆತ್ಮ ಚಾನೆಲ್ ಅನ್ನು ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ",
+      "keywords": [
+        "lesson learned",
+        "comment section",
+        "share button"
+      ],
+      "vo": "ದುರಾಸೆ ಅನ್ನೋದು ಹೇಗೆ ದೊಡ್ಡ ದೊಡ್ಡ ಸಂಸ್ಥೆಗಳನ್ನೂ ಮುಳುಗಿಸುತ್ತೆ ಅನ್ನೋದಕ್ಕೆ ಇದೊಂದು ಸ್ಪಷ್ಟ ಉದಾಹರಣೆ. ಇಂತಹ ಕಥೆಗಳು ನಿಮ್ಮ ಸ್ನೇಹಿತರಿಗೂ ಗೊತ್ತಾಗಲಿ, ಅವರೊಂದಿಗೆ ಶೇರ್ ಮಾಡಿ!"
+    }
+  ],
+  "template": "ledger",
+  "lang": "kn",
+  "engine": "cartesia",
+  "fallbackVoice": "kn-IN-SapnaNeural"
+}

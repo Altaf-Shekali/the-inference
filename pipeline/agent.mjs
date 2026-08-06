@@ -610,10 +610,10 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
     try {
       const out = await chatJSON(
         [
-          { role: "system", content: "You screen job/exam notifications for a Karnataka job-alert channel. Only pick REAL, CURRENT, specific postings — never expired, never vague listicles. Reply JSON only." },
+          { role: "system", content: `Today's date is ${dateStr}. You screen job/exam notifications for a Karnataka job-alert channel. Only pick REAL, CURRENT, specific postings whose application window is CONFIRMED still open as of today — never expired, never vague listicles. Reply JSON only.` },
           {
             role: "user",
-            content: `Category: ${c.guidance}\n\nSearch results:\n${candidates}\n\nAlready covered (NEVER repeat):\n${covered.join("\n") || "(none)"}\n\nPick ONE notification that is (a) real and specific, (b) still open or upcoming, (c) NOT in the covered list. The title MUST name a notification that actually appears in the search results above — copy its name from the results; NEVER invent one. If none qualifies, return {"found":false}.\nReply JSON: {"found":true,"slug":"kebab-slug","title":"<the notification's official English name, taken from the search results>","official":"<official website or url if visible>","queries":["3 web searches to get the FULL notification details: posts, vacancies, eligibility, dates, fee, how to apply"]}`,
+            content: `TODAY IS ${dateStr}. Category: ${c.guidance}\n\nSearch results:\n${candidates}\n\nAlready covered (NEVER repeat):\n${covered.join("\n") || "(none)"}\n\nPick ONE notification that is (a) real and specific, (b) NOT in the covered list, (c) whose application/exam deadline you can reasonably infer is ON OR AFTER ${dateStr} — if a result clearly states a past deadline, or if you cannot tell whether it's still open, SKIP it and pick a different one. The title MUST name a notification that actually appears in the search results above — copy its name from the results; NEVER invent one. If none qualifies, return {"found":false}.\nReply JSON: {"found":true,"slug":"kebab-slug","title":"<the notification's official English name, taken from the search results>","official":"<official website or url if visible>","queries":["3 web searches to get the FULL notification details: posts, vacancies, eligibility, dates, fee, how to apply — and CONFIRM the application deadline is on or after ${dateStr}"]}`,
           },
         ],
         { maxTokens: 1200 },
@@ -646,7 +646,7 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
 
   // ③ SCRIPT — Gemini writes the Kannada slide deck, grounded in the notification.
   console.log("③ writing the Kannada job report with Gemini…");
-  const { script, meta } = await geminiJobs({ facts: notes.join("\n\n---\n\n"), category: cat, channelName, sourceUrl: pick.official || "" });
+  const { script, meta } = await geminiJobs({ facts: notes.join("\n\n---\n\n"), category: cat, channelName, sourceUrl: pick.official || "", todayStr: dateStr });
 
   // enforce invariants
   script.channelName = channelName;
