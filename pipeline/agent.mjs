@@ -592,12 +592,13 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
   const used = await loadUsed(usedPath);
   const covered = used.slice(-40).map((u) => u.title);
 
-  // ① DISCOVER — govt notifications first; fallback rotates by day so quiet days
-  // alternate between private jobs and exam info.
+  // ① DISCOVER → ② RESEARCH → ③ WRITE, tried per track (govt first, then the
+  // daily-rotating fallback). The WRITER can reject a candidate post-research
+  // (wrong state, already closed, confused/blended sources) — on reject, fall
+  // through to the NEXT track rather than publishing bad content.
   const day = Math.floor(Date.now() / 864e5);
   const tracks = topic ? ["govtjob"] : ["govtjob", ...(day % 2 ? ["privatejob", "examprep"] : ["examprep", "privatejob"])];
-  let pick = null;
-  let cat = null;
+  let pick = null, cat = null, script = null, meta = null;
   for (const id of tracks) {
     const c = JOB_CATS[id];
     console.log(`① searching ${id}…`);
@@ -607,46 +608,66 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
       console.log(`   no search results for ${id} — trying next track`);
       continue;
     }
+    let candidatePick;
     try {
       const out = await chatJSON(
         [
           { role: "system", content: `Today's date is ${dateStr}. You screen job/exam notifications for a Karnataka job-alert channel. Only pick REAL, CURRENT, specific postings whose application window is CONFIRMED still open as of today — never expired, never vague listicles. Reply JSON only.` },
           {
             role: "user",
-            content: `TODAY IS ${dateStr}. Category: ${c.guidance}\n\nSearch results:\n${candidates}\n\nAlready covered (NEVER repeat):\n${covered.join("\n") || "(none)"}\n\nPick ONE notification that is (a) real and specific, (b) NOT in the covered list, (c) whose application/exam deadline you can reasonably infer is ON OR AFTER ${dateStr} — if a result clearly states a past deadline, or if you cannot tell whether it's still open, SKIP it and pick a different one. The title MUST name a notification that actually appears in the search results above — copy its name from the results; NEVER invent one. If none qualifies, return {"found":false}.\nReply JSON: {"found":true,"slug":"kebab-slug","title":"<the notification's official English name, taken from the search results>","official":"<official website or url if visible>","queries":["3 web searches to get the FULL notification details: posts, vacancies, eligibility, dates, fee, how to apply — and CONFIRM the application deadline is on or after ${dateStr}"]}`,
+            content: `TODAY IS ${dateStr}. Category: ${c.guidance}\n\nSearch results:\n${candidates}\n\nAlready covered (NEVER repeat — this includes picking a DIFFERENT post-category from the SAME parent recruitment drive/department as anything listed here, e.g. if "KEA Group C Recruitment" is covered, do NOT pick "KEA Group C — Agriculture Officer posts" as if it were new; treat any sub-post of an already-covered drive as covered too):\n${covered.join("\n") || "(none)"}\n\nPick ONE notification that is (a) real and specific, (b) NOT the same notification OR the same parent recruitment drive as anything in the covered list, (c) whose application/exam deadline you can reasonably infer is ON OR AFTER ${dateStr} — if a result clearly states a past deadline, or if you cannot tell whether it's still open, SKIP it and pick a different one. The title MUST name a notification that actually appears in the search results above — copy its name from the results; NEVER invent one. If none qualifies, return {"found":false}.\nReply JSON: {"found":true,"slug":"kebab-slug","title":"<the notification's official English name, taken from the search results>","official":"<official website or url if visible>","queries":["3 web searches to get the FULL notification details: posts, vacancies, eligibility, dates, fee, how to apply — and CONFIRM the application deadline is on or after ${dateStr}"]}`,
           },
         ],
         { maxTokens: 1200 },
       );
-      if (out && out.found !== false && out.title) {
-        pick = out;
-        cat = { id, ...c };
-        break;
+      if (!out || out.found === false || !out.title) {
+        console.log(`   no fresh ${id} pick — trying next track`);
+        continue;
       }
-      console.log(`   no fresh ${id} pick — trying next track`);
+      candidatePick = out;
     } catch (e) {
       console.warn(`   ${id} pick failed (${e.message}) — trying next track`);
+      continue;
     }
-  }
-  if (!pick) throw new Error("no usable job/exam topic found today (all tracks empty)");
-  console.log(`   topic [${cat.id}]: ${pick.title}`);
+    console.log(`   topic [${id}]: ${candidatePick.title}`);
 
-  // ② RESEARCH — the notification details are the entire video; refuse to write blind.
-  console.log("② researching the notification…");
-  const notes = [];
-  for (const q of (pick.queries || [pick.title]).slice(0, 4)) {
-    const res = await search(q, 4);
-    for (const r of res.slice(0, 2)) {
-      const body = r.content || (await fetchText(r.url, 2500));
-      if (body) notes.push(`SOURCE: ${r.title} (${r.url})\n${body.slice(0, 2200)}`);
+    // RESEARCH — the notification details are the entire video; refuse to write blind.
+    console.log("② researching the notification…");
+    const notes = [];
+    for (const q of (candidatePick.queries || [candidatePick.title]).slice(0, 4)) {
+      const res = await search(q, 4);
+      for (const r of res.slice(0, 2)) {
+        const body = r.content || (await fetchText(r.url, 2500));
+        if (body) notes.push(`SOURCE: ${r.title} (${r.url})\n${body.slice(0, 2200)}`);
+      }
     }
-  }
-  if (!notes.length) throw new Error("could not fetch any notification details — refusing to publish unverified job info");
-  console.log(`   gathered ${notes.length} sources`);
+    if (!notes.length) {
+      console.log(`   no sources found for ${id} — trying next track`);
+      continue;
+    }
+    console.log(`   gathered ${notes.length} sources`);
 
-  // ③ SCRIPT — Gemini writes the Kannada slide deck, grounded in the notification.
-  console.log("③ writing the Kannada job report with Gemini…");
-  const { script, meta } = await geminiJobs({ facts: notes.join("\n\n---\n\n"), category: cat, channelName, sourceUrl: pick.official || "", todayStr: dateStr });
+    // WRITE — Gemini writes the Kannada slide deck, grounded in the notification.
+    // May reject post-research (wrong state / already closed / confused sources).
+    console.log("③ writing the Kannada job report with Gemini…");
+    let out;
+    try {
+      out = await geminiJobs({ facts: notes.join("\n\n---\n\n"), category: c, channelName, sourceUrl: candidatePick.official || "", todayStr: dateStr });
+    } catch (e) {
+      console.warn(`   ${id} write failed (${e.message}) — trying next track`);
+      continue;
+    }
+    if (out.reject) {
+      console.log(`   ${id} rejected post-research (${out.reason}) — trying next track`);
+      continue;
+    }
+    pick = candidatePick;
+    cat = { id, ...c };
+    script = out.script;
+    meta = out.meta;
+    break;
+  }
+  if (!pick || !script) throw new Error("no usable, verified job/exam topic found today (all tracks empty or rejected)");
 
   // enforce invariants
   script.channelName = channelName;

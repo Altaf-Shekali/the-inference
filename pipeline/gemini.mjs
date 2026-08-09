@@ -443,9 +443,13 @@ export async function geminiJobs({ facts, category, channelName, sourceUrl = "",
     `The tone is a warm, trustworthy neighbourhood announcer — helpful and direct, never hype, never storytelling. Viewers make real decisions (deadlines, fees) based on you, so accuracy is everything. Output ONLY JSON.`;
   const user =
     `Make a narrated Kannada video reporting THIS job/exam information. Category: ${category.topicTag} — ${category.guidance}\n` +
-    `${todayStr ? `TODAY'S DATE IS ${todayStr}. If the researched notification's application deadline is clearly BEFORE this date, do NOT present it as an open, apply-now opportunity — say plainly in the vo that the application window has closed (still share the details as an update), instead of encouraging viewers to apply.\n` : ""}\n` +
+    `${todayStr ? `TODAY'S DATE IS ${todayStr}.\n` : ""}\n` +
     `RESEARCHED NOTIFICATION (the ONLY source of truth):\n${String(facts).slice(0, 12000)}\n\n` +
-    `Return ONE JSON object: { "script": {...}, "meta": {...} }.\n\n` +
+    `⚠️ REJECT FIRST — before writing anything, check the research against these THREE gates. If ANY gate fails, return ONLY: { "reject": true, "reason": "<why>" } — do NOT write a script for it:\n` +
+    `1. RELEVANCE: this must be a Karnataka state government notification, a central-government notification open to Karnataka applicants, or a well-known all-India exam — NOT another state's exclusive state-service exam (e.g. UPPSC/Uttar Pradesh, MPPSC/Madhya Pradesh, WBPSC/West Bengal are all OUT OF SCOPE for this channel).\n` +
+    `2. STILL OPEN: ${todayStr ? `the application/exam window must be confirmed open on or after ${todayStr}` : "the application/exam window must be confirmed currently open"} — if the research shows it already closed, REJECT (a "channel reporting a closed opportunity" has no value — don't publish it as news either, just reject and let the caller pick something else).\n` +
+    `3. SPECIFIC & REAL: the research must describe ONE concrete, identifiable notification (not a vague roundup of "9000+ jobs" or a mismatched blend of multiple different notifications) — if the research is confused, contradictory, or clearly about a DIFFERENT notification than what was asked for, REJECT rather than guessing or blending.\n\n` +
+    `Only if ALL three gates pass, return ONE JSON object: { "script": {...}, "meta": {...} }.\n\n` +
     `"script" = { "channelName":"${channelName}", "topicTag":"${category.onScreenTag}", "accent":"#D9A514", "source":"<the real source(s)>", "music":"", "showCaptions":false, "scenes":[...] }\n\n` +
     `Scene types (EVERY scene needs "vo" = the spoken Kannada narration for that slide):\n` +
     `- {"type":"introCard","title":"<Kannada headline of the opportunity>","highlights":[{"label":"<ಸಂಬಳ/ಸ್ಥಳ/ಹುದ್ದೆಗಳು/ಕೊನೆಯ ದಿನಾಂಕ...>","value":"<short value>"} x3-4]}  — open the video; highlights are the 3-4 MOST decision-relevant facts\n` +
@@ -466,16 +470,42 @@ export async function geminiJobs({ facts, category, channelName, sourceUrl = "",
 
   // One malformed sample used to fail the whole channel for the day — resample.
   let lastErr;
+  let draft;
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
       const out = extractJson(await generate(user, { temperature: 0.4, system, maxOutputTokens: 8192 }));
-      return { script: out.script || out, meta: out.meta || {} };
+      if (out?.reject) return { reject: true, reason: out.reason || "rejected by writer" };
+      draft = { script: out.script || out, meta: out.meta || {} };
+      break;
     } catch (e) {
       lastErr = e;
       console.warn(`   jobs-writer attempt ${attempt} failed (${e.message}) — retrying`);
     }
   }
-  throw lastErr;
+  if (!draft) throw lastErr;
+  if (!draft.script?.scenes?.length) return { reject: true, reason: "writer returned no usable scenes" };
+
+  // FACT-CHECK PASS — high-stakes content (viewers act on dates/fees/vacancies),
+  // so verify the draft against the research rather than trusting one-shot
+  // generation. Catches exactly the "fee deadline before apply deadline" class
+  // of error: facts blended/confused across multiple source pages.
+  try {
+    const verifyUser =
+      `You are a strict fact-checker for a job-notification video. Compare the DRAFT below against the RESEARCH (the only source of truth).\n\n` +
+      `RESEARCH:\n${String(facts).slice(0, 10000)}\n\n` +
+      `DRAFT (JSON — script.scenes[].vo carries the spoken facts; meta has the title/description):\n${JSON.stringify(draft)}\n\n` +
+      `Check EVERY number, date and fee mentioned. Rules:\n` +
+      `- If a value is NOT stated in the research, or contradicts it, FIX it using the research, or if the research doesn't clearly support any value, REMOVE that specific claim (delete the bullet/sentence, don't guess).\n` +
+      `- Check internal consistency too — e.g. a fee-payment deadline before the application deadline is almost always wrong unless the research explicitly confirms it; if inconsistent and the research doesn't clearly resolve it, remove the less-certain one rather than leave a contradiction.\n` +
+      `- Keep everything else (style, phrasing, structure) EXACTLY as in the draft — this is a fact-correction pass only, not a rewrite.\n` +
+      `- If the draft is already fully accurate, return it unchanged.\n\n` +
+      `Return ONE JSON object with the SAME shape as the draft: { "script": {...}, "meta": {...} }`;
+    const checked = extractJson(await generate(verifyUser, { temperature: 0.1, maxOutputTokens: 8192 }));
+    if (checked?.script?.scenes?.length >= 3) return { script: checked.script, meta: checked.meta || draft.meta };
+  } catch (e) {
+    console.warn(`   jobs fact-check failed (${e.message}) — keeping unverified draft`);
+  }
+  return draft;
 }
 
 // ---- SERIALIZED HINDI DRAMA (Pocket FM / KukuFM style) ----------------------
