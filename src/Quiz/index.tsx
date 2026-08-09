@@ -237,11 +237,11 @@ export const Quiz: React.FC<QuizProps> = (props) => {
 };
 
 export const sampleQuiz: QuizProps = {
-  title: "Daily Current Affairs Quiz",
+  title: "Current Affairs & GK Quiz",
   date: "July 2026",
   channelName: "Current Affairs",
   accent: "#3B82F6",
-  subscribeText: "New here? Subscribe for a daily quiz — Current Affairs",
+  subscribeText: "New here? Subscribe for current affairs & GK quizzes — Current Affairs",
   music: "",
   tick: "",
   ding: "",

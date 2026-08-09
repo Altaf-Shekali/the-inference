@@ -161,7 +161,7 @@ export async function geminiQuiz(count = 12) {
   let facts = "";
   try {
     const g = await geminiGroundedSearch(
-      `This week's most important current affairs (${monthYear}) for Indian competitive exams (UPSC, SSC, banking, railways): national news, international, economy, appointments, awards, sports, science, defence. Give concrete facts with names, dates and numbers.`,
+      `The most important current affairs from this past month (${monthYear}) for Indian competitive exams (UPSC, SSC, banking, railways) — a broad monthly roundup, not just the last few days: national news, international, economy, appointments, awards, sports, science, defence, government schemes. Give concrete facts with names, dates and numbers, covering the full month so far.`,
     );
     facts = (g.answer || "").trim();
   } catch {
@@ -171,7 +171,7 @@ export async function geminiQuiz(count = 12) {
     try {
       const { search, fetchText } = await import("./search.mjs");
       const hits = await search(
-        `India current affairs ${monthYear} for competitive exams: appointments, awards, schemes, economy, sports, defence, international`,
+        `India current affairs ${monthYear} monthly compilation for competitive exams: appointments, awards, schemes, economy, sports, defence, international`,
         6,
       );
       // prefer the clean per-article snippet (raw page content is full of nav junk)
@@ -203,7 +203,7 @@ export async function geminiQuiz(count = 12) {
   const prompt =
     `You are an expert quiz-setter for Indian competitive exams. Write EXACTLY ${count} multiple-choice questions: ${ca} on CURRENT AFFAIRS from the facts below, and ${gk} on timeless STATIC GK (history, geography, polity, economy, science).\n` +
     `Rules: exam-appropriate difficulty; each has a clear stem, exactly 4 options, ONE correct answer, and a one-line explanation. NEVER invent facts — if unsure of a current-affairs detail, use static GK instead. The correct answer MUST be genuinely correct.\n\n` +
-    `THIS WEEK'S FACTS:\n${facts.slice(0, 8000)}\n\n` +
+    `THIS MONTH'S CURRENT AFFAIRS FACTS:\n${facts.slice(0, 8000)}\n\n` +
     `Return ONLY JSON: {"questions":[{"q":"...","options":["..","..","..",".."],"correct":<0-3>,"explanation":"...","tag":"current"|"gk"}]}`;
   // 25 MCQs + explanations need plenty of room; if the JSON is still truncated,
   // salvage every complete question object rather than losing the whole batch.

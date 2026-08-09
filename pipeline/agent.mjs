@@ -539,17 +539,17 @@ async function runQuiz({ channel, channelName, dateStr, doRender, doUpload, publ
   const tick = await pickSound("tick"); // countdown blip, looped 1/sec
   const ding = await pickSound("reveal"); // "answer revealed" chime
   const music = await pickSound("bg"); // ambient bed
-  const subscribeText = `New here? Subscribe to ${channelName} for a daily current affairs quiz.`;
+  const subscribeText = `New here? Subscribe to ${channelName} for current affairs & GK quizzes.`;
   const ANSWER_SECONDS = 7; // seconds to answer each question (countdown)
   const REVEAL_SECONDS = 4; // seconds to see the correct answer before the next question
-  const mkProps = (qs) => ({ title: "Daily Current Affairs Quiz", date: human, channelName, accent, subscribeText, music, tick, ding, answerSeconds: ANSWER_SECONDS, revealSeconds: REVEAL_SECONDS, questions: qs });
+  const mkProps = (qs) => ({ title: "Current Affairs & GK Quiz", date: human, channelName, accent, subscribeText, music, tick, ding, answerSeconds: ANSWER_SECONDS, revealSeconds: REVEAL_SECONDS, questions: qs });
 
   const meta = {
-    title: `Daily Current Affairs Quiz - ${human} | GK MCQs for UPSC SSC Banking`,
-    description: `Today's current affairs + GK quiz for competitive exams (UPSC, SSC, Banking, Railways). ${longQs.length} questions, 3 seconds each - comment your score!\n\n#currentaffairs #gk #quiz #upsc #ssc #dailycurrentaffairs`,
-    tags: ["current affairs", "current affairs quiz", "daily current affairs", "gk quiz", "gk mcq", "general knowledge", "upsc", "ssc", "banking exam", "railway exam", "competitive exams", "today current affairs", "quiz"],
+    title: `Current Affairs & GK Quiz - ${human} | Monthly Current Affairs for UPSC SSC Banking`,
+    description: `Current affairs & GK quiz covering this month's important news plus static GK, for competitive exams (UPSC, SSC, Banking, Railways). ${longQs.length} questions, ${ANSWER_SECONDS} seconds each - comment your score!\n\n#currentaffairs #gk #quiz #upsc #ssc #monthlycurrentaffairs`,
+    tags: ["current affairs", "current affairs quiz", "monthly current affairs", "current affairs compilation", "gk quiz", "gk mcq", "general knowledge", "upsc", "ssc", "banking exam", "railway exam", "competitive exams", "today current affairs", "quiz"],
     categoryId: "27",
-    thumbnail: { badge: "QUIZ", bigText: "Daily Current Affairs", subText: `${human} · ${longQs.length} Questions`, accent, channelName },
+    thumbnail: { badge: "QUIZ", bigText: "Current Affairs & GK", subText: `${human} · ${longQs.length} Questions`, accent, channelName },
     channel: channel.id,
     lang: "en",
   };
