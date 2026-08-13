@@ -16,7 +16,7 @@ import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 import { chat, chatJSON, hasKey, modelName } from "./llm.mjs";
 import { search, fetchText } from "./search.mjs";
-import { hasGemini, geminiTranslate, geminiNarrative, storyPersona, psychPersona, geminiQuiz, geminiJobs, geminiDramaConcept, geminiDramaEpisode } from "./gemini.mjs";
+import { hasGemini, geminiTranslate, geminiNarrative, storyPersona, psychPersona, geminiQuiz, geminiJobs, geminiJobsRoadmap, geminiSchemes, geminiDramaConcept, geminiDramaEpisode } from "./gemini.mjs";
 import { getChannel, channelUsedTopicsPath } from "./channels.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -89,22 +89,93 @@ const JOB_CATS = {
   govtjob: {
     topicTag: "Govt Job",
     onScreenTag: "ಸರ್ಕಾರಿ ಉದ್ಯೋಗ",
-    discover: "Karnataka government job recruitment notification apply online last date vacancies",
-    guidance: "A REAL, currently-open government job notification relevant to Karnataka job seekers (district courts, KPSC, banking, railways, police, teachers, PSUs, central govt).",
+    discover: "Karnataka government job recruitment notification apply online last date vacancies OR central government SSC UPSC railway banking recruitment notification apply online",
+    guidance: "A REAL, currently-open government job notification relevant to Karnataka job seekers — Karnataka state govt (district courts, KPSC, KEA, banking, police, teachers, PSUs) OR central govt open to Karnataka applicants (SSC, UPSC, Railways/RRB, IBPS/SBI, central PSUs). The channel's core focus is Karnataka state govt and central govt jobs specifically.",
   },
-  privatejob: {
-    topicTag: "Private Job",
-    onScreenTag: "ಖಾಸಗಿ ಉದ್ಯೋಗ",
-    discover: "Karnataka Bengaluru company hiring freshers job vacancy apply online this week",
-    guidance: "A REAL, currently-open private-sector job opening relevant to Karnataka job seekers (IT, manufacturing, banking, retail — company, role, location, how to apply).",
-  },
-  examprep: {
-    topicTag: "Exam Info",
-    onScreenTag: "ಪರೀಕ್ಷಾ ಮಾಹಿತಿ",
-    discover: "KPSC KEA Karnataka government exam notification date syllabus exam pattern admit card",
-    guidance: "FACTUAL information about a REAL upcoming Karnataka government exam: dates, pattern, syllabus highlights, eligibility, admit-card/result updates. No coaching advice — information only.",
+  // Fallback when none of the tracks above yield a verified LIVE notification —
+  // an evergreen "how to get this job" prep guide instead of skipping the day.
+  roadmap: {
+    topicTag: "Job Roadmap",
+    onScreenTag: "ಹುದ್ದೆ ಮಾರ್ಗದರ್ಶಿ",
+    guidance: "An evergreen preparation roadmap for a specific, well-known Karnataka state or central government job/exam — eligibility, typical notification season, exam pattern, syllabus highlights, and trusted preparation resources.",
   },
 };
+
+// Fixed rotation of well-known Karnataka + central govt job/exam categories used
+// for the "roadmap" fallback track (JOB_CATS.roadmap) — the channel's core focus
+// per user direction: Karnataka state govt and central govt jobs.
+const ROADMAP_TARGETS = [
+  { id: "kpsc-kas", title: "KPSC KAS (Gazetted Probationers) Recruitment", queries: ["KPSC KAS Gazetted Probationers eligibility age limit exam pattern syllabus", "KPSC KAS exam previous notification dates months", "KPSC KAS preparation study material previous papers official"] },
+  { id: "karnataka-psi", title: "Karnataka Police Sub-Inspector (PSI) Recruitment", queries: ["Karnataka PSI recruitment eligibility physical exam pattern syllabus", "Karnataka PSI KEA previous notification dates months", "Karnataka PSI preparation study material previous papers official"] },
+  { id: "karnataka-pc", title: "Karnataka Police Constable (PC) Recruitment", queries: ["Karnataka Police Constable recruitment eligibility physical exam pattern syllabus", "Karnataka Police Constable KSP previous notification dates months", "Karnataka Police Constable preparation study material official"] },
+  { id: "kea-fda-sda", title: "Karnataka FDA/SDA (First & Second Division Assistant) Recruitment", queries: ["Karnataka FDA SDA recruitment KEA eligibility exam pattern syllabus", "Karnataka FDA SDA previous notification dates months", "Karnataka FDA SDA preparation study material official"] },
+  { id: "karnataka-teacher", title: "Karnataka Government Teacher (TET/CET) Recruitment", queries: ["Karnataka government teacher recruitment TET CET eligibility exam pattern syllabus", "Karnataka teacher recruitment previous notification dates months", "Karnataka TET CET preparation study material official"] },
+  { id: "ssc-cgl", title: "SSC CGL (Combined Graduate Level) Recruitment", queries: ["SSC CGL eligibility age limit exam pattern syllabus tiers", "SSC CGL previous notification dates months calendar", "SSC CGL preparation study material previous papers official"] },
+  { id: "upsc-cse", title: "UPSC Civil Services Examination", queries: ["UPSC Civil Services Examination eligibility age limit exam pattern syllabus", "UPSC CSE previous notification dates months calendar", "UPSC CSE preparation study material previous papers official"] },
+  { id: "ibps-po", title: "IBPS PO/Clerk Bank Recruitment", queries: ["IBPS PO Clerk eligibility age limit exam pattern syllabus", "IBPS PO Clerk previous notification dates months calendar", "IBPS PO Clerk preparation study material previous papers official"] },
+  { id: "rrb-ntpc", title: "RRB NTPC Railway Recruitment", queries: ["RRB NTPC eligibility age limit exam pattern syllabus", "RRB NTPC previous notification dates months calendar", "RRB NTPC preparation study material previous papers official"] },
+];
+
+// Mechanical near-duplicate guard for the jobs picker — a plain-text "already
+// covered" list handed to an LLM is not reliable enough on its own: the same
+// real notification got picked on consecutive days twice (once reworded
+// slightly, e.g. "...233 Group-C Posts" vs "...233 Posts"). This is a cheap
+// token-overlap pre-check that runs BEFORE spending research/write calls on a
+// candidate, catching near-identical rewordings the picker missed. It's a
+// safety net alongside (not a replacement for) the picker's own instruction
+// and the writer's independent DUPLICATE gate.
+const TITLE_STOPWORDS = new Set(["recruitment", "post", "posts", "apply", "online", "notification", "job", "jobs", "group", "for", "the", "and", "vacancy", "vacancies", "in", "of", "at", "to", "last", "date", "govt", "government", "karnataka"]);
+function titleTokens(title) {
+  return new Set(
+    String(title)
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((t) => t && !TITLE_STOPWORDS.has(t) && !/^\d{4}$/.test(t)),
+  );
+}
+function titleSimilarity(a, b) {
+  const ta = titleTokens(a), tb = titleTokens(b);
+  if (!ta.size || !tb.size) return 0;
+  let inter = 0;
+  for (const t of ta) if (tb.has(t)) inter++;
+  const union = ta.size + tb.size - inter;
+  return union ? inter / union : 0;
+}
+
+// SCHEME factor (niche "schemes") — fixed rotation of well-known Karnataka +
+// central govt welfare schemes. Karnataka's five guarantees first (broadest,
+// most-searched reach), then Karnataka sector schemes, then major central
+// schemes. Kept intentionally large (20 real, verifiable schemes) so a true
+// round-robin (see runSchemes' lastUsedAt sort) rarely repeats the same
+// scheme within a stretch of daily uploads. Each entry researched fresh every
+// time (schemes can be revised/discontinued) — see geminiSchemes' "STILL
+// ACTIVE" reject gate. The 3rd query per target is anchored to the scheme's
+// official portal domain (not a generic blog) to bias research toward
+// authoritative sources — the single biggest lever against wrong info, since
+// low-quality SEO scheme-info sites are a known source of stale/wrong figures.
+const SCHEME_TARGETS = [
+  { id: "gruha-lakshmi", title: "Karnataka Gruha Lakshmi Scheme", queries: ["Gruha Lakshmi scheme eligibility documents how to apply", "Gruha Lakshmi scheme current status 2026 active benefit amount", "Gruha Lakshmi scheme site:sevasindhu.karnataka.gov.in OR site:karnataka.gov.in"] },
+  { id: "anna-bhagya", title: "Karnataka Anna Bhagya Scheme", queries: ["Anna Bhagya scheme eligibility documents how to apply", "Anna Bhagya scheme current status 2026 active rice quota amount", "Anna Bhagya scheme site:ahara.kar.nic.in OR site:karnataka.gov.in"] },
+  { id: "gruha-jyothi", title: "Karnataka Gruha Jyothi Scheme", queries: ["Gruha Jyothi scheme eligibility documents how to apply", "Gruha Jyothi scheme current status 2026 active free units amount", "Gruha Jyothi scheme site:sevasindhu.karnataka.gov.in OR site:karnataka.gov.in"] },
+  { id: "yuva-nidhi", title: "Karnataka Yuva Nidhi Scheme", queries: ["Yuva Nidhi scheme eligibility documents how to apply", "Yuva Nidhi scheme current status 2026 active allowance amount", "Yuva Nidhi scheme site:sevasindhu.karnataka.gov.in OR site:karnataka.gov.in"] },
+  { id: "shakti", title: "Karnataka Shakti Scheme (free bus travel)", queries: ["Shakti scheme eligibility documents how to apply", "Shakti scheme current status 2026 active free bus travel women", "Shakti scheme site:karnataka.gov.in OR site:ksrtc.in OR site:sevasindhu.karnataka.gov.in"] },
+  { id: "karnataka-scholarship", title: "Karnataka Pre/Post-Matric Scholarship (State Scholarship Portal)", queries: ["Karnataka pre-matric post-matric scholarship eligibility documents how to apply", "Karnataka scholarship 2026 last date active status", "Karnataka scholarship site:ssp.karnataka.gov.in"] },
+  { id: "krishi-bhagya", title: "Karnataka Krishi Bhagya Yojana (farmer irrigation subsidy)", queries: ["Krishi Bhagya Yojana eligibility documents how to apply farm pond subsidy", "Krishi Bhagya Yojana 2026 current status active subsidy amount", "Krishi Bhagya Yojana site:raitamitra.karnataka.gov.in OR site:karnataka.gov.in"] },
+  { id: "sandhya-suraksha", title: "Karnataka Sandhya Suraksha Old-Age Pension Scheme", queries: ["Sandhya Suraksha pension scheme eligibility documents how to apply", "Sandhya Suraksha pension 2026 current status active amount", "Sandhya Suraksha pension site:karnataka.gov.in OR site:sevasindhu.karnataka.gov.in"] },
+  { id: "karnataka-widow-pension", title: "Karnataka Vidhava Vetana (Widow Pension) Scheme", queries: ["Karnataka widow pension Vidhava Vetana eligibility documents how to apply", "Karnataka widow pension 2026 current status active amount", "Karnataka widow pension site:karnataka.gov.in OR site:sevasindhu.karnataka.gov.in"] },
+  { id: "karnataka-disability-pension", title: "Karnataka Disability Pension Scheme", queries: ["Karnataka disability pension eligibility documents how to apply", "Karnataka disability pension 2026 current status active amount", "Karnataka disability pension site:karnataka.gov.in OR site:sevasindhu.karnataka.gov.in"] },
+  { id: "pm-kisan", title: "PM-Kisan Samman Nidhi (central scheme)", queries: ["PM Kisan Samman Nidhi eligibility documents how to apply", "PM Kisan scheme current status 2026 active installment amount", "PM Kisan scheme site:pmkisan.gov.in"] },
+  { id: "ayushman-bharat", title: "Ayushman Bharat PM-JAY Health Scheme (central scheme)", queries: ["Ayushman Bharat PM-JAY eligibility documents how to apply", "Ayushman Bharat scheme current status 2026 active coverage amount", "Ayushman Bharat site:pmjay.gov.in OR site:nha.gov.in"] },
+  { id: "pmay", title: "PM Awas Yojana Housing Scheme (central scheme)", queries: ["PM Awas Yojana eligibility documents how to apply", "PM Awas Yojana scheme current status 2026 active subsidy amount", "PM Awas Yojana site:pmaymis.gov.in OR site:pmayg.nic.in"] },
+  { id: "ujjwala", title: "PM Ujjwala Yojana LPG Scheme (central scheme)", queries: ["PM Ujjwala Yojana eligibility documents how to apply", "Ujjwala Yojana scheme current status 2026 active subsidy amount", "Ujjwala Yojana site:pmuy.gov.in"] },
+  { id: "atal-pension-yojana", title: "Atal Pension Yojana (central scheme)", queries: ["Atal Pension Yojana eligibility documents how to apply", "Atal Pension Yojana 2026 current status active pension amount", "Atal Pension Yojana site:npscra.nsdl.co.in OR site:pfrda.org.in"] },
+  { id: "pmfby", title: "Pradhan Mantri Fasal Bima Yojana (crop insurance, central scheme)", queries: ["Pradhan Mantri Fasal Bima Yojana eligibility documents how to apply", "PMFBY crop insurance 2026 current status active premium coverage", "PMFBY site:pmfby.gov.in"] },
+  { id: "pmegp", title: "PMEGP — Prime Minister's Employment Generation Programme (central scheme)", queries: ["PMEGP eligibility documents how to apply subsidy", "PMEGP scheme 2026 current status active subsidy amount", "PMEGP site:kviconline.gov.in OR site:pmegp.gov.in"] },
+  { id: "pm-mudra", title: "PM Mudra Yojana (business loans, central scheme)", queries: ["PM Mudra Yojana eligibility documents how to apply loan limit", "PM Mudra Yojana 2026 current status active loan categories", "PM Mudra Yojana site:mudra.org.in"] },
+  { id: "pm-svanidhi", title: "PM SVANidhi (street vendor micro-credit, central scheme)", queries: ["PM SVANidhi eligibility documents how to apply loan amount", "PM SVANidhi scheme 2026 current status active loan tiers", "PM SVANidhi site:pmsvanidhi.mohua.gov.in"] },
+  { id: "pmjjby-pmsby", title: "PM Jeevan Jyoti Bima & Suraksha Bima Yojana (insurance, central scheme)", queries: ["PM Jeevan Jyoti Bima Suraksha Bima Yojana eligibility documents how to apply premium", "PMJJBY PMSBY 2026 current status active premium coverage amount", "PMJJBY PMSBY site:jansuraksha.gov.in"] },
+];
 
 // Serialized Hindi micro-drama tropes (niche "drama") — one series (~6 parts,
 // one part/day) per trope, rotating. The proven Pocket FM / KukuFM formulas.
@@ -592,12 +663,14 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
   const used = await loadUsed(usedPath);
   const covered = used.slice(-40).map((u) => u.title);
 
-  // ① DISCOVER → ② RESEARCH → ③ WRITE, tried per track (govt first, then the
-  // daily-rotating fallback). The WRITER can reject a candidate post-research
-  // (wrong state, already closed, confused/blended sources) — on reject, fall
-  // through to the NEXT track rather than publishing bad content.
-  const day = Math.floor(Date.now() / 864e5);
-  const tracks = topic ? ["govtjob"] : ["govtjob", ...(day % 2 ? ["privatejob", "examprep"] : ["examprep", "privatejob"])];
+  // ① DISCOVER → ② RESEARCH → ③ WRITE, tried per track. The WRITER can reject
+  // a candidate post-research (wrong state, already closed, confused/blended
+  // sources, duplicate) — on reject, fall through to the NEXT track rather
+  // than publishing bad content. Private-sector jobs are OUT of scope
+  // entirely (not just deprioritized) — mixing them in dilutes the channel's
+  // single govt-jobs identity for YouTube's recommendation algorithm; the
+  // roadmap fallback below is the only thing that runs when govtjob is dry.
+  const tracks = ["govtjob"];
   let pick = null, cat = null, script = null, meta = null;
   for (const id of tracks) {
     const c = JOB_CATS[id];
@@ -615,7 +688,7 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
           { role: "system", content: `Today's date is ${dateStr}. You screen job/exam notifications for a Karnataka job-alert channel. Only pick REAL, CURRENT, specific postings whose application window is CONFIRMED still open as of today — never expired, never vague listicles. Reply JSON only.` },
           {
             role: "user",
-            content: `TODAY IS ${dateStr}. Category: ${c.guidance}\n\nSearch results:\n${candidates}\n\nAlready covered (NEVER repeat — this includes picking a DIFFERENT post-category from the SAME parent recruitment drive/department as anything listed here, e.g. if "KEA Group C Recruitment" is covered, do NOT pick "KEA Group C — Agriculture Officer posts" as if it were new; treat any sub-post of an already-covered drive as covered too):\n${covered.join("\n") || "(none)"}\n\nPick ONE notification that is (a) real and specific, (b) NOT the same notification OR the same parent recruitment drive as anything in the covered list, (c) whose application/exam deadline you can reasonably infer is ON OR AFTER ${dateStr} — if a result clearly states a past deadline, or if you cannot tell whether it's still open, SKIP it and pick a different one. The title MUST name a notification that actually appears in the search results above — copy its name from the results; NEVER invent one. If none qualifies, return {"found":false}.\nReply JSON: {"found":true,"slug":"kebab-slug","title":"<the notification's official English name, taken from the search results>","official":"<official website or url if visible>","queries":["3 web searches to get the FULL notification details: posts, vacancies, eligibility, dates, fee, how to apply — and CONFIRM the application deadline is on or after ${dateStr}"]}`,
+            content: `TODAY IS ${dateStr}. Category: ${c.guidance}\n\nSearch results:\n${candidates}\n\nAlready covered (NEVER repeat — this includes picking a DIFFERENT post-category from the SAME parent recruitment drive/department as anything listed here, e.g. if "KEA Group C Recruitment" is covered, do NOT pick "KEA Group C — Agriculture Officer posts" as if it were new; treat any sub-post of an already-covered drive as covered too):\n${covered.join("\n") || "(none)"}\n\nPick ONE notification that is (a) real and specific, (b) NOT the same notification OR the same parent recruitment drive as anything in the covered list, (c) whose application/exam deadline you can reasonably infer is ON OR AFTER ${dateStr} — if a result clearly states a past deadline, or if you cannot tell whether it's still open, SKIP it and pick a different one. Be especially wary of "admit card"/"hall ticket" results — these pages stay indexed forever after the exam is long over, so an admit-card headline is NOT evidence the exam is still upcoming; only pick one if you can also tell the exam date itself is still ahead. The title MUST name a notification that actually appears in the search results above — copy its name from the results; NEVER invent one. If none qualifies, return {"found":false}.\nReply JSON: {"found":true,"slug":"kebab-slug","title":"<the notification's official English name, taken from the search results>","official":"<official website or url if visible>","queries":["3-4 web searches to get the FULL notification details: posts, vacancies, eligibility, dates, fee, how to apply — including at least one query specifically targeting the CURRENT status/exam date/result date (e.g. '<title> exam date 2026' or '<title> result') so the deadline/date can be verified as on or after ${dateStr}, not just that the notification once existed"]}`,
           },
         ],
         { maxTokens: 1200 },
@@ -630,6 +703,13 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
       continue;
     }
     console.log(`   topic [${id}]: ${candidatePick.title}`);
+
+    // MECHANICAL near-duplicate guard — see titleSimilarity() note above.
+    const nearDup = covered.find((c) => titleSimilarity(candidatePick.title, c) >= 0.6);
+    if (nearDup) {
+      console.log(`   picker chose a near-duplicate of an already-covered notification ("${nearDup}") — skipping without spending a research call, trying next track`);
+      continue;
+    }
 
     // RESEARCH — the notification details are the entire video; refuse to write blind.
     console.log("② researching the notification…");
@@ -652,7 +732,7 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
     console.log("③ writing the Kannada job report with Gemini…");
     let out;
     try {
-      out = await geminiJobs({ facts: notes.join("\n\n---\n\n"), category: c, channelName, sourceUrl: candidatePick.official || "", todayStr: dateStr });
+      out = await geminiJobs({ facts: notes.join("\n\n---\n\n"), category: c, channelName, sourceUrl: candidatePick.official || "", todayStr: dateStr, covered });
     } catch (e) {
       console.warn(`   ${id} write failed (${e.message}) — trying next track`);
       continue;
@@ -667,7 +747,47 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
     meta = out.meta;
     break;
   }
-  if (!pick || !script) throw new Error("no usable, verified job/exam topic found today (all tracks empty or rejected)");
+
+  // ROADMAP FALLBACK — no live, verified notification survived any track today.
+  // Rather than skip the day entirely, publish an evergreen "how to get this
+  // job" prep guide for a Karnataka/central govt job the channel hasn't
+  // recently covered, rotating through ROADMAP_TARGETS.
+  if ((!pick || !script) && !topic) {
+    console.log("① no live notification found — falling back to a roadmap guide…");
+    const usedRoadmapIds = new Set(used.filter((u) => u.pillar === "roadmap" && u.roadmapId).slice(-ROADMAP_TARGETS.length + 2).map((u) => u.roadmapId));
+    const target = ROADMAP_TARGETS.find((t) => !usedRoadmapIds.has(t.id)) || ROADMAP_TARGETS[Math.floor(Date.now() / 864e5) % ROADMAP_TARGETS.length];
+    console.log(`   roadmap topic: ${target.title}`);
+    console.log("② researching…");
+    const notes = [];
+    for (const q of target.queries) {
+      const res = await search(q, 4);
+      for (const r of res.slice(0, 2)) {
+        const body = r.content || (await fetchText(r.url, 2500));
+        if (body) notes.push(`SOURCE: ${r.title} (${r.url})\n${body.slice(0, 2200)}`);
+      }
+    }
+    if (notes.length) {
+      console.log(`   gathered ${notes.length} sources`);
+      console.log("③ writing the Kannada roadmap guide with Gemini…");
+      try {
+        const out = await geminiJobsRoadmap({ facts: notes.join("\n\n---\n\n"), target, channelName, todayStr: dateStr });
+        if (out.reject) {
+          console.log(`   roadmap rejected (${out.reason})`);
+        } else {
+          pick = { slug: `roadmap-${target.id}`, title: out.meta?.title || target.title, official: "", roadmapId: target.id };
+          cat = { id: "roadmap", ...JOB_CATS.roadmap };
+          script = out.script;
+          meta = out.meta;
+        }
+      } catch (e) {
+        console.warn(`   roadmap write failed (${e.message})`);
+      }
+    } else {
+      console.log("   no sources found for roadmap topic either");
+    }
+  }
+
+  if (!pick || !script) throw new Error("no usable, verified job/exam topic found today (all tracks empty or rejected, roadmap fallback also failed)");
 
   // enforce invariants
   script.channelName = channelName;
@@ -751,7 +871,168 @@ async function runJobs({ channel, channelName, dateStr, doRender, doUpload, publ
   await fs.writeFile(scriptPath, JSON.stringify(script, null, 2));
   await fs.writeFile(path.join(SCRIPTS, `${base}.meta.json`), JSON.stringify(meta, null, 2));
 
-  used.push({ date: dateStr, pillar: cat.id, slug: base, title: finalTitle });
+  used.push({ date: dateStr, pillar: cat.id, slug: base, title: finalTitle, ...(pick.roadmapId ? { roadmapId: pick.roadmapId } : {}) });
+  await fs.mkdir(path.dirname(usedPath), { recursive: true });
+  await fs.writeFile(usedPath, JSON.stringify(used, null, 2));
+
+  console.log(`\n✓ script: pipeline/scripts/${base}.json (${script.scenes.length} slides)`);
+  console.log(`  title: ${meta.title}`);
+
+  if (!doRender) {
+    console.log(`\n  Next: node pipeline/build.mjs pipeline/scripts/${base}.json  &&  npx remotion render Jobs out/${base}.mp4 --props=out/${base}.props.json`);
+    return;
+  }
+
+  console.log("\n④ building voiceover…");
+  execSync(`node pipeline/build.mjs "${scriptPath}"`, { cwd: ROOT, stdio: "inherit" });
+  console.log("\n④ rendering the slide deck…");
+  execSync(`npx remotion render Jobs out/${base}.mp4 --props=out/${base}.props.json`, { cwd: ROOT, stdio: "inherit" });
+  console.log(`\n✓ done: out/${base}.mp4`);
+
+  if (doUpload) {
+    const atFlag = publishAt ? ` --at=${publishAt}` : "";
+    const privacyFlag = publishAt ? "" : channel.privacy === "public" ? " --public" : channel.privacy === "unlisted" ? " --unlisted" : "";
+    console.log(`\n⑤ uploading to YouTube (${publishAt ? `scheduled ${publishAt}` : channel.privacy || "private"})…`);
+    execSync(`node pipeline/publish.mjs "${base}" --channel=${channel.id}${privacyFlag}${atFlag}`, { cwd: ROOT, stdio: "inherit" });
+  }
+}
+
+/** SCHEME factor pipeline (niche "schemes") — rotates through SCHEME_TARGETS
+ *  (Karnataka five guarantees first, then major central schemes), researching
+ *  each fresh every time and trying the next target on reject (a scheme can
+ *  turn out discontinued/renamed — see geminiSchemes' STILL ACTIVE gate)
+ *  rather than publish stale welfare info. Renders on the same generic "Jobs"
+ *  slide-deck composition (introCard/table/facts/outro) — fully data-driven,
+ *  no scheme-specific Remotion component needed. */
+async function runSchemes({ channel, channelName, dateStr, doRender, doUpload, publishAt, topic }) {
+  console.log(`Agent: Schemes  |  ${channelName}  |  ${dateStr}`);
+  const usedPath = channelUsedTopicsPath(channel.id);
+  const used = await loadUsed(usedPath);
+
+  // TRUE round-robin, not an approximate recency window: rank every target by
+  // when it was LAST covered (never-covered = -1, i.e. always tried first),
+  // so with N real schemes in the pool, a given scheme can only repeat after
+  // all N-1 others have already run — the strongest anti-repetition guarantee
+  // short of a hardcoded cooldown, and it scales automatically as the pool grows.
+  const lastUsedAt = new Map();
+  used.forEach((u, i) => {
+    if (u.pillar === "schemes" && u.schemeId) lastUsedAt.set(u.schemeId, i);
+  });
+  const rotation = topic
+    ? [{ id: "custom", title: topic, queries: [topic] }]
+    : [...SCHEME_TARGETS].sort((a, b) => (lastUsedAt.get(a.id) ?? -1) - (lastUsedAt.get(b.id) ?? -1));
+
+  let pick = null, script = null, meta = null;
+  for (const target of rotation) {
+    console.log(`① scheme: ${target.title}`);
+    console.log("② researching…");
+    const notes = [];
+    for (const q of target.queries || [target.title]) {
+      const res = await search(q, 4);
+      for (const r of res.slice(0, 2)) {
+        const body = r.content || (await fetchText(r.url, 2500));
+        if (body) notes.push(`SOURCE: ${r.title} (${r.url})\n${body.slice(0, 2200)}`);
+      }
+    }
+    if (!notes.length) {
+      console.log("   no sources found — trying next scheme");
+      continue;
+    }
+    console.log(`   gathered ${notes.length} sources`);
+    console.log("③ writing the Kannada scheme explainer with Gemini…");
+    let out;
+    try {
+      out = await geminiSchemes({ facts: notes.join("\n\n---\n\n"), target, channelName, todayStr: dateStr });
+    } catch (e) {
+      console.warn(`   write failed (${e.message}) — trying next scheme`);
+      continue;
+    }
+    if (out.reject) {
+      console.log(`   rejected (${out.reason}) — trying next scheme`);
+      continue;
+    }
+    pick = { slug: `scheme-${target.id}`, title: out.meta?.title || target.title, schemeId: target.id };
+    script = out.script;
+    meta = out.meta;
+    break;
+  }
+  if (!pick || !script) throw new Error("no usable, verified scheme found today (all targets empty or rejected)");
+
+  // enforce invariants (mirrors runJobs)
+  script.channelName = channelName;
+  script.title = script.title || pick.title;
+  script.topicTag = script.topicTag || "ಸರ್ಕಾರಿ ಯೋಜನೆ";
+  script.accent = script.accent || "#2E8B57";
+  script.template = "jobs"; // reuses the generic slide-deck composition — fully data-driven
+  script.lang = "kn";
+  // logo only if the file actually exists — a missing image would 404 in the
+  // renderer and CANCEL the whole render (Remotion <Img> retries then aborts).
+  script.logo = "";
+  if (channel.logo) {
+    const logoAbs = path.join(ROOT, "public", channel.logo);
+    if (await fs.access(logoAbs).then(() => true).catch(() => false)) script.logo = channel.logo;
+    else console.warn(`   ⚠ logo not found (public/${channel.logo}) — rendering without it`);
+  }
+  script.music = "";
+  script.showCaptions = false;
+  if ((channel.engine || "") === "cartesia") {
+    script.engine = "cartesia";
+    script.voice = channel.cartesiaVoice || ""; // "" = auto-resolve the account's clone
+    script.fallbackVoice = channel.voice || "kn-IN-GaganNeural";
+  } else {
+    script.engine = "edge";
+    script.voice = channel.voice || "kn-IN-GaganNeural";
+  }
+  const KNOWN_SCHEME_SCENES = new Set(["introCard", "table", "facts", "outro"]);
+  script.scenes = (Array.isArray(script.scenes) ? script.scenes : []).filter((s) => s && KNOWN_SCHEME_SCENES.has(s.type));
+  const OUTRO_VO =
+    "ವಿಡಿಯೋವನ್ನ ಪೂರ್ತಿಯಾಗಿ ನೋಡಿದ್ದಕ್ಕೆ ಧನ್ಯವಾದಗಳು. ಇನ್ನು ನಮ್ಮ ಚಾನೆಲ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಆಗಿಲ್ಲ ಅಂದ್ರೆ ಈಗಲೇ ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ, ಪಕ್ಕದಲ್ಲಿರುವ ಬೆಲ್ ಐಕಾನ್ ಪ್ರೆಸ್ ಮಾಡಿ. ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ಅಧಿಕೃತ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಎಲ್ಲಾ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ. ಥ್ಯಾಂಕ್ ಯು.";
+  script.scenes.forEach((s) => {
+    if (!s.vo || !String(s.vo).trim()) s.vo = s.type === "outro" ? OUTRO_VO : s.heading || s.title || s.headline || "";
+  });
+  if (!script.scenes.some((s) => s.type === "outro")) {
+    script.scenes.push({ type: "outro", headline: script.title || "", cta: `${channelName} ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ`, disclaimer: "ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ಅಧಿಕೃತ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಎಲ್ಲಾ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ", vo: OUTRO_VO });
+  }
+  if (script.scenes.length < 3) throw new Error("Gemini returned too few usable slides");
+  if (!script.scenes[0].title) script.scenes[0].title = script.title;
+
+  meta.channel = channel.id;
+  meta.lang = "kn";
+  meta.categoryId = "27"; // Education
+  if (!meta.title) meta.title = pick.title;
+  {
+    const GENERIC = ["kannada", "karnataka", "karnataka scheme", "kannada scheme", "government scheme", "sarkari yojane", "ಸರ್ಕಾರಿ ಯೋಜನೆ", "ಕನ್ನಡ"];
+    const seen = new Set();
+    const merged = [];
+    for (const t of [...GENERIC, ...(Array.isArray(meta.tags) ? meta.tags : [])]) {
+      const tt = String(t).trim();
+      const k = tt.toLowerCase();
+      if (tt && !seen.has(k)) {
+        seen.add(k);
+        merged.push(tt);
+      }
+    }
+    let len = 0;
+    meta.tags = [];
+    for (const tt of merged) {
+      if (len + tt.length + 1 > 480) break;
+      meta.tags.push(tt);
+      len += tt.length + 1;
+    }
+  }
+  if (meta.thumbnail) {
+    meta.thumbnail.channelName = channelName;
+    meta.thumbnail.accent = script.accent;
+  }
+
+  const finalTitle = meta.title || pick.title;
+  const base = `${dateStr}-${slugify(finalTitle)}-${channel.id}`;
+  await fs.mkdir(SCRIPTS, { recursive: true });
+  const scriptPath = path.join(SCRIPTS, `${base}.json`);
+  await fs.writeFile(scriptPath, JSON.stringify(script, null, 2));
+  await fs.writeFile(path.join(SCRIPTS, `${base}.meta.json`), JSON.stringify(meta, null, 2));
+
+  used.push({ date: dateStr, pillar: "schemes", slug: base, title: finalTitle, schemeId: pick.schemeId });
   await fs.mkdir(path.dirname(usedPath), { recursive: true });
   await fs.writeFile(usedPath, JSON.stringify(used, null, 2));
 
@@ -1039,6 +1320,17 @@ async function main() {
       process.exit(1);
     }
     await runJobs({ channel, channelName, dateStr, doRender, doUpload, publishAt, topic });
+    return;
+  }
+
+  // Schemes niche (SCHEME factor) — rotates through Karnataka + central govt
+  // welfare schemes, rendered on the same Jobs slide deck.
+  if (niche === "schemes") {
+    if (!hasGemini()) {
+      console.error("Schemes niche needs Gemini — add pipeline/gemini.key.");
+      process.exit(1);
+    }
+    await runSchemes({ channel, channelName, dateStr, doRender, doUpload, publishAt, topic });
     return;
   }
 

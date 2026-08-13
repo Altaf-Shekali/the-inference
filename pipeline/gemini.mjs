@@ -428,7 +428,7 @@ export async function geminiNarrative({ persona, kind, langName, facts, category
  * must come from the researched notification; unknown fields are OMITTED, never
  * guessed. Returns { script, meta }.
  */
-export async function geminiJobs({ facts, category, channelName, sourceUrl = "", todayStr = "" }) {
+export async function geminiJobs({ facts, category, channelName, sourceUrl = "", todayStr = "", covered = [] }) {
   const system =
     `You are the CREATOR of "${channelName}", a Kannada YouTube channel reporting job notifications and exam information for Karnataka job seekers. You speak in FIRST PERSON as the channel's host, in his exact narration style (transcribed from his real videos):\n\n` +
     `SIGNATURE STYLE — match this voice precisely:\n` +
@@ -445,11 +445,12 @@ export async function geminiJobs({ facts, category, channelName, sourceUrl = "",
     `Make a narrated Kannada video reporting THIS job/exam information. Category: ${category.topicTag} — ${category.guidance}\n` +
     `${todayStr ? `TODAY'S DATE IS ${todayStr}.\n` : ""}\n` +
     `RESEARCHED NOTIFICATION (the ONLY source of truth):\n${String(facts).slice(0, 12000)}\n\n` +
-    `⚠️ REJECT FIRST — before writing anything, check the research against these THREE gates. If ANY gate fails, return ONLY: { "reject": true, "reason": "<why>" } — do NOT write a script for it:\n` +
+    `⚠️ REJECT FIRST — before writing anything, check the research against these FOUR gates. If ANY gate fails, return ONLY: { "reject": true, "reason": "<why>" } — do NOT write a script for it:\n` +
     `1. RELEVANCE: this must be a Karnataka state government notification, a central-government notification open to Karnataka applicants, or a well-known all-India exam — NOT another state's exclusive state-service exam (e.g. UPPSC/Uttar Pradesh, MPPSC/Madhya Pradesh, WBPSC/West Bengal are all OUT OF SCOPE for this channel).\n` +
-    `2. STILL OPEN: ${todayStr ? `the application/exam window must be confirmed open on or after ${todayStr}` : "the application/exam window must be confirmed currently open"} — if the research shows it already closed, REJECT (a "channel reporting a closed opportunity" has no value — don't publish it as news either, just reject and let the caller pick something else).\n` +
-    `3. SPECIFIC & REAL: the research must describe ONE concrete, identifiable notification (not a vague roundup of "9000+ jobs" or a mismatched blend of multiple different notifications) — if the research is confused, contradictory, or clearly about a DIFFERENT notification than what was asked for, REJECT rather than guessing or blending.\n\n` +
-    `Only if ALL three gates pass, return ONE JSON object: { "script": {...}, "meta": {...} }.\n\n` +
+    `2. STILL OPEN: ${todayStr ? `the application/exam window must be confirmed open on or after ${todayStr}` : "the application/exam window must be confirmed currently open"} — if the research shows it already closed, REJECT. This includes ADMIT CARD / HALL TICKET notifications: an admit card being "released" does NOT by itself prove the exam is still upcoming — old "admit card out" pages stay indexed and get surfaced by search long after the exam was actually held. Before accepting one, the research must state the ACTUAL EXAM DATE (or a still-pending next stage like result/interview date), and that date must be on or after ${todayStr || "today"}. If the research never states a concrete date, or states one that has clearly already passed, REJECT — do not assume something is current just because it appeared in search results. Whenever genuinely uncertain whether it's still open, REJECT rather than risk publishing stale info (a "channel reporting a closed opportunity" has no value — don't publish it as news either, just reject and let the caller pick something else).\n` +
+    `3. SPECIFIC & REAL: the research must describe ONE concrete, identifiable notification (not a vague roundup of "9000+ jobs" or a mismatched blend of multiple different notifications) — if the research is confused, contradictory, or clearly about a DIFFERENT notification than what was asked for, REJECT rather than guessing or blending.\n` +
+    `4. DUPLICATE: this channel already covered these notifications recently (NEVER repeat one, and treat a different post-category/sub-post from the SAME parent recruitment drive/department as covered too, even if worded slightly differently — e.g. "...233 Group-C Posts" vs "...233 Posts" is the SAME notification):\n${covered.length ? covered.join("\n") : "(none)"}\nIf the research describes a notification that is the same as, or a sub-post/reworded version of, anything in that list, REJECT — this check has caught real repeats before, so treat it as seriously as the other gates.\n\n` +
+    `Only if ALL four gates pass, return ONE JSON object: { "script": {...}, "meta": {...} }.\n\n` +
     `"script" = { "channelName":"${channelName}", "topicTag":"${category.onScreenTag}", "accent":"#D9A514", "source":"<the real source(s)>", "music":"", "showCaptions":false, "scenes":[...] }\n\n` +
     `Scene types (EVERY scene needs "vo" = the spoken Kannada narration for that slide):\n` +
     `- {"type":"introCard","title":"<Kannada headline of the opportunity>","highlights":[{"label":"<ಸಂಬಳ/ಸ್ಥಳ/ಹುದ್ದೆಗಳು/ಕೊನೆಯ ದಿನಾಂಕ...>","value":"<short value>"} x3-4]}  — open the video; highlights are the 3-4 MOST decision-relevant facts\n` +
@@ -504,6 +505,136 @@ export async function geminiJobs({ facts, category, channelName, sourceUrl = "",
     if (checked?.script?.scenes?.length >= 3) return { script: checked.script, meta: checked.meta || draft.meta };
   } catch (e) {
     console.warn(`   jobs fact-check failed (${e.message}) — keeping unverified draft`);
+  }
+  return draft;
+}
+
+/**
+ * JOB factor — evergreen "how to get this job" roadmap guide, used as the
+ * fallback when no live, currently-open notification could be found for the
+ * day. Same slide-deck shape as geminiJobs, but framed as preparation
+ * guidance (eligibility, when notifications typically come out, exam
+ * pattern, syllabus, resources) instead of an "apply now" report — grounded
+ * in the research, never fabricated, with no urgency/deadline framing since
+ * there is no live notification behind it.
+ */
+export async function geminiJobsRoadmap({ facts, target, channelName, todayStr = "" }) {
+  const system =
+    `You are the CREATOR of "${channelName}", a Kannada YouTube channel helping Karnataka job seekers. Today there is no fresh notification to report, so instead you're making a PREPARATION ROADMAP video: how to get into "${target.title}". You speak in FIRST PERSON, in the SAME warm, direct, trustworthy-announcer voice as the channel's regular notification videos:\n` +
+    `- Intro = greeting ("ಎಲ್ಲರಿಗೂ ನಮಸ್ಕಾರ ಸ್ನೇಹಿತರೆ") then straight into the hook: which job/exam this roadmap is for and why it's worth preparing for now.\n` +
+    `- Address the audience as "ಫ್ರೆಂಡ್ಸ್" sparingly, natural spoken-Kannada connectors ("ಅಂದ್ರೆ...", "ಈ ಒಂದು ಹುದ್ದೆಗೆ..."), English terms transliterated to Kannada script.\n` +
+    `- This is GUIDANCE, not a live notification — never say "last date is..." or "apply now"; instead say things like "ಸಾಮಾನ್ಯವಾಗಿ ಈ ಅಧಿಸೂಚನೆ <month/season> ನಲ್ಲಿ ಬರುತ್ತೆ" (notifications typically come out around X) and repeatedly steer viewers to verify the CURRENT notification on the official website.\n` +
+    `Output ONLY JSON.`;
+  const user =
+    `Make a narrated Kannada "preparation roadmap" video for: ${target.title}\n` +
+    `${todayStr ? `TODAY'S DATE IS ${todayStr}.\n` : ""}\n` +
+    `RESEARCH (the ONLY source of truth for facts):\n${String(facts).slice(0, 12000)}\n\n` +
+    `⚠️ REJECT FIRST: if the research is too thin/vague to describe REAL eligibility criteria, exam pattern or syllabus for this specific job (e.g. only generic listicle noise, nothing concrete), return ONLY { "reject": true, "reason": "<why>" } rather than inventing details.\n\n` +
+    `Only if there's enough real material, return ONE JSON object: { "script": {...}, "meta": {...} }.\n\n` +
+    `"script" = { "channelName":"${channelName}", "topicTag":"ಹುದ್ದೆ ಮಾರ್ಗದರ್ಶಿ", "accent":"#D9A514", "source":"<the real source(s)>", "music":"", "showCaptions":false, "scenes":[...] }\n\n` +
+    `Scene types (EVERY scene needs "vo" = spoken Kannada narration):\n` +
+    `- {"type":"introCard","title":"<Kannada headline, e.g. 'KPSC KAS ಹುದ್ದೆಗೆ ಹೇಗೆ ತಯಾರಿ ಮಾಡುವುದು?'>","highlights":[{"label":"<ಇಲಾಖೆ/ಸಂಬಳ/ಶಿಕ್ಷಣ ಅರ್ಹತೆ/ಅಧಿಸೂಚನೆ ಸಮಯ...>","value":"<short value>"} x3-4]}\n` +
+    `- {"type":"facts","heading":"<Kannada heading>","bullets":["<fact, key value in **double asterisks**>", ...]}  — use several of these, IN THIS ORDER when the research supports it: ವಿದ್ಯಾರ್ಹತೆ (eligibility, age limit), ಅಧಿಸೂಚನೆ ಯಾವಾಗ ಬರುತ್ತೆ (typical notification month/season, based on past years — phrase as "ಸಾಮಾನ್ಯವಾಗಿ", never a fixed claimed date), ಪರೀಕ್ಷಾ ಮಾದರಿ (exam pattern/stages), ಸಿಲಬಸ್ ಮುಖ್ಯಾಂಶಗಳು (syllabus highlights), ತಯಾರಿ ಸಂಪನ್ಮೂಲಗಳು (preparation resources — official study material, previous papers, trusted sources)\n` +
+    `- {"type":"table","heading":"<Kannada heading>","columns":["<col1>","<col2>"],"rows":[{"cells":["<stage/subject>","<detail>"],"bold":false},...]}  — OPTIONAL, use for exam-stage breakdown or subject-wise syllabus if it fits a table better than bullets\n` +
+    `- {"type":"outro","headline":"<short Kannada closing>","cta":"${channelName} ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ","disclaimer":"ಪ್ರಸ್ತುತ ಅಧಿಸೂಚನೆಗಾಗಿ ಅಧಿಕೃತ ವೆಬ್‌ಸೈಟ್ ಅನ್ನು ನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸಿ"}\n\n` +
+    `STRUCTURE: introCard first, outro last, 4-7 "facts"/"table" scenes between covering as many of the topics above as the research actually supports. 5 to 8 scenes total, ~200-320 words of vo total.\n\n` +
+    `ACCURACY (non-negotiable):\n` +
+    `- Every eligibility/pattern/syllabus/resource claim MUST come from the research. NEVER invent a specific date, fee or vacancy count — this is a roadmap about a job CATEGORY, not a report on one live notification.\n` +
+    `- If the research mentions a specific past notification's dates, use it only as an illustrative "ಕಳೆದ ಬಾರಿ..." (last time) reference if useful, never phrase it as if it's the current opening.\n` +
+    `- Explicitly tell viewers (at least once, naturally, e.g. in the outro or a closing bullet) to check the official website for the CURRENT notification, since this video is general preparation guidance, not a live alert.\n\n` +
+    `LANGUAGE: same rules as the channel's regular videos — "vo" is natural spoken Kannada with transliterated English terms, no Latin letters in vo; on-screen text can keep standard digits/short English terms (10th, 12th, SC/ST, Exam, Online).\n\n` +
+    `"meta" = { "title":"<SEARCHABLE English/Roman title, e.g. 'KPSC KAS Recruitment 2026 — Eligibility, Exam Pattern & Syllabus Roadmap'>", "description":"<2-3 Kannada sentences summarising what this roadmap covers, then the line 'ಪ್ರಸ್ತುತ ಅಧಿಸೂಚನೆಗಾಗಿ ಅಧಿಕೃತ ವೆಬ್‌ಸೈಟ್ ಪರಿಶೀಲಿಸಿ.', then a hashtag line starting with EXACTLY: #kannada #karnataka #karnatakajobs #kannadajobs #10thpassjob #sarkarinaukri — plus 3-4 topic-specific hashtags>", "tags":["karnataka jobs","kannada jobs","govt jobs karnataka","ಸರ್ಕಾರಿ ಉದ್ಯೋಗ","ಉದ್ಯೋಗ ಮಾಹಿತಿ", plus 8-10 SPECIFIC tags for this job/exam], "thumbnail":{"badge":"ಹುದ್ದೆ ಮಾರ್ಗದರ್ಶಿ","bigText":"<3-5 punchy Kannada words>","subText":"<short: e.g. 'ಪೂರ್ತಿ ಮಾರ್ಗದರ್ಶಿ'>","accent":"#D9A514","channelName":"${channelName}"} }`;
+
+  let lastErr;
+  let draft;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const out = extractJson(await generate(user, { temperature: 0.45, system, maxOutputTokens: 8192 }));
+      if (out?.reject) return { reject: true, reason: out.reason || "rejected by writer" };
+      draft = { script: out.script || out, meta: out.meta || {} };
+      break;
+    } catch (e) {
+      lastErr = e;
+      console.warn(`   jobs-roadmap-writer attempt ${attempt} failed (${e.message}) — retrying`);
+    }
+  }
+  if (!draft) throw lastErr;
+  if (!draft.script?.scenes?.length) return { reject: true, reason: "writer returned no usable scenes" };
+  return draft;
+}
+
+/**
+ * SCHEME factor — Gemini writes a Kannada "government scheme explainer" slide
+ * deck (introCard → facts/table → outro): eligibility, benefit, documents,
+ * how to apply, for a state or central welfare scheme. HIGH-STAKES like
+ * geminiJobs (viewers make real financial/application decisions), with an
+ * EXTRA gate government scheme content specifically needs: confirming the
+ * scheme is still ACTIVE — schemes get renamed, merged or discontinued after
+ * policy/government changes, and old scheme pages stay indexed regardless.
+ * Returns { script, meta } or { reject, reason }.
+ */
+export async function geminiSchemes({ facts, target, channelName, todayStr = "" }) {
+  const system =
+    `You are the CREATOR of "${channelName}", a Kannada YouTube channel explaining government welfare schemes to ordinary Karnataka citizens — eligibility, benefits, and how to apply. You speak in FIRST PERSON, warm and trustworthy, like a helpful neighbourhood government-office clerk who wants people to actually get what they're entitled to:\n` +
+    `- Intro = greeting ("ಎಲ್ಲರಿಗೂ ನಮಸ್ಕಾರ") then straight into the hook: which scheme this is and its single most attractive benefit (amount / free service / who qualifies).\n` +
+    `- Natural spoken Kannada, English terms transliterated to Kannada script (ಸ್ಕೀಮ್, ಆನ್‌ಲೈನ್, ಅಪ್ಲಿಕೇಶನ್, ಡಾಕ್ಯುಮೆಂಟ್, ಪೋರ್ಟಲ್, ಆಧಾರ್, ಬ್ಯಾಂಕ್ ಅಕೌಂಟ್).\n` +
+    `- Never hype, never exaggerate the benefit — viewers make real decisions off this. Output ONLY JSON.`;
+  const user =
+    `Make a narrated Kannada "government scheme explainer" video for: ${target.title}\n` +
+    `${todayStr ? `TODAY'S DATE IS ${todayStr}.\n` : ""}\n` +
+    `RESEARCH (the ONLY source of truth):\n${String(facts).slice(0, 12000)}\n\n` +
+    `⚠️ REJECT FIRST — check against these gates. If ANY fails, return ONLY { "reject": true, "reason": "<why>" }:\n` +
+    `1. STILL ACTIVE: the research must confirm this scheme is CURRENTLY active/running, not discontinued, renamed, merged into another scheme, or superseded — government schemes DO get scrapped or replaced after policy changes, and old pages about them stay indexed forever. If the research is ambiguous about current status, or suggests it may have been discontinued/replaced, REJECT rather than risk publishing outdated scheme info.\n` +
+    `2. SPECIFIC & REAL: the research must describe ONE concrete, identifiable scheme with real eligibility/benefit details — not a vague listicle blending multiple schemes together. If confused or contradictory, REJECT rather than guess.\n` +
+    `3. ENOUGH SUBSTANCE: if the research is too thin to state real eligibility criteria and benefit details, REJECT rather than invent them.\n\n` +
+    `Only if all gates pass, return ONE JSON object: { "script": {...}, "meta": {...} }.\n\n` +
+    `"script" = { "channelName":"${channelName}", "topicTag":"ಸರ್ಕಾರಿ ಯೋಜನೆ", "accent":"#2E8B57", "source":"<the real source(s)>", "music":"", "showCaptions":false, "scenes":[...] }\n\n` +
+    `Scene types (EVERY scene needs "vo" = spoken Kannada narration):\n` +
+    `- {"type":"introCard","title":"<Kannada headline naming the scheme>","highlights":[{"label":"<ಲಾಭ/ಫಲಾನುಭವಿ/ಇಲಾಖೆ/ಸ್ಥಿತಿ...>","value":"<short value>"} x3-4]}\n` +
+    `- {"type":"facts","heading":"<Kannada heading>","bullets":["<fact, key value in **double asterisks**>", ...]}  — use several, IN THIS ORDER when the research supports it: ಅರ್ಹತೆ (eligibility criteria), ಸೌಲಭ್ಯ/ಲಾಭ (benefit amount or service), ಅಗತ್ಯ ದಾಖಲೆಗಳು (required documents), ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ವಿಧಾನ (how to apply — portal name/URL, offline option if any)\n` +
+    `- {"type":"table","heading":"<Kannada heading>","columns":["<col1>","<col2>"],"rows":[{"cells":["<item>","<detail>"],"bold":false},...]}  — OPTIONAL, use if benefit tiers/categories fit a table better than bullets\n` +
+    `- {"type":"outro","headline":"<short Kannada closing>","cta":"${channelName} ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ","disclaimer":"ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ಅಧಿಕೃತ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಎಲ್ಲಾ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ"}\n\n` +
+    `STRUCTURE: introCard first, outro last, 3-6 "facts"/"table" scenes between. 5 to 8 scenes total, ~200-320 words of vo.\n\n` +
+    `ACCURACY (non-negotiable — this is a channel viewers may apply for benefits based on):\n` +
+    `- EVERY eligibility rule, benefit amount and document requirement MUST come from the research. NEVER estimate or fill a gap with a typical/plausible value.\n` +
+    `- If a field is NOT in the research, OMIT that slide/bullet entirely.\n` +
+    `- CONFLICTING SOURCES: low-quality SEO "scheme info" blogs are a known source of stale/wrong numbers for this content type. If sources in the research disagree on a figure (benefit amount, eligibility cutoff, document list), prefer whichever source is the scheme's OFFICIAL government portal (a .gov.in / .kar.nic.in / karnataka.gov.in / sevasindhu domain, or explicitly named as the official site) over any blog or news aggregator. If you can't tell which source is official, or the official source itself is missing/unclear on that figure, OMIT the figure rather than pick either conflicting value.\n` +
+    `- Always tell viewers (in the outro, naturally) to confirm current details on the official portal before applying — scheme rules/amounts can be revised.\n\n` +
+    `LANGUAGE: "vo" is natural spoken Kannada, no Latin letters, numbers/dates as Kannada words or TTS-safe Kannada-script forms. On-screen text keeps standard digits and short English terms (Aadhaar, Online, BPL) as Karnataka govt-info channels do.\n\n` +
+    `"meta" = { "title":"<SEARCHABLE English/Roman title, e.g. 'Gruha Lakshmi Scheme 2026 — Eligibility, Benefits & How to Apply'>", "description":"<2-3 Kannada sentences summarising the scheme, then the line 'ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ಅಧಿಕೃತ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಪರಿಶೀಲಿಸಿ.', then a hashtag line starting with EXACTLY: #kannada #karnataka #karnatakascheme #kannadascheme #sarkariyojane — plus 3-4 scheme-specific hashtags>", "tags":["karnataka scheme","government scheme","ಸರ್ಕಾರಿ ಯೋಜನೆ","ಕನ್ನಡ", plus 8-10 SPECIFIC tags for this scheme], "thumbnail":{"badge":"ಸರ್ಕಾರಿ ಯೋಜನೆ","bigText":"<3-5 punchy Kannada words>","subText":"<short: e.g. benefit amount>","accent":"#2E8B57","channelName":"${channelName}"} }`;
+
+  let lastErr;
+  let draft;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const out = extractJson(await generate(user, { temperature: 0.4, system, maxOutputTokens: 8192 }));
+      if (out?.reject) return { reject: true, reason: out.reason || "rejected by writer" };
+      draft = { script: out.script || out, meta: out.meta || {} };
+      break;
+    } catch (e) {
+      lastErr = e;
+      console.warn(`   schemes-writer attempt ${attempt} failed (${e.message}) — retrying`);
+    }
+  }
+  if (!draft) throw lastErr;
+  if (!draft.script?.scenes?.length) return { reject: true, reason: "writer returned no usable scenes" };
+
+  // FACT-CHECK PASS — same rigor as geminiJobs: verify every number/eligibility
+  // rule against the research rather than trust one-shot generation.
+  try {
+    const verifyUser =
+      `You are a strict fact-checker for a government-scheme explainer video. Compare the DRAFT below against the RESEARCH (the only source of truth).\n\n` +
+      `RESEARCH:\n${String(facts).slice(0, 10000)}\n\n` +
+      `DRAFT (JSON — script.scenes[].vo carries the spoken facts; meta has the title/description):\n${JSON.stringify(draft)}\n\n` +
+      `Check EVERY eligibility rule, benefit amount and document requirement. Rules:\n` +
+      `- If a value is NOT stated in the research, or contradicts it, FIX it using the research, or if the research doesn't clearly support any value, REMOVE that specific claim.\n` +
+      `- Keep everything else (style, phrasing, structure) EXACTLY as in the draft — this is a fact-correction pass only.\n` +
+      `- If the draft is already fully accurate, return it unchanged.\n\n` +
+      `Return ONE JSON object with the SAME shape as the draft: { "script": {...}, "meta": {...} }`;
+    const checked = extractJson(await generate(verifyUser, { temperature: 0.1, maxOutputTokens: 8192 }));
+    if (checked?.script?.scenes?.length >= 3) return { script: checked.script, meta: checked.meta || draft.meta };
+  } catch (e) {
+    console.warn(`   schemes fact-check failed (${e.message}) — keeping unverified draft`);
   }
   return draft;
 }

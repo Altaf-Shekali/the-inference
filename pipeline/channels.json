@@ -54,7 +54,7 @@
     "spokenName": "ಜಾಬ್ ಫ್ಯಾಕ್ಟರ್",
     "lang": "kn",
     "niche": "jobs",
-    "pillars": ["govtjob", "privatejob", "examprep"],
+    "pillars": ["govtjob"],
     "engine": "cartesia",
     "cartesiaVoice": "",
     "voice": "kn-IN-GaganNeural",
@@ -65,6 +65,23 @@
     "topics": "ಉದ್ಯೋಗ ಮತ್ತು ಪರೀಕ್ಷಾ ಮಾಹಿತಿ",
     "privacy": "private",
     "enabled": true
+  },
+  {
+    "id": "schemefactor",
+    "name": "SCHEME factor",
+    "spokenName": "ಸ್ಕೀಮ್ ಫ್ಯಾಕ್ಟರ್",
+    "lang": "kn",
+    "niche": "schemes",
+    "pillars": [],
+    "engine": "edge",
+    "voice": "kn-IN-GaganNeural",
+    "logo": "",
+    "region": "IN",
+    "uploadTime": "20:00",
+    "renderTime": "10:00",
+    "topics": "ಸರ್ಕಾರಿ ಯೋಜನೆಗಳ ಮಾಹಿತಿ",
+    "privacy": "private",
+    "enabled": false
   },
   {
     "id": "current-affairs",
