@@ -2490,5 +2490,49 @@
     "publishAt": "2026-08-15T13:30:00Z",
     "title": "Farzi Dulhan, Asli Raaz - Part 3 | Pati ne bachaya ya phasaya? #Shorts",
     "at": "2026-08-15T07:58:11.608Z"
+  },
+  {
+    "base": "2026-08-16-nvidia-ising-breakthrough",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "U8dLBnGu-vk",
+    "url": "https://youtu.be/U8dLBnGu-vk",
+    "privacy": "scheduled",
+    "publishAt": "2026-08-16T18:00:00Z",
+    "title": "NVIDIA Ising Unveiled: 2.5x Faster Quantum Error Correction - What You Need to Know",
+    "at": "2026-08-16T02:41:27.614Z"
+  },
+  {
+    "base": "2026-08-16-the-bhopal-serial-killer-the-inference-kn",
+    "channel": "the-inference-kn",
+    "kind": "long",
+    "videoId": "MydJjGIxZSM",
+    "url": "https://youtu.be/MydJjGIxZSM",
+    "privacy": "scheduled",
+    "publishAt": "2026-08-16T12:30:00Z",
+    "title": "27 ವರ್ಷಗಳ ಕಾಲ ಡಾಕ್ಟರ್ ಆಗಿ ಬದುಕಿದ ಅಪರಾಧಿ! ನಿಜಕ್ಕೂ ಬೆಚ್ಚಿಬೀಳುವ ಕಥೆ.",
+    "at": "2026-08-16T03:57:17.035Z"
+  },
+  {
+    "base": "2026-08-16-farzi-dulhan-asli-raaz-part-4-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "long",
+    "videoId": "WzFMIqteNGc",
+    "url": "https://youtu.be/WzFMIqteNGc",
+    "privacy": "scheduled",
+    "publishAt": "2026-08-16T13:30:00Z",
+    "title": "Farzi Dulhan, Asli Raaz - Part 4 | Pati Ka Sabse Bada Dhoka",
+    "at": "2026-08-16T07:58:53.643Z"
+  },
+  {
+    "base": "2026-08-16-farzi-dulhan-asli-raaz-part-4-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "short",
+    "videoId": "jHN1lNPwjpo",
+    "url": "https://youtu.be/jHN1lNPwjpo",
+    "privacy": "scheduled",
+    "publishAt": "2026-08-16T13:30:00Z",
+    "title": "Farzi Dulhan, Asli Raaz - Part 4 | Pati Ka Sabse Bada Dhoka #Shorts",
+    "at": "2026-08-16T07:58:59.602Z"
   }
 ]
