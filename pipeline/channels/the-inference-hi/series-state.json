@@ -1,42 +1,5 @@
 {
-  "current": {
-    "slug": "farzi-dulhan-asli-raaz",
-    "title": "Farzi Dulhan, Asli Raaz",
-    "trope": "contractmarriage",
-    "logline": "Ek majboor ladki ne paise ke liye ek ameer ladke se contract shaadi toh kar li, lekin use nahi pata ki uska pati sirf ek business deal ke liye nahi, balki ek khoon ke badle ke liye use chun chuka hai. Kya yeh nafrat ka rishta asli mohabbat mein badal payega, ya uska gehra raaz sab kuch tabah kar dega?",
-    "characters": [
-      {
-        "name": "Aryan Raichand",
-        "role": "Ambitious CEO, business tycoon",
-        "secret": "His contract marriage with Rhea is a meticulously planned revenge scheme against the Sanyaal family, who he believes framed his father for embezzlement years ago, leading to his father's death.",
-        "want": "To expose and destroy the Sanyaal family, clearing his father's name and avenging his death."
-      },
-      {
-        "name": "Rhea Sharma",
-        "role": "Struggling middle-class girl",
-        "secret": "Unbeknownst to her, her ailing mother (Leela Sanyaal) was disowned by the powerful Sanyaal family, and her mother's past is entangled with Aryan's family's tragedy. She is an unwitting pawn in Aryan's revenge.",
-        "want": "To earn enough money quickly to save her mother's life (urgent heart surgery) and pay off crippling debts."
-      },
-      {
-        "name": "Vikram Sanyaal",
-        "role": "Influential, ruthless businessman (Rhea's maternal uncle)",
-        "secret": "He is the true mastermind behind framing Aryan's father and manipulating Rhea's mother, all to consolidate his own power and wealth within the Sanyaal empire.",
-        "want": "To maintain his absolute power, eliminate any threats to his position, and keep his past crimes buried."
-      }
-    ],
-    "arc": [
-      "Part 1: Rhea ki duniya ukhad chuki thi. Maa hospital mein, debt collectors darwaze par. Tabhi uske saamne ek proposal aaya — 'Ek saal ka contract, 50 crore. Meri biwi banogi?' Samne Aryan Raichand khada tha, jiske chehre par patthar jaisi udaasi thi. Rhea ne pehle mana kiya, lekin jab maa ki report aayi... uske paas koi option nahi tha. Aryan ne uske haath mein contract thama diya, uski aankhon mein nafrat chamak rahi thi. 'Sign karo, Mrs. Raichand,' usne kaha. Rhea ke haath kaanp rahe the, usne kalam uthayi... kyunki woh nahi jaanti thi... yeh shaadi uski zindagi ko barbaad karne ke liye kiya gaya ek khooni samjhauta tha. 'Welcome to hell, Rhea,' Aryan ne apne mann mein kaha, mandap ki taraf dekhte hue. 'Ab khel shuru hota hai.'",
-      "Part 2: Shaadi ho chuki thi. Rhea ki aankhon mein aasoon the, jabki Aryan ke chehre par ek jeet ki muskurahat. Aryan ke ghar mein Rhea ko ek anjaan banakar rakha gaya. Saas-nanad ke taane, Aryan ki beparwahi... Rhea sab seh rahi thi. Ek raat, woh Aryan ke study room se guzri. Darwaza thoda khula tha. Andar se Aryan ki awaaz aayi, 'Woh Sanyaal family... unko jald hi unke kiye ki saza milegi. Aur iss shaadi se... mera raasta saaf ho gaya hai.' Rhea ke haath se paani ka glass chhoot gaya. 'Tumhe kya laga, Rhea?' Aryan ki awaaz mein ek thandak thi. 'Agar tum sochti ho ki tum Sanyaal family se bach sakti ho... toh tum galat ho.'",
-      "Part 3: Rhea darr chuki thi. Usse Aryan ke irade samajh nahi aa rahe the, lekin paise ki majboori use roke hue thi. Company ke ek bade event mein, ek rival businessman, Vikram Sanyaal (jise Rhea sirf ek bade investor ke taur par jaanti thi), ne jaan-boojhkar Rhea ko neecha dikhaya. 'Yeh Miss Sharma kaun hai, Mr. Raichand? Aapki naya staff?' Aryan ka chehra pathar ho gaya. Usne Rhea ka haath pakda, poore hall ke saamne. 'Yeh meri biwi hai, Vikram Sanyaal. Aur aapke paas meri biwi ko kuch kehne ka koi adhikaar nahi.' Rhea Aryan ko shock se dekh rahi thi, uski aankhon mein pehli baar koi insaani jazba dikha. Raat ko Aryan ne usse zabardasti poochha, 'Sanyaal family ke baare mein kya jaanti ho?' Rhea ne masoomiyat se kaha, 'Meri maa ne unse rishta tod diya tha, mujhe kuch nahi pata.' Aryan ne us par ghoor kar dekha. Uske mann mein shaq badh raha tha. Usne apne personal detective ko phone kiya, 'Mujhe Leela Sanyaal ki poori file chahiye, abhi!'",
-      "Part 4: Aryan apne detective ki report padh raha tha. Usmein uske pita ki purani business file aur Leela Sanyaal ki tasveer ek saath thi. Uska dimaag ghoom gaya. Yeh aurat jise woh Sanyaal family ka hissa maanta tha, woh toh khud ek shikar thi! Aur sabse bada dhoka... Rhea ki maa Leela thi! Leela aur uske pita ka connection... uska badla galat insaan se tha! Usne laptop band kiya, gusse mein mutthi bheench li. Tabhi doorbell baji. Aryan ne darwaza khola. Samne Vikram Sanyaal khada tha, uske chehre par ek chaalaki bhari muskurahat thi. 'Aao Aryan, main tumhe ek game khelna sikhata hoon,' Vikram ne kaha. 'Jisme tumne apni hi biwi ko mohra banaya hai.' Aryan ki aankhon mein khoon utar aaya. 'Tum... tumne yeh sab kiya?'",
-      "Part 5: Aryan ki mutthi bheench gayi, gusse mein usne Vikram Sanyaal ka collar pakad liya. 'Tumne mere pita ko phansaya! Aur Rhea ki maa ko bhi! Us masoom ladki ko istemal kiya!' Vikram ne hansi roki. 'Kaha na, yeh game tha, Aryan. Tumhari biwi... woh bhi toh mere plan ka hissa thi. Kya laga tumhe, uska 'debt' apne aap aaya tha?' Rhea yeh sab darwaze ke peeche se sun rahi thi, uske pairon tale zameen khisak gayi. Aryan ki dhokebaazi, Vikram ki sachai... sab kuch saamne aa gaya. Vikram ke goondon ne Rhea ko pakad liya. 'Ab tum kya karoge, Aryan?' Vikram ne muskura kar kaha. Aryan ne Rhea ki taraf dekha, uski aankhon mein pehli baar asli darr tha. Usne Vikram par chalaang lagayi. Ek gunshot ki awaaz aayi! Poora ghar cheekhon se goonj utha. Rhea ke saamne Aryan zameen par gir gaya, uska shirt khoon se rang chuka tha. 'Aryan!' Rhea ki cheekh hawa mein kaanp gayi.",
-      "Part 6: Aryan zakhmi tha, lekin hosh mein. Rhea uske paas baithi, uske haath mein Aryan ka khoon laga tha. Usne gusse se Vikram ki taraf dekha. 'Main tumhe nahi chhodungi!' Vikram hasne laga. 'Tum kya karogi? Tum toh mere hath ki kathputli ho!' Tabhi police sirens ki awaaz aayi. Aryan ne Rhea ka haath zor se pakda. 'Sachai... sachai bahar aa gayi hai, Rhea.' Vikram ko police ne gher liya. Aryan ne Rhea ki aankhon mein dekha. 'Mujhe maaf kar do, Rhea. Maine tumhe bahut takleef di.' Rhea ki aankhon mein aasoon the, lekin usne apna sir Aryan ke kandhe par rakh diya. 'Jab dil se kiye rishton mein maaf karna padta hai, tab woh rishta asli ban jaata hai.' Aryan ne use apni baahon mein bhar liya. 'Yeh contract toh kab ka khatam ho gaya,' Rhea ne dheere se kaha. 'Lekin hamari kahani toh abhi shuru hui hai, Mrs. Raichand.' Aryan muskuraya. Tabhi darwaza tezi se khula. Ek anjaan aadmi andar aaya, uske haath mein ek purani file thi. 'Picture abhi baaki hai mere dost,' usne thandi awaaz mein kaha. Aryan aur Rhea dono uski taraf dekhte reh gaye, unki saansein ruk chuki thi."
-    ],
-    "totalParts": 6,
-    "part": 5,
-    "soFar": "Rhea ne apni beemar maa ke ilaj ke liye Aryan Raichand se contract shaadi kar li, anjaan thi ki Aryan Sanyaal family se badla lena chahta hai. Use Aryan ke iradon par shaq hua jab usne Sanyaal family ke baare mein baatein suni. Aryan ne Rhea ki maa, Leela Sanyaal ki file mangayi, tab use pata chala ki Leela bhi Vikram Sanyaal ki shikar thi aur uska badla galat tha. Aryan ko apni galti ka ehsaas hua. Tabhi Vikram Sanyaal Aryan ke ghar aaya aur usne Aryan ko bataya ki usne apni hi biwi Rhea ko mohra banaya hai. Rhea, jo darwaze ke peeche se yeh sab sun rahi thi, uske pairon tale zameen khisak gayi. Vikram ne yeh bhi bataya ki Rhea ka 'debt' uske plan ka hissa tha. Goondon ne Rhea ko pakad liya. Aryan ne Rhea ko bachane ki koshish ki aur Vikram par hamla kiya, lekin ek gunshot ki awaaz aayi aur Aryan khoon se lathpath zameen par gir gaya.",
-    "cliffhanger": "Aryan zameen par gir chuka tha, uska shirt khoon se rang chuka tha. Rhea ki cheekh hawa mein kaanp gayi, woh uski taraf bhagi, uske haath Aryan ke khoon se bheeg gaye."
-  },
+  "current": null,
   "completed": [
     {
       "slug": "secret-ceo-ka-driver",
@@ -48,6 +11,12 @@
       "slug": "black-swan-ceo",
       "title": "Black Swan CEO",
       "trope": "revenge",
+      "parts": 6
+    },
+    {
+      "slug": "farzi-dulhan-asli-raaz",
+      "title": "Farzi Dulhan, Asli Raaz",
+      "trope": "contractmarriage",
       "parts": 6
     }
   ]
