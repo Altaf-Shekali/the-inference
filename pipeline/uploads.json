@@ -3381,5 +3381,49 @@
     "publishAt": "2026-08-30T13:00:00Z",
     "title": "Current Affairs & GK Quiz - August 30, 2026 | Monthly Current Affairs for UPSC SSC Banking #Shorts",
     "at": "2026-08-30T10:16:53.990Z"
+  },
+  {
+    "base": "2026-08-31-openai-billion-dollar-blip",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "oc0kdgmcfkE",
+    "url": "https://youtu.be/oc0kdgmcfkE",
+    "privacy": "scheduled",
+    "publishAt": "2026-08-31T18:00:00Z",
+    "title": "OpenAI's $20.9 Billion Loss: Why Their IPO Sprint Hit a Wall",
+    "at": "2026-08-31T06:57:23.985Z"
+  },
+  {
+    "base": "2026-08-31-lakshmi-mittal-steel-empire-the-inference-kn",
+    "channel": "the-inference-kn",
+    "kind": "long",
+    "videoId": "fhLjM_8gusI",
+    "url": "https://youtu.be/fhLjM_8gusI",
+    "privacy": "scheduled",
+    "publishAt": "2026-08-31T12:30:00Z",
+    "title": "ಲಕ್ಷ್ಮಿ ಮಿತ್ತಲ್: ಶೂನ್ಯದಿಂದ ವಿಶ್ವದ ಸ್ಟೀಲ್ ಸಾಮ್ರಾಟ ಆದ ಕಥೆ!",
+    "at": "2026-08-31T07:34:55.873Z"
+  },
+  {
+    "base": "2026-08-31-ghar-jamai-ka-raaz-part-2-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "long",
+    "videoId": "OiKxqhz9Jlc",
+    "url": "https://youtu.be/OiKxqhz9Jlc",
+    "privacy": "scheduled",
+    "publishAt": "2026-08-31T13:30:00Z",
+    "title": "Ghar Jamai Ka Raaz - Part 2 | बेइज्जती का बदला, टेक से!",
+    "at": "2026-08-31T11:42:27.882Z"
+  },
+  {
+    "base": "2026-08-31-ghar-jamai-ka-raaz-part-2-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "short",
+    "videoId": "Yy7uQP3384w",
+    "url": "https://youtu.be/Yy7uQP3384w",
+    "privacy": "scheduled",
+    "publishAt": "2026-08-31T13:30:00Z",
+    "title": "Ghar Jamai Ka Raaz - Part 2 | बेइज्जती का बदला, टेक से! #Shorts",
+    "at": "2026-08-31T11:42:33.671Z"
   }
 ]
