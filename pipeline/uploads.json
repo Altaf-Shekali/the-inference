@@ -3634,5 +3634,71 @@
     "publishAt": "2026-09-04T13:00:00Z",
     "title": "Current Affairs & GK Quiz - September 4, 2026 | Monthly Current Affairs for UPSC SSC Banking",
     "at": "2026-09-04T09:12:59.113Z"
+  },
+  {
+    "base": "2026-09-05-anthropic-mythos-global-alarms",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "heCutyVm2CU",
+    "url": "https://youtu.be/heCutyVm2CU",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-05T18:00:00Z",
+    "title": "Anthropic's Mythos AI: Public Model Gets Bioweapons Label & Outsmarts Safety",
+    "at": "2026-09-05T05:27:06.620Z"
+  },
+  {
+    "base": "2026-09-05-harrison-okene-sunken-ship-survival-the-inference-kn",
+    "channel": "the-inference-kn",
+    "kind": "long",
+    "videoId": "HpyvJlR6l8g",
+    "url": "https://youtu.be/HpyvJlR6l8g",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-05T12:30:00Z",
+    "title": "ಸಮುದ್ರದ ಆಳದಲ್ಲಿ 3 ದಿನ! ಬದುಕುಳಿದ ಈ ಅಡುಗೆಯವನ ಕಥೆ ನಿಮ್ಮನ್ನು ಬೆಚ್ಚಿಬೀಳಿಸುತ್ತೆ!",
+    "at": "2026-09-05T06:03:00.618Z"
+  },
+  {
+    "base": "2026-09-05-ghar-jamai-ka-raaz-part-6-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "long",
+    "videoId": "zQYGV_MEzPg",
+    "url": "https://youtu.be/zQYGV_MEzPg",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-05T13:30:00Z",
+    "title": "Ghar Jamai Ka Raaz - Part 6 | Haar Aur Jeet Ka Akhiri Khel",
+    "at": "2026-09-05T08:12:32.265Z"
+  },
+  {
+    "base": "2026-09-05-ghar-jamai-ka-raaz-part-6-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "short",
+    "videoId": "KsKh-jltfGY",
+    "url": "https://youtu.be/KsKh-jltfGY",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-05T13:30:00Z",
+    "title": "Ghar Jamai Ka Raaz - Part 6 | Haar Aur Jeet Ka Akhiri Khel #Shorts",
+    "at": "2026-09-05T08:12:39.303Z"
+  },
+  {
+    "base": "2026-09-05-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "XVKk8xYZcs4",
+    "url": "https://youtu.be/XVKk8xYZcs4",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-05T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - September 5, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-09-05T08:53:30.280Z"
+  },
+  {
+    "base": "2026-09-05-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "sSNzpq6NqpY",
+    "url": "https://youtu.be/sSNzpq6NqpY",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-05T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - September 5, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-09-05T08:53:40.345Z"
   }
 ]
