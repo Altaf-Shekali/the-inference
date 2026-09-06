@@ -3700,5 +3700,16 @@
     "publishAt": "2026-09-05T13:00:00Z",
     "title": "Current Affairs & GK Quiz - September 5, 2026 | Monthly Current Affairs for UPSC SSC Banking",
     "at": "2026-09-05T08:53:40.345Z"
+  },
+  {
+    "base": "2026-09-06-openai-chatgpt-health-review",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "erCJLWEVK2s",
+    "url": "https://youtu.be/erCJLWEVK2s",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-06T18:00:00Z",
+    "title": "ChatGPT Health: The TRUTH About AI Reviewing Your Medical Records",
+    "at": "2026-09-06T06:00:57.047Z"
   }
 ]
