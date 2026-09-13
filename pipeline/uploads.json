@@ -4107,5 +4107,71 @@
     "publishAt": "2026-09-12T13:00:00Z",
     "title": "Current Affairs & GK Quiz - September 12, 2026 | Monthly Current Affairs for UPSC SSC Banking",
     "at": "2026-09-12T08:35:50.655Z"
+  },
+  {
+    "base": "2026-09-13-openai-navier-stokes-breakthrough",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "-yoJAbhS12M",
+    "url": "https://youtu.be/-yoJAbhS12M",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-13T18:00:00Z",
+    "title": "OpenAI Claims $1M Navier-Stokes Solution: The Controversy Explained",
+    "at": "2026-09-13T05:48:57.367Z"
+  },
+  {
+    "base": "2026-09-13-submerged-city-dwarka-the-inference-kn",
+    "channel": "the-inference-kn",
+    "kind": "long",
+    "videoId": "HHZyT5cZzxY",
+    "url": "https://youtu.be/HHZyT5cZzxY",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-13T12:30:00Z",
+    "title": "ಸಮುದ್ರದಲ್ಲಿ ಮಾಯವಾದ ಕೃಷ್ಣನ ದ್ವಾರಕೆ: ರಹಸ್ಯ ಬಯಲು ಮಾಡ್ತಾರಾ ಪುರಾತತ್ವಜ್ಞರು?",
+    "at": "2026-09-13T06:59:35.295Z"
+  },
+  {
+    "base": "2026-09-13-deal-wali-dulhan-part-1-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "long",
+    "videoId": "hu1hSv9b8Uo",
+    "url": "https://youtu.be/hu1hSv9b8Uo",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-13T13:30:00Z",
+    "title": "Deal Wali Dulhan - Part 1 | Anjaan Pati ka Gehra Raaz",
+    "at": "2026-09-13T09:55:58.518Z"
+  },
+  {
+    "base": "2026-09-13-deal-wali-dulhan-part-1-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "short",
+    "videoId": "3IChjRQsTxQ",
+    "url": "https://youtu.be/3IChjRQsTxQ",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-13T13:30:00Z",
+    "title": "Deal Wali Dulhan - Part 1 | Anjaan Pati ka Gehra Raaz #Shorts",
+    "at": "2026-09-13T09:56:05.193Z"
+  },
+  {
+    "base": "2026-09-13-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "2aXdfYtwLJ8",
+    "url": "https://youtu.be/2aXdfYtwLJ8",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-13T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - September 13, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-09-13T10:35:36.086Z"
+  },
+  {
+    "base": "2026-09-13-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "AILMS9AczdE",
+    "url": "https://youtu.be/AILMS9AczdE",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-13T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - September 13, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-09-13T10:35:44.238Z"
   }
 ]
