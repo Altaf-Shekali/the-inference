@@ -4613,5 +4613,71 @@
     "publishAt": "2026-09-21T18:00:00Z",
     "title": "OpenAI's AI Solves $1M Navier-Stokes Millennium Problem in 88 Hours",
     "at": "2026-09-21T06:02:23.817Z"
+  },
+  {
+    "base": "2026-09-22-claude-design-ai-prototype-tool",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "vm5oc0E57CY",
+    "url": "https://youtu.be/vm5oc0E57CY",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-22T18:00:00Z",
+    "title": "Claude Design: Anthropic's AI Prototype Tool vs. Figma - How it Actually Works",
+    "at": "2026-09-22T06:21:26.451Z"
+  },
+  {
+    "base": "2026-09-22-thane-cbi-job-scam-exposed-the-inference-kn",
+    "channel": "the-inference-kn",
+    "kind": "long",
+    "videoId": "W2L19gILITQ",
+    "url": "https://youtu.be/W2L19gILITQ",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-22T12:30:00Z",
+    "title": "ಸಿಬಿಐ ಅಧಿಕಾರಿಯ ನಕಲು! | ಒಂದು ದೊಡ್ಡ ಹಗರಣ!",
+    "at": "2026-09-22T07:14:37.004Z"
+  },
+  {
+    "base": "2026-09-22-farebi-pati-part-4-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "long",
+    "videoId": "Q_0nG4KPatg",
+    "url": "https://youtu.be/Q_0nG4KPatg",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-22T13:30:00Z",
+    "title": "Farebi Pati - Part 4 | Dhokebaaz Pati Ka Pardaफाश?",
+    "at": "2026-09-22T10:31:32.272Z"
+  },
+  {
+    "base": "2026-09-22-farebi-pati-part-4-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "short",
+    "videoId": "EF5r881dfx4",
+    "url": "https://youtu.be/EF5r881dfx4",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-22T13:30:00Z",
+    "title": "Farebi Pati - Part 4 | Dhokebaaz Pati Ka Pardaफाश? #Shorts",
+    "at": "2026-09-22T10:31:38.773Z"
+  },
+  {
+    "base": "2026-09-22-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "qyUsQAhqcdo",
+    "url": "https://youtu.be/qyUsQAhqcdo",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-22T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - September 22, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-09-22T11:14:33.605Z"
+  },
+  {
+    "base": "2026-09-22-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "KrVfhp3jTu0",
+    "url": "https://youtu.be/KrVfhp3jTu0",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-22T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - September 22, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-09-22T11:14:42.116Z"
   }
 ]
