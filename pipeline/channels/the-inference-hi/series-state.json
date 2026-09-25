@@ -1,5 +1,48 @@
 {
-  "current": null,
+  "current": {
+    "slug": "chhupi-hui-designer",
+    "title": "Chhupi Hui Designer",
+    "trope": "underestimated",
+    "logline": "Raina, ghar ki chhoti aur 'saadi' beti, hamesha apni designer behen Shanaya ke saaye mein jee hai. Lekin koi nahi jaanta ki Raina hi woh 'The Phantom Stitch' hai, jiski designs ne poori industry mein toofan macha rakha hai aur jo ab apni behen ka raaz kholne wali hai.",
+    "characters": [
+      {
+        "name": "Raina Sharma",
+        "role": "The 'plain' younger sister, often overlooked and underestimated.",
+        "secret": "She is 'The Phantom Stitch', an anonymous, highly acclaimed fashion designer.",
+        "want": "To be valued for her talent, not superficial comparisons, and to see her true designs acknowledged."
+      },
+      {
+        "name": "Shanaya Sharma",
+        "role": "Raina's glamorous, outwardly successful older sister, a struggling designer.",
+        "secret": "She often takes credit for others' ideas and is secretly insecure about her own design abilities.",
+        "want": "To maintain her perfect image, marry Armaan, and achieve fame without genuine effort."
+      },
+      {
+        "name": "Armaan Oberoi",
+        "role": "Shanaya's wealthy and influential fiancé, a discerning businessman.",
+        "secret": "He is a keen follower of 'The Phantom Stitch' and values true talent above all.",
+        "want": "A genuinely talented and honest partner, and success in his ventures, including potential collaborations with 'The Phantom Stitch'."
+      },
+      {
+        "name": "Mrs. Sharma",
+        "role": "Raina and Shanaya's mother.",
+        "secret": "She prioritizes social standing and conventional success, often at Raina's expense.",
+        "want": "For her daughters to be well-settled and for the family to maintain a prestigious social image."
+      }
+    ],
+    "arc": [
+      "Part 1: The Invisible Sister: Ghar par Shanaya ki engagement announcement thi. Raina jab simple dress mein pahunchi toh Shanaya ne use poore mehmano ke saamne 'behen ki help' bolkar sharminda kiya. 'Tum kabhi kuch accha nahi kar sakti!' usne taana maara. Raina ne kuch nahi kaha, bas apne kamre mein aakar 'The Phantom Stitch' label ke liye apni latest design par kaam karne lagi. Audience ko pata chala, Raina hi woh top secret designer hai. Achank Shanaya darwaza khole bina andar aa gayi, 'Mujhe tumhari help chahiye!' bolti hui... Raina ne jaldi se apna sketchbook chupa liya.",
+      "Part 2: The Engagement Disaster: Shanaya ne Raina ko apni engagement party ke liye decorations aur outfits choose karne mein 'help' karne ko kaha, use ek naukrani ki tarah treat karte hue. 'Tumhe toh bas basic cheezein aati hain,' usne kaha jab Raina ne ek naya design dikhaya. Party se pehle, Shanaya ke supplier ne kapda dene se mana kar diya. Shanaya ghabra gayi. Raina ne chupke se apne contacts use karke problem solve ki, lekin Shanaya ko credit lene diya. Armaan ki behen ne Raina ka secret banaya hua gown pehna. 'Yeh design kiska hai?' Armaan ne poocha. Shanaya ne jhat se kaha, 'Oh, woh toh meri helper ne thoda-bahot kiya tha.' Tabhi, famous fashion critic Ms. Khanna party mein aati hain, 'Phantom Stitch' ko dhoondhte hue. Ms. Khanna ne ek waiter ki uniform par ek unique detail dekha, 'Yeh design... kya aapki hai?' unhone Shanaya ki taraf dekh kar poocha. Shanaya ka chehra safed pad gaya.",
+      "Part 3: The Stolen Spotlight: Shanaya hichkichate hue design ko apna batane ki koshish karti hai, lekin Ms. Khanna unimpressed lagti hain. Armaan Shanaya ko us sharmindagi se bachane ke liye beech mein aata hai. Raina yeh sab sunkar andar hi andar ghut jaati hai. Ek major fashion magazine 'Next Big Name' competition announce karta hai, 'The Phantom Stitch' ko benchmark batate hue. Mrs. Sharma Shanaya ko enter hone ke liye force karti hain. Shanaya darr jaati hai aur Raina se 'ideas' maangti hai. Raat mein, Shanaya 'accidentally' Raina ka ek breathtaking sketch dekh leti hai – 'Phantom Stitch' ke next collection ka centerpiece. 'Yeh toh... perfect hai!' woh muskurati hai. Tabhi Raina kamre mein aati hai, aur Shanaya ke haath mein apna sketch dekh leti hai. 'Kya hua?' Raina poochti hai, uski nazrein sketch par tik jaati hain.",
+      "Part 4: The Betrayal & The Deadline: Shanaya jhooth bolti hai, 'Oh, main toh bas dekh rahi thi... bura nahi hai.' Lekin Raina uski aankhon mein jhooth dekh leti hai. Shanaya chupke se Raina ke design ko competition mein apna banakar submit kar deti hai, aur woh design shortlist ho jaata hai. Poora parivaar Shanaya ki tareef karta hai, Raina ke dil par chot lagti hai. Competition ke next round mein live prototype presentation thi. Shanaya Raina ke intricate design ko banane mein buri tarah fail ho jaati hai. Armaan, 'Phantom Stitch' ke designs mein Shanaya ke design ki similarity dekhkar suspicious ho jaata hai aur 'Phantom Stitch' ke baare mein pata lagane lagta hai. Raina, family ki izzat bachane ke liye, chupke se Shanaya ko raat mein complex patterns mein help karti hai. Presentation ke dauraan, Shanaya ek mistake kar deti hai. Ms. Khanna, judge ke roop mein, design ko dekhti hai aur poochti hai, 'Yeh technique toh 'Phantom Stitch' ki hallmark hai. Kya aap confirm kar sakti hain ki aapne khud yeh detail banaya hai?' Shanaya ka chehra peela pad jaata hai, camera uspar zoom karta hai.",
+      "Part 5: The Phantom's Hand: Shanaya corner ho jaati hai. Armaan beech mein aata hai, 'Shanaya hamesha best se inspire hoti hai. Shayad yeh ek homage hai?' Ms. Khanna ab bhi skeptical thi. 'The Phantom Stitch' par ab public mein plagiarism ka ilzaam lag raha tha. Raina ko apni identity exposed hone ka darr tha aur uske agent se gusse wali call aayi. Armaan, 'Phantom Stitch' ke obsession mein, ek private investigator hire karta hai aur pata chalta hai ki woh ek individual hai. Armaan Raina ko raat mein furiously sketching karte hue dekhta hai aur ek familiar movement pehchanta hai. Shanaya ki label collapse hone lagti hai. Woh Raina ke paas jaakar madad maangti hai, apni failures confess karti hai. Raina family ki haalat dekhkar uski help karne ko maan jaati hai, lekin apni full identity ab bhi chupa kar rakhti hai. Raina naye collection par kaam kar rahi thi. Armaan uske room mein aata hai, ek masterpiece aur 'PS' monogram dekhta hai. Woh Raina ka sketchbook uthata hai. Tabhi Raina room mein aati hai. Unki aankhein milti hain. Armaan sketchbook haath mein lekar poochta hai, 'Toh tum ho... 'The Phantom Stitch'?'",
+      "Part 6: The Unveiling: Raina freeze ho jaati hai, Armaan shocked aur gusse mein tha. Raina use apni kahaani batati hai – talent par judge hone ki chaahat, na ki family status par. Shanaya ka career collapse ho raha tha, engagement tootne wali thi. Raina family ko bachane ka faisla karti hai, lekin apni sharton par. Woh final competition ke liye design karne ko ready hoti hai, magar sirf tab jab use credit mile. Competition ke final round mein, Raina ka collection dikhaya jaata hai. Judges, including Ms. Khanna, amazed the. Host poochta hai, 'Aur is breathtaking collection ke peeche kaun hai?' Shanaya, aankhon mein aansu lekar, Raina ki taraf ishara karti hai. 'Yeh design... yeh collection... meri chhoti behen, Raina Sharma ki hai. She is... The Phantom Stitch.' Mrs. Sharma khushi se ro padti hain. Armaan Raina ko admmiration se dekhta hai. Raina spotlight mein aati hai. Jaise hi woh bolne wali hoti hai, screen par ek urgent call aur message flash hota hai: 'Your biggest rival has just launched a new label. They're coming for 'The Phantom Stitch's' throne. Are you ready?' Screen black ho jaati hai. Raina ki aankhein narrow ho jaati hain."
+    ],
+    "totalParts": 6,
+    "part": 1,
+    "soFar": "Shanaya ki engagement party par, uski chhoti behen Raina ko, jo ek simple dress mein aayi thi, sabke saamne Shanaya ne 'kuch accha nahi kar sakti' bolkar sharminda kiya. Apne kamre mein wapas aakar, Raina ne apna secret sketchbook nikala, jisse audience ko pata chala ki Raina hi fashion industry ki sabse rahasyamayi designer 'The Phantom Stitch' hai. Jaise hi woh apni latest design par kaam kar rahi thi, Shanaya bina knock kiye andar aa gayi, jisse Raina ko apna sketchbook chupana pada. Shanaya ne ghabrahat mein Raina se madad maangi.",
+    "cliffhanger": "Shanaya ne ghabrate hue Raina se kaha, 'Mujhe tumhari help chahiye!' jabki Raina ne apna secret sketchbook uske saamne chupa rakha tha."
+  },
   "completed": [
     {
       "slug": "secret-ceo-ka-driver",
