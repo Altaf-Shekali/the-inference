@@ -4943,5 +4943,71 @@
     "publishAt": "2026-09-28T12:30:00Z",
     "title": "ಬರೀ ಒಂದೇ ಕರೆ, 37 ಸಾವಿರ ಡಾಲರ್ ಲೂಟಿ! ಸೈಬರ್ ಕ್ರೈಮ್ ಅಸಲಿ ಕಥೆ!",
     "at": "2026-09-28T08:03:19.257Z"
+  },
+  {
+    "base": "2026-09-29-openai-navier-stokes-solved",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "YvT8L9zYd5k",
+    "url": "https://youtu.be/YvT8L9zYd5k",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-29T18:00:00Z",
+    "title": "OpenAI's AI Cracks 90-Year-Old Navier-Stokes Problem in 88 Hours: The $1M Breakthrough Explained",
+    "at": "2026-09-29T06:44:44.518Z"
+  },
+  {
+    "base": "2026-09-29-robertson-family-adrift-the-inference-kn",
+    "channel": "the-inference-kn",
+    "kind": "long",
+    "videoId": "d3v3uFLnuPc",
+    "url": "https://youtu.be/d3v3uFLnuPc",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-29T12:30:00Z",
+    "title": "ಕಿಲ್ಲರ್ ತಿಮಿಂಗಿಲಗಳು ಮುಳುಗಿಸಿದ ದೋಣಿ! 38 ದಿನ ಸಮುದ್ರದಲ್ಲಿ ಬದುಕುಳಿದ ಕುಟುಂಬದ ಕಥೆ | ಜವಾರಿ ಆತ್ಮ",
+    "at": "2026-09-29T07:29:03.271Z"
+  },
+  {
+    "base": "2026-09-29-chhupi-hui-designer-part-5-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "long",
+    "videoId": "Ei8wfsO_3EM",
+    "url": "https://youtu.be/Ei8wfsO_3EM",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-29T13:30:00Z",
+    "title": "Chhupi Hui Designer - Part 5 | Armaan Ne Pakda Chor?",
+    "at": "2026-09-29T11:01:46.125Z"
+  },
+  {
+    "base": "2026-09-29-chhupi-hui-designer-part-5-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "short",
+    "videoId": "N-0g8owOPZo",
+    "url": "https://youtu.be/N-0g8owOPZo",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-29T13:30:00Z",
+    "title": "Chhupi Hui Designer - Part 5 | Armaan Ne Pakda Chor? #Shorts",
+    "at": "2026-09-29T11:01:52.213Z"
+  },
+  {
+    "base": "2026-09-29-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "N9FGL0fkvK8",
+    "url": "https://youtu.be/N9FGL0fkvK8",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-29T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - September 29, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-09-29T11:40:02.972Z"
+  },
+  {
+    "base": "2026-09-29-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "wcAUl6TPl9A",
+    "url": "https://youtu.be/wcAUl6TPl9A",
+    "privacy": "scheduled",
+    "publishAt": "2026-09-29T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - September 29, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-09-29T11:40:10.626Z"
   }
 ]
