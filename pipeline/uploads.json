@@ -5086,5 +5086,71 @@
     "publishAt": "2026-09-30T13:00:00Z",
     "title": "Current Affairs & GK Quiz - September 30, 2026 | Monthly Current Affairs for UPSC SSC Banking",
     "at": "2026-09-30T10:46:44.552Z"
+  },
+  {
+    "base": "2026-10-01-nato-ai-algorithmic-warfare",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "2vAXovKV1NM",
+    "url": "https://youtu.be/2vAXovKV1NM",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-01T18:00:00Z",
+    "title": "NATO's AI War: How Algorithms Are Reshaping Global Defense",
+    "at": "2026-10-01T07:13:20.066Z"
+  },
+  {
+    "base": "2026-10-01-indus-valley-civilization-disappearance-the-inference-kn",
+    "channel": "the-inference-kn",
+    "kind": "long",
+    "videoId": "4fFu2mmbBgo",
+    "url": "https://youtu.be/4fFu2mmbBgo",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-01T12:30:00Z",
+    "title": "ಕಣ್ಮರೆಯಾದ ಮಹಾನ್ ನಾಗರಿಕತೆಯ ಭಯಾನಕ ರಹಸ್ಯ!",
+    "at": "2026-10-01T08:37:23.364Z"
+  },
+  {
+    "base": "2026-10-01-asli-maalkin-part-1-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "long",
+    "videoId": "ElCgPFuG49k",
+    "url": "https://youtu.be/ElCgPFuG49k",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-01T13:30:00Z",
+    "title": "Asli Maalkin - Part 1 | Gareeb Bahu Ka Karodpati Raaz",
+    "at": "2026-10-01T11:46:16.237Z"
+  },
+  {
+    "base": "2026-10-01-asli-maalkin-part-1-the-inference-hi",
+    "channel": "the-inference-hi",
+    "kind": "short",
+    "videoId": "0jyeDJAcPt8",
+    "url": "https://youtu.be/0jyeDJAcPt8",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-01T13:30:00Z",
+    "title": "Asli Maalkin - Part 1 | Gareeb Bahu Ka Karodpati Raaz #Shorts",
+    "at": "2026-10-01T11:46:22.329Z"
+  },
+  {
+    "base": "2026-10-01-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "2xpUqABTaLo",
+    "url": "https://youtu.be/2xpUqABTaLo",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-01T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 1, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-01T12:25:59.960Z"
+  },
+  {
+    "base": "2026-10-01-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "lPiJ0IhLiZI",
+    "url": "https://youtu.be/lPiJ0IhLiZI",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-01T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 1, 2026 | Monthly Current Affairs for UPSC SSC Banking #Shorts",
+    "at": "2026-10-01T12:26:10.589Z"
   }
 ]
