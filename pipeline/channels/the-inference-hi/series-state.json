@@ -1,5 +1,39 @@
 {
-  "current": null,
+  "current": {
+    "slug": "raaz-wali-dulhan",
+    "title": "Raaz Wali Dulhan",
+    "trope": "contractmarriage",
+    "logline": "Apne pita ke bezzati ka badla lene, ek gareeb ladki ek ameer businessman se contract marriage karti hai. Lekin woh nahi jaanti ki jisse woh apna nishana samajh rahi hai, woh khud bhi ek gehra raaz chhipaye baitha hai aur uski apni jung lad raha hai.",
+    "characters": {
+      "Rohan Raizada": {
+        "role": "Powerful businessman, heir",
+        "secret": "His contract marriage is a trap to expose his cousin Veer, who framed him for a past crime and ruined Siya's father. He needs a 'wife' to make Veer complacent.",
+        "want": "To clear his name, secure his company, and seek justice for past wrongs."
+      },
+      "Siya Sharma": {
+        "role": "Struggling girl, now contract wife",
+        "secret": "She believes Rohan's family ruined her father, leading to his suicide. She's marrying Rohan to get close to the truth and take revenge.",
+        "want": "To uncover the truth about her father's downfall, clear his name, and make the culprits pay."
+      },
+      "Veer Raizada": {
+        "role": "Rohan's jealous cousin",
+        "secret": "He orchestrated the downfall of Sharma Industries (Siya's father's company) and manipulated evidence to frame Rohan for it, all to gain control of the Raizada empire.",
+        "want": "To seize complete control of the Raizada business empire by discrediting Rohan."
+      }
+    },
+    "arc": [
+      "Part 1: Siya ki maa hospital mein hai, paise nahi hain. Uska ex-fiancé use poore sheher ke saamne zaleel karta hai. Tabhi use ek akhbaar mein 'Contract Marriage' ka ad dikhta hai. Rohan Raizada, ek arrogant businessman, use ek deal offer karta hai – shaadi ke badle mein karodon. Siya na chahte hue bhi maan jaati hai. Contract sign hota hai. Raat ko Rohan ke study room mein, Siya ki nazar ek purani tasveer par padti hai. Tasveer mein chhota Rohan hai... aur uske bagal mein uska apna Papa khade hain! Siya ke haath kaanp gaye. 'Yeh tasveer... yeh toh Papa hain! Aur yeh chhota ladka... Rohan?'",
+      "Part 2: Rohan ke ghar mein Siya ka 'Grah Pravesh' hota hai. Rohan ka cousin Veer, use gareeb aur gold-digger bula kar zaleel karta hai. Ek family dinner mein Veer Siya ko neecha dikhane ki koshish karta hai, poore khaandaan ke saamne. Par Rohan beech mein aa kar use defend karta hai, 'Yeh meri biwi hai, aur iski bezzati... meri bezzati hai.' Siya Rohan ke bachaav se hairan hai. Raat mein, Siya Veer ko phone par baat karte hue sunti hai, 'Woh Sharma waali file... uska raaz Rohan ko pata nahi chalna chahiye.' Siya ki saans ruk gayi. 'Sharma ka case? Papa ki file?' Woh Veer ke peeche peeche uske study room tak jaati hai. Veer phone par bol raha hai, 'Abhi tak usse lagta hai sab Papa ne kiya hai...'",
+      "Part 3: Siya Veer ke kamre mein chupke se ghus kar 'Sharma waali file' dhundhne lagti hai. Rohan use pakad leta hai, 'Tum yahan kya kar rahi ho?' Siya bahana banati hai. Rohan uski aankhon mein dekhta hai. Uski aankhon mein ek ajeeb sa dard hai. Ek raat, Rohan sharab ke nashe mein Siya ko batata hai ki uske Papa ne company ke liye bahut galat kaam kiye hain, jinme se ek Sharma Industries ka collapse tha. Siya ko Rohan par gussa aata hai, ki woh sach janta tha par chup raha. Uska revenge ka iraada aur pakka ho jata hai. Woh wapas Veer ke kamre mein jaati hai, jahan usne ek chhupi hui chaabi dekhi thi. Woh chaabi se ek hidden drawer kholti hai. Andar ek file hai, 'Sharma Industries - Confidential.' Jaise hi woh file bahar kheenchti hai, ek haath us file par zor se girta hai. 'Toh yeh hai tumhari asliyat, Siya?' Rohan ki awaaz mein sardiyon jaisi thehar thi.",
+      "Part 4: Rohan Siya se confront karta hai. 'Maine tum par bharosa kiya, aur tum?' Siya apni sachai batane ki koshish karti hai, ki Veer ne uske Papa ko barbaad kiya. Rohan use gusse se dekhta hai, par uski aankhon mein kuch aur bhi hai. 'Yeh shaadi... sirf property ke liye nahi hai, Siya,' Rohan bolta hai, 'Mujhe ek sach dhundna hai jo mere Papa ne mujhse chhipaya tha... aur Veer us sach ka hissa hai.' Tabhi party mein ek journalist aati hai, jo Rohan ke family ko pehle se jaanti hai. Woh Siya ko ghoorti hai, 'Tum... tum toh Sharma ji ki beti ho na? Tumhari shakal... bilkul tumhare Papa jaisi hai. Tum yahan kya kar rahi ho? Rohan Raizada ke ghar mein?'",
+      "Part 5: Journalist Siya ka raaz kholne wali hoti hai ki Rohan use beech mein rokta hai, 'Arre Meera, yeh toh humari door ki rishtedar hai.' Meera ko shak ho jata hai. Rohan aur Siya ko ehsaas hota hai ki Veer un dono ka common dushman hai. Woh decide karte hain ki woh mil kar kaam karenge. 'Toh hum ek hi jung lad rahe hain, Rohan,' Siya uski aankhon mein dekhti hai. Woh dono mil kar Veer ke khilaaf saboot dhundte hain. Unhe Veer ki khud ki handwriting mein ek agreement milta hai jo Sharma Industries ko barbaad karne ka plan hai, aur Rohan ke Papa ko blame karne ka proof bhi. Jaise hi woh document haath mein lete hain, Veer kamre ka darwaza kholta hai. Uske chehre par ek shaitani muskaan hai. Uske haath mein Rohan aur Siya ka contract marriage ka agreement hai. 'Toh yeh hai tumhari asliyat, Siya Sharma? Revenge lene aayi ho? Aur Rohan... tumhari 'biwi' toh ek farzi dulhan nikli!' Veer ne screen par contract marriage ke papers flash kiye. 'Aur tumhari asliyat bhi... ab sabko pata chal jayegi!'",
+      "Part 6: Veer poore Raizada khaandaan aur board members ke saamne Rohan aur Siya ki contract marriage ka raaz khol deta hai. Woh Rohan par company ke saath dhokha karne ka ilzaam lagata hai aur khud ko naya CEO ghoshit karne wala hota hai. Par Rohan shaant rehta hai. Woh ek pen drive nikaalta hai aur projector par Veer ke saare kaale kartooton ka saboot dikhata hai. Rohan reveal karta hai ki woh jaanta tha ki Veer ne use aur Siya ke Papa ko kaise frame kiya tha. Usne Siya se contract marriage ki taaki Veer overconfident ho kar galti kare. Rohan ki aankhon mein Siya ke liye ek alag si chamak hai. Siya hairan hai, ki Rohan ne use use kiya par uske Papa ka naam bhi saaf kiya. Un dono ke beech ek gair-kaha hua rishta bann chuka hai. Veer gusse se laal ho chuka hai. 'Tumne mujhse sab chheena hai!' woh cheekhta hai. Veer ek hidden object nikaalta hai aur Rohan ki taraf badhta hai. 'Ab main tumhe...' Siya ki cheekh nikal gayi..."
+    ],
+    "totalParts": 6,
+    "part": 0,
+    "soFar": "",
+    "cliffhanger": ""
+  },
   "completed": [
     {
       "slug": "secret-ceo-ka-driver",
