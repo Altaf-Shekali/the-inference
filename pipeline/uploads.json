@@ -5933,5 +5933,49 @@
     "publishAt": "2026-10-14T12:30:00Z",
     "title": "ಕನಸು ಬಿದ್ದಾಗ ಸೋತವನ ಕಥೆ: ಬಾಹ್ಯಾಕಾಶಕ್ಕೆ ಹಾರಿದ ಮಂಗಾ!",
     "at": "2026-10-14T06:24:34.714Z"
+  },
+  {
+    "base": "2026-10-15-openai-solves-navier-stokes-problem",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "fqiQNDsOsbk",
+    "url": "https://youtu.be/fqiQNDsOsbk",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-15T18:00:00Z",
+    "title": "OpenAI Claims Navier-Stokes SOLVED in 88 Hours: The $1M Math Problem & Controversy",
+    "at": "2026-10-15T05:43:16.102Z"
+  },
+  {
+    "base": "2026-10-15-lover-stalker-killer-true-crime-the-inference-kn",
+    "channel": "the-inference-kn",
+    "kind": "long",
+    "videoId": "YaiyTjZ_0Kc",
+    "url": "https://youtu.be/YaiyTjZ_0Kc",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-15T12:30:00Z",
+    "title": "ಮೆಸೇಜ್ ಕಳಿಸ್ತಿದ್ದ ಶವ! 3 ವರ್ಷದ ಈ ಭಯಾನಕ ರಹಸ್ಯ",
+    "at": "2026-10-15T06:45:36.075Z"
+  },
+  {
+    "base": "2026-10-15-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "Sh1LKwi4F1A",
+    "url": "https://youtu.be/Sh1LKwi4F1A",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-15T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 15, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-15T07:27:55.899Z"
+  },
+  {
+    "base": "2026-10-15-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "SShiR0-JuYo",
+    "url": "https://youtu.be/SShiR0-JuYo",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-15T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 15, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-15T07:28:05.644Z"
   }
 ]
