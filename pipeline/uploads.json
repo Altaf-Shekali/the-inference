@@ -6164,5 +6164,49 @@
     "publishAt": "2026-10-19T13:00:00Z",
     "title": "Current Affairs & GK Quiz - October 19, 2026 | Monthly Current Affairs for UPSC SSC Banking",
     "at": "2026-10-19T06:54:30.564Z"
+  },
+  {
+    "base": "2026-10-20-openai-codex-white-collar-tools",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "0s0b9MrYCnM",
+    "url": "https://youtu.be/0s0b9MrYCnM",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-20T18:00:00Z",
+    "title": "GPT-6 Astra: OpenAI's New Autonomous AI Explained",
+    "at": "2026-10-20T06:00:48.957Z"
+  },
+  {
+    "base": "2026-10-20-space-brothers-manga-inspiration-the-inference-kn",
+    "channel": "the-inference-kn",
+    "kind": "long",
+    "videoId": "AXso-DDd-Xo",
+    "url": "https://youtu.be/AXso-DDd-Xo",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-20T12:30:00Z",
+    "title": "ಬಾಹ್ಯಾಕಾಶದಲ್ಲಿ ಮಾಂಗಾ ಡ್ರಾ ಮಾಡಿದ ರಹಸ್ಯ | ಈ ಕಥೆ ನಿಮ್ಮನ್ನ ಹುಚ್ಚು ಹಿಡಿಸುತ್ತೆ!",
+    "at": "2026-10-20T06:26:16.043Z"
+  },
+  {
+    "base": "2026-10-20-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "h69XGCWzDqo",
+    "url": "https://youtu.be/h69XGCWzDqo",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-20T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 20, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-20T06:51:27.580Z"
+  },
+  {
+    "base": "2026-10-20-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "GCOvlAA9VCU",
+    "url": "https://youtu.be/GCOvlAA9VCU",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-20T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 20, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-20T06:51:37.413Z"
   }
 ]
