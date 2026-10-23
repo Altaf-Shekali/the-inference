@@ -6274,5 +6274,38 @@
     "publishAt": "2026-10-22T12:30:00Z",
     "title": "ನಕಲಿ ಸಿಬಿಐ ಅಧಿಕಾರಿಯ 7 ಲಕ್ಷ ರೂ. ಹಗರಣ: ಅಸಲಿ ಕಥೆ ಕೇಳಿ ಶಾಕ್ ಆಗ್ತೀರಾ!",
     "at": "2026-10-22T06:30:50.440Z"
+  },
+  {
+    "base": "2026-10-23-openai-solves-90-year-math-problem",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "jvGF2N6g41s",
+    "url": "https://youtu.be/jvGF2N6g41s",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-23T18:00:00Z",
+    "title": "OpenAI Solves 90-Year Math Problem in 88 Hours... But Did It Cheat? | The Inference",
+    "at": "2026-10-23T05:52:22.377Z"
+  },
+  {
+    "base": "2026-10-23-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "aJ5CvLZMz84",
+    "url": "https://youtu.be/aJ5CvLZMz84",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-23T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 23, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-23T06:16:43.196Z"
+  },
+  {
+    "base": "2026-10-23-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "qEgZh0Deuv8",
+    "url": "https://youtu.be/qEgZh0Deuv8",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-23T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 23, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-23T06:16:50.587Z"
   }
 ]
