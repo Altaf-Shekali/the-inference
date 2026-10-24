@@ -6307,5 +6307,38 @@
     "publishAt": "2026-10-23T13:00:00Z",
     "title": "Current Affairs & GK Quiz - October 23, 2026 | Monthly Current Affairs for UPSC SSC Banking",
     "at": "2026-10-23T06:16:50.587Z"
+  },
+  {
+    "base": "2026-10-24-openai-astra-model-deep-dive",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "VYpaUaGAkYU",
+    "url": "https://youtu.be/VYpaUaGAkYU",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-24T18:00:00Z",
+    "title": "OpenAI Astra: The Agentic AI That Acts – And The Controversies It Brings",
+    "at": "2026-10-24T05:50:47.702Z"
+  },
+  {
+    "base": "2026-10-24-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "1iKfs3LGR2c",
+    "url": "https://youtu.be/1iKfs3LGR2c",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-24T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 24, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-24T06:26:44.533Z"
+  },
+  {
+    "base": "2026-10-24-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "wCLRB9zSIb4",
+    "url": "https://youtu.be/wCLRB9zSIb4",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-24T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 24, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-24T06:26:52.029Z"
   }
 ]
