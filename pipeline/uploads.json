@@ -6340,5 +6340,38 @@
     "publishAt": "2026-10-24T13:00:00Z",
     "title": "Current Affairs & GK Quiz - October 24, 2026 | Monthly Current Affairs for UPSC SSC Banking",
     "at": "2026-10-24T06:26:52.029Z"
+  },
+  {
+    "base": "2026-10-25-ai-marketing-2026-transformations",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "ZJZodfZRojc",
+    "url": "https://youtu.be/ZJZodfZRojc",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-25T18:00:00Z",
+    "title": "AI's Marketing Takeover: $29.9B by 2026 & Key Transformations",
+    "at": "2026-10-25T06:07:56.673Z"
+  },
+  {
+    "base": "2026-10-25-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "tYFgrNPLExs",
+    "url": "https://youtu.be/tYFgrNPLExs",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-25T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 25, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-25T06:52:08.401Z"
+  },
+  {
+    "base": "2026-10-25-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "HB-d0noYSX4",
+    "url": "https://youtu.be/HB-d0noYSX4",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-25T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 25, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-25T06:52:17.665Z"
   }
 ]
