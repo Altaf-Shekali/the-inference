@@ -6384,5 +6384,38 @@
     "publishAt": "2026-10-26T18:00:00Z",
     "title": "The Anthropic Illusion: Google & Amazon's $40B AI Cloud Loop",
     "at": "2026-10-26T06:01:22.450Z"
+  },
+  {
+    "base": "2026-10-27-anthropic-mythos-global-alarms",
+    "channel": "the-inference",
+    "kind": "long",
+    "videoId": "q9w9Z6bhbRo",
+    "url": "https://youtu.be/q9w9Z6bhbRo",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-27T18:00:00Z",
+    "title": "Anthropic's Mythos AI: Jamie Dimon Says Cyber Risk Up 10-Fold",
+    "at": "2026-10-27T06:06:33.850Z"
+  },
+  {
+    "base": "2026-10-27-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "Fqk2v0tT5Fk",
+    "url": "https://youtu.be/Fqk2v0tT5Fk",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-27T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 27, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-27T06:50:48.125Z"
+  },
+  {
+    "base": "2026-10-27-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "k03w0QTmDQM",
+    "url": "https://youtu.be/k03w0QTmDQM",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-27T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 27, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-27T06:50:56.225Z"
   }
 ]
