@@ -9,6 +9,7 @@ import {
 } from "remotion";
 import { THEMES } from "../themes";
 import { ArabicText } from "../components/ArabicText";
+import { Transliteration } from "../components/Transliteration";
 import { Translation } from "../components/Translation";
 import { SourceRef } from "../components/SourceRef";
 import { RainBackground } from "../components/RainBackground";
@@ -17,6 +18,7 @@ import { AmbientRainAudio } from "../components/AmbientRainAudio";
 export const islamicReminderSchema = z.object({
   title: z.string().default("Do Not Despair of Allah's Mercy"),
   arabic: z.string().optional(),
+  transliteration: z.string().optional(),
   reminderText: z
     .string()
     .default(
@@ -32,6 +34,7 @@ export type IslamicReminderProps = z.infer<typeof islamicReminderSchema>;
 export const sampleReminder: IslamicReminderProps = {
   title: "Do Not Despair of Allah's Mercy",
   arabic: "قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ",
+  transliteration: "Qul yā ʿibādiya alladhīna asrafū ʿalā anfusihim lā taqnaṭū min raḥmati Allāh",
   reminderText:
     "Never allow past mistakes to make you feel distant from Allah. The door to sincere repentance is always open.",
   supportingEvidence: "Surah Az-Zumar (39:53)",
@@ -53,6 +56,7 @@ export const calculateReminderMetadata = async ({
 export const IslamicReminder: React.FC<IslamicReminderProps> = ({
   title = "Do Not Despair of Allah's Mercy",
   arabic,
+  transliteration,
   reminderText = "Never allow past mistakes to make you feel distant from Allah. The door to sincere repentance is always open.",
   supportingEvidence = "Surah Az-Zumar (39:53)",
   theme = "golden",
@@ -174,6 +178,29 @@ export const IslamicReminder: React.FC<IslamicReminderProps> = ({
               fontSize={60}
               glowColor={activeTheme.accentGlow}
             />
+          )}
+
+          {transliteration && (
+            <div style={{ width: "100%" }}>
+              <div
+                style={{
+                  fontSize: "15px",
+                  fontWeight: 700,
+                  color: activeTheme.textMuted,
+                  textAlign: "center",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  marginBottom: "4px",
+                }}
+              >
+                Transliteration
+              </div>
+              <Transliteration
+                text={transliteration}
+                fontSize={26}
+                color={activeTheme.textSecondary}
+              />
+            </div>
           )}
 
           <Translation

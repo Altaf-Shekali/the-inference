@@ -9,6 +9,7 @@ import {
 } from "remotion";
 import { THEMES } from "../themes";
 import { ArabicText } from "../components/ArabicText";
+import { Transliteration } from "../components/Transliteration";
 import { Translation } from "../components/Translation";
 import { SourceRef } from "../components/SourceRef";
 import { RainBackground } from "../components/RainBackground";
@@ -19,6 +20,7 @@ export const quranReflectionSchema = z.object({
   surahNum: z.number().default(94),
   ayahNum: z.number().default(6),
   arabic: z.string().default("إِنَّ مَعَ الْعُسْرِ يُسْرًا"),
+  transliteration: z.string().default("Inna ma'al-'usri yusra"),
   translation: z.string().default("Indeed, with hardship comes ease."),
   reflection: z
     .string()
@@ -36,6 +38,7 @@ export const sampleQuran: QuranReflectionProps = {
   surahNum: 94,
   ayahNum: 6,
   arabic: "إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+  transliteration: "Inna ma'al-'usri yusra",
   translation: "Indeed, with hardship comes ease.",
   reflection:
     "No matter what hardship you face today, Allah promises ease alongside it.",
@@ -59,6 +62,7 @@ export const QuranReflection: React.FC<QuranReflectionProps> = ({
   surahNum = 94,
   ayahNum = 6,
   arabic = "إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+  transliteration = "Inna ma'al-'usri yusra",
   translation = "Indeed, with hardship comes ease.",
   reflection = "No matter what hardship you face today, Allah promises ease alongside it.",
   theme = "midnight",
@@ -187,6 +191,27 @@ export const QuranReflection: React.FC<QuranReflectionProps> = ({
             fontSize={78}
             glowColor={activeTheme.accentGlow}
           />
+
+          <div style={{ width: "100%" }}>
+            <div
+              style={{
+                fontSize: "15px",
+                fontWeight: 700,
+                color: activeTheme.textMuted,
+                textAlign: "center",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                marginBottom: "4px",
+              }}
+            >
+              Transliteration
+            </div>
+            <Transliteration
+              text={transliteration}
+              fontSize={26}
+              color={activeTheme.textSecondary}
+            />
+          </div>
 
           {/* Translation */}
           <Translation

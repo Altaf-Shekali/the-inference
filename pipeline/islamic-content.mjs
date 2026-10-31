@@ -60,12 +60,13 @@ export async function fetchVerifiedQuranVerse(surahNum, ayahNum, fetchImpl = fet
   }
 
   const verseKey = `${surahNum}:${ayahNum}`;
+  const verseUrl = `https://api.quran.com/api/v4/verses/by_key/${verseKey}?fields=text_uthmani&translations=20&words=true&word_fields=transliteration`;
   const options = {
     headers: { Accept: "application/json" },
     signal: AbortSignal.timeout(15000),
   };
   const [verseResponse, chapterResponse] = await Promise.all([
-    fetchImpl(`https://api.quran.com/api/v4/verses/by_key/${verseKey}?fields=text_uthmani&translations=20`, options),
+    fetchImpl(verseUrl, options),
     fetchImpl(`https://api.quran.com/api/v4/chapters/${surahNum}?language=en`, options),
   ]);
   if (!verseResponse.ok) {
@@ -80,9 +81,15 @@ export async function fetchVerifiedQuranVerse(surahNum, ayahNum, fetchImpl = fet
     chapterResponse.json(),
   ]);
   const translation = verse?.translations?.find((item) => item.resource_id === 20);
+  const transliteration = verse?.words
+    ?.filter((word) => word.char_type_name === "word")
+    .map((word) => word.transliteration?.text)
+    .filter((text) => typeof text === "string" && text.trim())
+    .join(" ");
   if (
     verse?.verse_key !== verseKey ||
     !verse.text_uthmani ||
+    !transliteration ||
     !translation?.text ||
     chapter?.id !== surahNum ||
     !chapter.name_simple
@@ -102,6 +109,7 @@ export async function fetchVerifiedQuranVerse(surahNum, ayahNum, fetchImpl = fet
     },
     religiousContent: {
       arabic: verse.text_uthmani,
+      transliteration,
       translation: cleanTranslation(translation.text),
     },
   };

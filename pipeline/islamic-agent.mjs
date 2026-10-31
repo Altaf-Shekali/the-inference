@@ -220,6 +220,7 @@ export async function runIslamic({
       surahNum: record.source?.surahNum || 1,
       ayahNum: record.source?.ayahNum || 1,
       arabic: record.religiousContent?.arabic || "",
+      transliteration: record.religiousContent?.transliteration || "",
       translation: record.religiousContent?.translation || "",
       reflection: record.religiousContent?.reflection || "Reflect upon the signs of Allah.",
       theme: record.video?.theme || "midnight",
@@ -229,6 +230,7 @@ export async function runIslamic({
     props = {
       title: record.title || "Daily Islamic Reminder",
       arabic: record.religiousContent?.arabic || "",
+      transliteration: record.religiousContent?.transliteration || "",
       reminderText: record.religiousContent?.translation || record.title || "",
       supportingEvidence: record.source?.type === "quran"
         ? `Surah ${record.source.surahName} (${record.source.surahNum}:${record.source.ayahNum})`

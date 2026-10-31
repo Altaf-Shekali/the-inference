@@ -18,6 +18,13 @@ test("fetches canonical Arabic, Saheeh International translation, and Surah name
         verse: {
           verse_key: "20:114",
           text_uthmani: "وَقُل رَّبِّ زِدْنِي عِلْمًا",
+          words: [
+            { char_type_name: "word", transliteration: { text: "waqul" } },
+            { char_type_name: "word", transliteration: { text: "rabbi" } },
+            { char_type_name: "word", transliteration: { text: "zidnī" } },
+            { char_type_name: "word", transliteration: { text: "ʿilmā" } },
+            { char_type_name: "end", transliteration: { text: null } },
+          ],
           translations: [{
             resource_id: 20,
             text: "My Lord, increase me in knowledge.<sup foot_note=1>1</sup>",
@@ -35,12 +42,31 @@ test("fetches canonical Arabic, Saheeh International translation, and Surah name
   assert.equal(result.source.surahName, "Taha");
   assert.equal(result.source.translationEdition, "Saheeh International");
   assert.equal(result.religiousContent.arabic, "وَقُل رَّبِّ زِدْنِي عِلْمًا");
+  assert.equal(result.religiousContent.transliteration, "waqul rabbi zidnī ʿilmā");
   assert.equal(result.religiousContent.translation, "My Lord, increase me in knowledge.");
+  assert.match(fetchCalls[0], /words=true&word_fields=transliteration/);
 });
 
 test("rejects incomplete or mismatched Quran API responses", async () => {
   const fetchImpl = async (url) => url.includes("/verses/by_key/")
-    ? response({ verse: { verse_key: "20:113", text_uthmani: "text", translations: [] } })
+    ? response({ verse: { verse_key: "20:113", text_uthmani: "text", words: [], translations: [] } })
+    : response({ chapter: { id: 20, name_simple: "Taha" } });
+
+  await assert.rejects(
+    fetchVerifiedQuranVerse(20, 114, fetchImpl),
+    /incomplete data for 20:114/,
+  );
+});
+
+test("rejects Quran responses that omit transliteration", async () => {
+  const fetchImpl = async (url) => url.includes("/verses/by_key/")
+    ? response({
+      verse: {
+        verse_key: "20:114",
+        text_uthmani: "وَقُل رَّبِّ زِدْنِي عِلْمًا",
+        translations: [{ resource_id: 20, text: "My Lord, increase me in knowledge." }],
+      },
+    })
     : response({ chapter: { id: 20, name_simple: "Taha" } });
 
   await assert.rejects(
