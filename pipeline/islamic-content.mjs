@@ -1,15 +1,13 @@
 /**
  * Islamic Content and Source Verification Database Manager.
  *
- * Manages the structured content database for the Islamic Reminders channel,
- * enforcing verification lifecycles, authentic references, and preventing
- * unverified or fabricated religious content from ever reaching render/publish.
+ * Manages structured Islamic content records and source verification.
  *
  * Lifecycle:
- * DISCOVERED -> SOURCED -> DRAFTED -> VERIFICATION_PENDING -> APPROVED -> RENDERED -> PUBLISHED
- *                                                          \-> REJECTED
+ * DISCOVERED -> SOURCED -> DRAFTED -> VERIFIED -> APPROVED -> RENDERED -> UPLOAD_PENDING -> PUBLISHED
+ *                                                               \-> REJECTED
  */
-import { promises as fs, existsSync } from "fs";
+import { promises as fs } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -33,6 +31,7 @@ export const VERIFICATION_STATUSES = [
   "APPROVED",
   "REJECTED",
   "RENDERED",
+  "UPLOAD_PENDING",
   "PUBLISHED",
 ];
 
@@ -40,17 +39,84 @@ function getDbPath(channelId = "islamic-reminders") {
   return path.join(DIR, "channels", channelId, "content-db.json");
 }
 
+function cleanTranslation(text) {
+  return text
+    .replace(/<sup\b[^>]*>[\s\S]*?<\/sup>/gi, "")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&quot;/gi, "\"")
+    .replace(/&#(?:39|x27);/gi, "'")
+    .replace(/&amp;/gi, "&")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export async function fetchVerifiedQuranVerse(surahNum, ayahNum, fetchImpl = fetch) {
+  if (!Number.isInteger(surahNum) || surahNum < 1 || surahNum > 114) {
+    throw new Error(`Invalid Quran Surah number: "${surahNum}"`);
+  }
+  if (!Number.isInteger(ayahNum) || ayahNum < 1) {
+    throw new Error(`Invalid Quran Ayah number: "${ayahNum}"`);
+  }
+
+  const verseKey = `${surahNum}:${ayahNum}`;
+  const options = {
+    headers: { Accept: "application/json" },
+    signal: AbortSignal.timeout(15000),
+  };
+  const [verseResponse, chapterResponse] = await Promise.all([
+    fetchImpl(`https://api.quran.com/api/v4/verses/by_key/${verseKey}?fields=text_uthmani&translations=20`, options),
+    fetchImpl(`https://api.quran.com/api/v4/chapters/${surahNum}?language=en`, options),
+  ]);
+  if (!verseResponse.ok) {
+    throw new Error(`Quran source verification failed (${verseResponse.status}) for ${verseKey}`);
+  }
+  if (!chapterResponse.ok) {
+    throw new Error(`Quran chapter verification failed (${chapterResponse.status}) for Surah ${surahNum}`);
+  }
+
+  const [{ verse }, { chapter }] = await Promise.all([
+    verseResponse.json(),
+    chapterResponse.json(),
+  ]);
+  const translation = verse?.translations?.find((item) => item.resource_id === 20);
+  if (
+    verse?.verse_key !== verseKey ||
+    !verse.text_uthmani ||
+    !translation?.text ||
+    chapter?.id !== surahNum ||
+    !chapter.name_simple
+  ) {
+    throw new Error(`Quran source verification returned incomplete data for ${verseKey}`);
+  }
+
+  return {
+    source: {
+      type: "quran",
+      surahName: chapter.name_simple,
+      surahNum,
+      ayahNum,
+      sourceUrl: `https://quran.com/${surahNum}/${ayahNum}`,
+      authenticity: "Quran",
+      translationEdition: "Saheeh International",
+    },
+    religiousContent: {
+      arabic: verse.text_uthmani,
+      translation: cleanTranslation(translation.text),
+    },
+  };
+}
+
 export async function loadIslamicContent(channelId = "islamic-reminders") {
   const file = getDbPath(channelId);
-  if (!existsSync(file)) {
-    return [];
-  }
   try {
     const raw = await fs.readFile(file, "utf8");
-    return JSON.parse(raw);
+    const records = JSON.parse(raw);
+    if (!Array.isArray(records)) throw new Error(`Invalid Islamic content database in ${file}`);
+    return records;
   } catch (err) {
-    console.error(`Error loading Islamic content database from ${file}:`, err);
-    return [];
+    if (err.code === "ENOENT") return [];
+    throw err;
   }
 }
 
@@ -178,4 +244,13 @@ export async function getApprovedRecord(channelId = "islamic-reminders", pillar 
     return true;
   });
   return filtered[0] || null;
+}
+
+export async function getPendingUploadRecord(channelId = "islamic-reminders", pillar = null) {
+  const records = await loadIslamicContent(channelId);
+  return records.find((record) =>
+    record.verification?.status === "UPLOAD_PENDING" &&
+    !record.youtubeVideoId &&
+    (!pillar || record.pillar === pillar),
+  ) || null;
 }

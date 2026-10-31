@@ -1346,10 +1346,6 @@ async function main() {
   }
   // Islamic Reminders channel (authentic Dhikr, Quran, Hadith, Duas, Quizzes)
   if (niche === "islamic") {
-    if (!hasGemini()) {
-      console.error("Islamic niche needs Gemini - add pipeline/gemini.key.");
-      process.exit(1);
-    }
     await runIslamic({
       channel,
       channelName,
@@ -1357,7 +1353,6 @@ async function main() {
       doRender,
       doUpload,
       publishAt,
-      topic,
     });
     return;
   }

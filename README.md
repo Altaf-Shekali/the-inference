@@ -107,6 +107,10 @@ Each channel has a **niche** (set in the dashboard add-channel form or `channels
   sound.
 - The Tasbih counter advances one bead every 1.5 seconds and adjusts video duration to fit the
   selected count.
+- NooraniVerse runs an unattended daily rotation of Quran-based duas, reflections, and reminders.
+  Verse text and the Saheeh International translation are fetched from the Quran.com API before
+  the record is automatically approved, rendered, and uploaded; the Islamic workflow does not
+  require Gemini or dashboard approval.
 
 ## Daily automation (peak-time scheduling)
 
