@@ -170,6 +170,7 @@ export async function runIslamic({
   await fs.writeFile(propsFile, JSON.stringify(props, null, 2), "utf8");
 
   const meta = {
+    channel: channel.id,
     title: `${record.title} | ${channelName} #Shorts`,
     description: `${record.religiousContent?.translation || record.title}\n\n` +
       `Authentic Reference: ${record.source?.collection || record.source?.surahName || "Authentic Islamic Sources"}\n` +
