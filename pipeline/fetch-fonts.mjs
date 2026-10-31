@@ -23,12 +23,14 @@ const OUT = path.join(DIR, "..", "public", "fonts");
 // Latin display fonts + Indic script fonts (for hi/kn videos). The Indic fonts
 // are fetched from their own subset block (Google serves one per script).
 const FAMILIES = [
-  { family: "Poppins", weights: [400, 500, 700, 800], subset: "latin" },
+  { family: "Poppins", weights: [400, 500, 600, 700, 800], subset: "latin" },
   { family: "Oswald", weights: [400, 500, 700], subset: "latin" },
   { family: "Sora", weights: [400, 600, 800], subset: "latin" },
   { family: "Archivo", weights: [400, 600, 800], subset: "latin" },
   { family: "Noto Sans Devanagari", weights: [400, 600, 700, 800], subset: "devanagari" },
   { family: "Noto Sans Kannada", weights: [400, 600, 700, 800], subset: "kannada" },
+  { family: "Amiri", weights: [400, 700], subset: "arabic" },
+  { family: "Noto Naskh Arabic", weights: [400, 700], subset: "arabic" },
 ];
 
 // woff2 filename for a family (spaces stripped so staticFile paths stay simple)

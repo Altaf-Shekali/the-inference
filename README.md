@@ -102,6 +102,11 @@ Each channel has a **niche** (set in the dashboard add-channel form or `channels
   narration for TTS, not AI-flavoured. Facts stay real (only true events); needs `pipeline/gemini.key`.
   Captions are burned on. Copyright-safe: it writes **original retellings of facts**, never reads
   copyrighted books.
+- Islamic video templates use a quiet, non-musical rain ambience that fades in and out. Replace
+  `public/islamic/rain.wav` with your own audio if you prefer another soft, properly licensed
+  sound.
+- The Tasbih counter advances one bead every 1.5 seconds and adjusts video duration to fit the
+  selected count.
 
 ## Daily automation (peak-time scheduling)
 

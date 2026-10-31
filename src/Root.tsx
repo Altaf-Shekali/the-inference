@@ -12,6 +12,32 @@ import {
 import { AINews, aiNewsSchema, calculateAINewsMetadata } from "./AINews";
 import { Quiz, quizSchema, calculateQuizMetadata, sampleQuiz } from "./Quiz";
 import { Jobs, jobsSchema, calculateJobsMetadata, sampleJobs } from "./Jobs";
+import {
+  DhikrCounter,
+  dhikrCounterSchema,
+  calculateDhikrMetadata,
+  sampleDhikr,
+  LearnDua,
+  learnDuaSchema,
+  calculateLearnDuaMetadata,
+  sampleLearnDua,
+  CinematicHadith,
+  cinematicHadithSchema,
+  calculateHadithMetadata,
+  sampleHadith,
+  QuranReflection,
+  quranReflectionSchema,
+  calculateQuranMetadata,
+  sampleQuran,
+  IslamicReminder,
+  islamicReminderSchema,
+  calculateReminderMetadata,
+  sampleReminder,
+  IslamicQuiz,
+  islamicQuizSchema,
+  calculateQuizMetadata as calculateIslamicQuizMetadata,
+  sampleIslamicQuiz,
+} from "./Islamic";
 import { AINewsThumbnail, thumbnailSchema } from "./AINews/Thumbnail";
 import {
   sampleAINews,
@@ -115,6 +141,74 @@ export const RemotionRoot: React.FC = () => {
         schema={jobsSchema}
         defaultProps={sampleJobs}
         calculateMetadata={calculateJobsMetadata}
+      />
+
+      {/* ---------- Islamic Reminders channel templates (9:16 Shorts) ---------- */}
+      <Composition
+        id="IslamicDhikrCounter"
+        component={DhikrCounter}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+        schema={dhikrCounterSchema}
+        defaultProps={sampleDhikr}
+        calculateMetadata={calculateDhikrMetadata}
+      />
+      <Composition
+        id="IslamicLearnDua"
+        component={LearnDua}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+        schema={learnDuaSchema}
+        defaultProps={sampleLearnDua}
+        calculateMetadata={calculateLearnDuaMetadata}
+      />
+      <Composition
+        id="IslamicCinematicHadith"
+        component={CinematicHadith}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+        schema={cinematicHadithSchema}
+        defaultProps={sampleHadith}
+        calculateMetadata={calculateHadithMetadata}
+      />
+      <Composition
+        id="IslamicQuranReflection"
+        component={QuranReflection}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+        schema={quranReflectionSchema}
+        defaultProps={sampleQuran}
+        calculateMetadata={calculateQuranMetadata}
+      />
+      <Composition
+        id="IslamicReminder"
+        component={IslamicReminder}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+        schema={islamicReminderSchema}
+        defaultProps={sampleReminder}
+        calculateMetadata={calculateReminderMetadata}
+      />
+      <Composition
+        id="IslamicQuiz"
+        component={IslamicQuiz}
+        durationInFrames={600}
+        fps={30}
+        width={1080}
+        height={1920}
+        schema={islamicQuizSchema}
+        defaultProps={sampleIslamicQuiz}
+        calculateMetadata={calculateIslamicQuizMetadata}
       />
       {/* Thumbnails — render as stills: npx remotion still AINewsThumbnail out/thumb.png */}
       <Composition

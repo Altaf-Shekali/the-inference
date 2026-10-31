@@ -96,5 +96,23 @@
     "topics": "daily current affairs and GK for competitive exams",
     "privacy": "private",
     "enabled": true
+  },
+  {
+    "id": "islamic-reminders",
+    "name": "NooraniVerse",
+    "lang": "en",
+    "niche": "islamic",
+    "pillars": ["dhikr", "hadith", "quran", "dua", "reminder", "quiz", "stories"],
+    "engine": "",
+    "cartesiaVoice": "",
+    "voice": "",
+    "voiceover": false,
+    "soundEffects": true,
+    "region": "IN",
+    "uploadTime": "21:00",
+    "renderTime": "15:00",
+    "topics": "authentic Dhikr, Quran, Hadith, and Islamic reminders",
+    "privacy": "public",
+    "enabled": true
   }
 ]

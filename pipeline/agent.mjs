@@ -18,6 +18,7 @@ import { chat, chatJSON, hasKey, modelName } from "./llm.mjs";
 import { search, fetchText } from "./search.mjs";
 import { hasGemini, geminiTranslate, geminiNarrative, storyPersona, psychPersona, geminiQuiz, geminiJobs, geminiJobsRoadmap, geminiSchemes, geminiDramaConcept, geminiDramaEpisode } from "./gemini.mjs";
 import { getChannel, channelUsedTopicsPath } from "./channels.mjs";
+import { runIslamic } from "./islamic-agent.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SCRIPTS = path.join(ROOT, "pipeline", "scripts");
@@ -1343,6 +1344,24 @@ async function main() {
     await runDrama({ channel, channelName, dateStr, doRender, doUpload, publishAt });
     return;
   }
+  // Islamic Reminders channel (authentic Dhikr, Quran, Hadith, Duas, Quizzes)
+  if (niche === "islamic") {
+    if (!hasGemini()) {
+      console.error("Islamic niche needs Gemini - add pipeline/gemini.key.");
+      process.exit(1);
+    }
+    await runIslamic({
+      channel,
+      channelName,
+      dateStr,
+      doRender,
+      doUpload,
+      publishAt,
+      topic,
+    });
+    return;
+  }
+
 
   console.log(`Agent: ${modelName()}  |  ${channelName}  |  ${doShort ? "SHORT  |  " : ""}${lang !== "en" ? L.name + "  |  " : ""}${niche === "ainews" ? "pillar" : niche}: ${pillarId} (${pillar.topicTag})  |  ${dateStr}`);
 

@@ -1,6 +1,5 @@
-# Registers one Windows Scheduled Task PER enabled channel. Each task fires
-# 1 HOUR BEFORE that channel's uploadTime, so the video renders and uploads with
-# a scheduled release at the channel's peak-viewership time.
+# Registers one Windows Scheduled Task PER enabled channel. Each task fires at
+# renderTime (or 1 HOUR BEFORE uploadTime), then schedules one or more releases.
 #
 #   Enable:  powershell -ExecutionPolicy Bypass -File pipeline\install-schedule.ps1
 #   Disable one:  Unregister-ScheduledTask -TaskName "InferenceDaily-<id>" -Confirm:$false
@@ -23,6 +22,8 @@ Get-ScheduledTask -TaskName "InferenceDaily" -ErrorAction SilentlyContinue | Unr
 foreach ($ch in $channels) {
   $id = $ch.id
   $uploadTime = if ($ch.uploadTime) { $ch.uploadTime } else { "19:30" }
+  $releaseTimes = if ($ch.quizShortsPerDay -and $ch.uploadTimes) { @($ch.uploadTimes) } else { @() }
+  $releaseLabel = if ($releaseTimes.Count) { $releaseTimes -join ", " } else { $uploadTime }
   # render trigger: explicit renderTime (e.g. idle morning) if set, else uploadTime - 1h
   if ($ch.renderTime) {
     $at = $ch.renderTime
@@ -37,8 +38,8 @@ foreach ($ch in $channels) {
   $trigger = New-ScheduledTaskTrigger -Daily -At $at
   $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -RunOnlyIfNetworkAvailable -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 10) -ExecutionTimeLimit (New-TimeSpan -Hours 2) -DontStopIfGoingOnBatteries -AllowStartIfOnBatteries
 
-  Register-ScheduledTask -TaskName "InferenceDaily-$id" -Action $action -Trigger $trigger -Settings $settings -Description ("The Inference channel " + $id + ": render " + $at + ", upload " + $uploadTime) -Force | Out-Null
-  Write-Host ("  {0,-24} render {1}  ->  upload {2}" -f $id, $at, $uploadTime)
+  Register-ScheduledTask -TaskName "InferenceDaily-$id" -Action $action -Trigger $trigger -Settings $settings -Description ("The Inference channel " + $id + ": render " + $at + ", upload " + $releaseLabel) -Force | Out-Null
+  Write-Host ("  {0,-24} render {1}  ->  upload {2}" -f $id, $at, $releaseLabel)
 }
 
 Write-Host ("Scheduled {0} channel task(s). List: Get-ScheduledTask -TaskName 'InferenceDaily-*'" -f $channels.Count)

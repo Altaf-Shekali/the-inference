@@ -21,6 +21,7 @@ import { spawn } from "child_process";
 import { hasYouTube, loadClient } from "./youtube.mjs";
 import { synth } from "./tts.mjs";
 import { loadChannels, addChannel, removeChannel, getChannel } from "./channels.mjs";
+import { loadIslamicContent, updateRecordStatus, addIslamicRecord } from "./islamic-content.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
@@ -329,6 +330,13 @@ const server = createServer(async (req, res) => {
       return send(res, 200, { url: authUrl, name: getChannel(id).name });
     }
 
+    // --- Islamic channel content verification items
+    if (p === "/api/islamic/content") {
+      const channelId = url.searchParams.get("channel") || "islamic-reminders";
+      const items = await loadIslamicContent(channelId);
+      return send(res, 200, { items });
+    }
+
     // --- media (preview / thumbnail) — /api/file?base=..&kind=long|short|thumb
     if (p === "/api/file") {
       const base = url.searchParams.get("base");
@@ -379,11 +387,59 @@ const server = createServer(async (req, res) => {
         return send(res, 200, { jobId: id });
       }
 
+      // Islamic content verification: Approve
+      if (p === "/api/islamic/approve") {
+        if (!body.id) return send(res, 400, { error: "missing id" });
+        const ch = body.channel || "islamic-reminders";
+        try {
+          const rec = await updateRecordStatus(ch, body.id, "APPROVED", {
+            verification: {
+              sourceVerified: true,
+              arabicVerified: true,
+              translationVerified: true,
+              reviewer: "Dashboard Admin",
+              notes: body.notes || "Approved via dashboard",
+            },
+          });
+          return send(res, 200, { ok: true, record: rec });
+        } catch (e) {
+          return send(res, 400, { error: e.message });
+        }
+      }
+
+      // Islamic content verification: Reject
+      if (p === "/api/islamic/reject") {
+        if (!body.id) return send(res, 400, { error: "missing id" });
+        const ch = body.channel || "islamic-reminders";
+        try {
+          const rec = await updateRecordStatus(ch, body.id, "REJECTED", {
+            verification: {
+              reviewer: "Dashboard Admin",
+              notes: body.reason || "Rejected via dashboard",
+            },
+          });
+          return send(res, 200, { ok: true, record: rec });
+        } catch (e) {
+          return send(res, 400, { error: e.message });
+        }
+      }
+
+      // Islamic content: Add manual or discovered item
+      if (p === "/api/islamic/add") {
+        const ch = body.channel || "islamic-reminders";
+        try {
+          const rec = await addIslamicRecord(ch, body);
+          return send(res, 200, { ok: true, record: rec });
+        } catch (e) {
+          return send(res, 400, { error: e.message });
+        }
+      }
+
       // add/update a channel
       if (p === "/api/channels/add") {
         if (!body.id || !/^[a-z0-9-]+$/.test(body.id)) return send(res, 400, { error: "id must be lowercase letters, numbers, hyphens" });
-        const niche = ["story", "psych", "quiz", "jobs", "drama", "schemes"].includes(body.niche) ? body.niche : "ainews";
-        const pillarsFor = { story: ["crime", "scam", "survival", "success", "history", "human"], psych: ["bias", "behavior", "relationships", "dark", "mind", "social"], quiz: [], jobs: ["govtjob"], drama: ["secretrich", "revenge", "contractmarriage", "betrayal", "underestimated"], schemes: [], ainews: ["ainews", "tools", "trend", "business"] };
+        const niche = ["story", "psych", "quiz", "jobs", "drama", "schemes", "islamic"].includes(body.niche) ? body.niche : "ainews";
+        const pillarsFor = { story: ["crime", "scam", "survival", "success", "history", "human"], psych: ["bias", "behavior", "relationships", "dark", "mind", "social"], quiz: [], jobs: ["govtjob"], drama: ["secretrich", "revenge", "contractmarriage", "betrayal", "underestimated"], schemes: [], islamic: ["dhikr", "hadith", "quran", "dua", "reminder", "quiz", "stories"], ainews: ["ainews", "tools", "trend", "business"] };
         const ch = await addChannel({
           id: body.id,
           name: body.name || body.id,

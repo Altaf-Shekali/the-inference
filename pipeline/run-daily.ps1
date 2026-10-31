@@ -69,10 +69,13 @@ foreach ($ch in $targets) {
   $tokenLegacy = Join-Path $proj "pipeline\youtube.token.json"
   $hasToken = (Test-Path $tokenCh) -or ($id -eq "the-inference" -and (Test-Path $tokenLegacy))
   if (-not $hasToken) { Log "channel '$id' not authorized - skipping (run: npm run yt-auth -- --channel=$id)"; continue }
-  # for a scheduled single-channel run, publish at the channel's peak time
-  $iso = if ($Channel -and $ch.uploadTime) { Get-PublishIso $ch.uploadTime } else { "" }
+  # For scheduled visibility, publish at peak time unless the channel explicitly
+  # requests public uploads, which should go live as soon as the render finishes.
+  $releaseTimes = if ($ch.quizShortsPerDay -and $ch.uploadTimes) { @($ch.uploadTimes) } else { @() }
+  $iso = if ($Channel -and $releaseTimes.Count -eq 0 -and $ch.uploadTime -and $ch.privacy -ne "public") { Get-PublishIso $ch.uploadTime } else { "" }
   $npmArgs = @("run", "daily-upload", "--", "--channel=$id")
-  if ($iso) { $npmArgs += "--at=$iso"; Log "=== $id === (scheduled release $iso)" }
+  if ($releaseTimes.Count) { Log "=== $id === (scheduled releases $($releaseTimes -join ', '))" }
+  elseif ($iso) { $npmArgs += "--at=$iso"; Log "=== $id === (scheduled release $iso)" }
   else { Log "=== $id === (upload immediately)" }
   # npm.cmd so PATH/extension resolve under Task Scheduler's non-interactive shell
   & npm.cmd @npmArgs 2>&1 | Tee-Object -FilePath $log -Append

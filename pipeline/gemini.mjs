@@ -747,3 +747,43 @@ export async function geminiDramaEpisode({ series, part, channelName }) {
   }
   throw lastErr;
 }
+
+/**
+ * Researches and drafts an authentic Islamic content record.
+ * Strictly adheres to religious authenticity rules: Quran verses must have
+ * exact Surah + Ayah number; Hadith must cite recognized collections with Sahih/Hasan grading.
+ */
+export async function geminiIslamicResearch({ pillar = "reminder", topic = "General Guidance" }) {
+  const prompt =
+    `You are an Islamic scholar and content researcher. Your task is to research and provide ONE authentic religious item for the pillar: "${pillar}", on the topic: "${topic}".\n\n` +
+    `CRITICAL RELIGIOUS AUTHENTICITY RULES:\n` +
+    `1. NEVER fabricate or guess Hadith, narrators, reference numbers, or Quranic verses.\n` +
+    `2. For Hadith: Use ONLY well-known Sahih or Hasan narrations (e.g. Sahih al-Bukhari, Sahih Muslim, Jami\` at-Tirmidhi, Sunan Abi Dawud). Include exact collection, book/number, narrator, and authenticity grading.\n` +
+    `3. For Quran: Include exact Arabic text with Tashkeel, Surah name, Surah number, and Ayah number, using standard approved translation (Saheeh International).\n` +
+    `4. For Dhikr / Dua: Include full Arabic with Tashkeel, clear English transliteration, accurate translation, and authentic Sunnah reference.\n` +
+    `5. Do NOT invent prescribed counts or virtues that are not in the primary text.\n\n` +
+    `Return ONLY a JSON object formatted as follows:\n` +
+    `{\n` +
+    `  "title": "<Concise English title, e.g. 'Dua for Guidance' or 'The Virtue of Patience'>",\n` +
+    `  "religiousContent": {\n` +
+    `    "arabic": "<Full Arabic text with vowels / Tashkeel>",\n` +
+    `    "transliteration": "<Accurate English transliteration>",\n` +
+    `    "translation": "<Clear English translation>",\n` +
+    `    "context": "<Optional: 1 sentence on when or why to recite or reflect upon this>",\n` +
+    `    "reflection": "<Optional: 1 practical sentence of reflection for modern life>"\n` +
+    `  },\n` +
+    `  "source": {\n` +
+    `    "type": "hadith" or "quran",\n` +
+    `    "collection": "<e.g. Sahih al-Bukhari>",\n` +
+    `    "hadithNum": "<e.g. 6035>",\n` +
+    `    "surahName": "<e.g. Al-Baqarah>",\n` +
+    `    "surahNum": 2,\n` +
+    `    "ayahNum": 153,\n` +
+    `    "narrator": "<e.g. Abu Hurairah (RA)>",\n` +
+    `    "authenticity": "Sahih"\n` +
+    `  }\n` +
+    `}`;
+
+  const res = await generate(prompt, { temperature: 0.3 });
+  return extractJson(res);
+}
