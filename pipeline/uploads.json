@@ -6483,5 +6483,27 @@
     "publishAt": "2026-10-30T13:00:00Z",
     "title": "Current Affairs & GK Quiz - October 30, 2026 | Monthly Current Affairs for UPSC SSC Banking",
     "at": "2026-10-30T07:28:40.730Z"
+  },
+  {
+    "base": "2026-10-31-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "long",
+    "videoId": "E7V8T1GUy3E",
+    "url": "https://youtu.be/E7V8T1GUy3E",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-31T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 31, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-31T07:19:43.897Z"
+  },
+  {
+    "base": "2026-10-31-current-affairs-quiz",
+    "channel": "current-affairs",
+    "kind": "short",
+    "videoId": "FE3lFScjx_U",
+    "url": "https://youtu.be/FE3lFScjx_U",
+    "privacy": "scheduled",
+    "publishAt": "2026-10-31T13:00:00Z",
+    "title": "Current Affairs & GK Quiz - October 31, 2026 | Monthly Current Affairs for UPSC SSC Banking",
+    "at": "2026-10-31T07:19:52.726Z"
   }
 ]
