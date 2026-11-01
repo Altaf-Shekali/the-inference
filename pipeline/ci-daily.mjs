@@ -59,9 +59,11 @@ for (const ch of targets) {
     console.log(`channel '${ch.id}' not authorized — skipping`);
     continue;
   }
-  const at = publishIso(uploadTimeOf(ch));
+  const releaseTimes = ch.quizShortsPerDay && Array.isArray(ch.uploadTimes) ? ch.uploadTimes : [];
+  const at = releaseTimes.length ? "" : publishIso(uploadTimeOf(ch));
   const atFlag = at ? ` --at=${at}` : "";
-  console.log(`\n=== ${ch.id} === ${at ? `(scheduled release ${at})` : "(upload now)"}`);
+  const schedule = releaseTimes.length ? `(scheduled releases ${releaseTimes.join(", ")})` : at ? `(scheduled release ${at})` : "(upload now)";
+  console.log(`\n=== ${ch.id} === ${schedule}`);
   try {
     execSync(`node pipeline/agent.mjs --render --upload --channel=${ch.id}${atFlag}`, { cwd: ROOT, stdio: "inherit" });
     console.log(`channel '${ch.id}' done`);

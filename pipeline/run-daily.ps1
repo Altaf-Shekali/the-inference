@@ -5,8 +5,8 @@
 #   .\run-daily.ps1                 # all enabled channels, upload immediately
 #   .\run-daily.ps1 -Channel <id>   # one channel, upload SCHEDULED for its peak time
 #
-# Each per-channel scheduled task fires 1 hour before that channel's uploadTime and
-# passes --at=<uploadTime in UTC> so YouTube releases the video at the peak time.
+# Each per-channel scheduled task fires at renderTime, then schedules the video
+# for uploadTime (or every uploadTimes entry when the channel has multiple releases).
 param([string]$Channel = "")
 
 $ErrorActionPreference = "Stop"

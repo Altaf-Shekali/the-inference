@@ -17,7 +17,8 @@ import { execSync } from "child_process";
 import { chat, chatJSON, hasKey, modelName } from "./llm.mjs";
 import { search, fetchText } from "./search.mjs";
 import { hasGemini, geminiTranslate, geminiNarrative, storyPersona, psychPersona, geminiQuiz, geminiJobs, geminiJobsRoadmap, geminiSchemes, geminiDramaConcept, geminiDramaEpisode } from "./gemini.mjs";
-import { getChannel, channelUsedTopicsPath } from "./channels.mjs";
+import { getChannel, channelUsedTopicsPath, publishAtForTime } from "./channels.mjs";
+import { synth } from "./tts.mjs";
 import { runIslamic } from "./islamic-agent.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -583,9 +584,134 @@ function normalizeScenes(scenes) {
   return out;
 }
 
-/** Current-affairs QUIZ pipeline — separate from news/story: generate + fact-check
- *  MCQs, render QuizLong + QuizShort (silent), upload both. */
-async function runQuiz({ channel, channelName, dateStr, doRender, doUpload, publishAt, doShort, doLong }) {
+/** Current-affairs quiz pipeline configured for several short uploads per day. */
+async function runQuizShorts({ channel, channelName, dateStr, doRender, doUpload, publishAt, voice, engine, cartesiaVoice, lang }) {
+  const shortsPerDay = Number(channel.quizShortsPerDay);
+  const questionsPerShort = 4;
+  const times = Array.isArray(channel.uploadTimes) ? channel.uploadTimes : [];
+  if (!Number.isInteger(shortsPerDay) || shortsPerDay < 1) throw new Error("quizShortsPerDay must be a positive integer");
+  if (times.length !== shortsPerDay) throw new Error(`channel "${channel.id}" needs exactly ${shortsPerDay} uploadTimes`);
+  if (times.some((time) => !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(time)) || new Set(times).size !== times.length) {
+    throw new Error(`channel "${channel.id}" uploadTimes must be distinct valid HH:MM values`);
+  }
+
+  console.log(`Agent: Quiz Shorts  |  ${channelName}  |  ${dateStr}  |  ${shortsPerDay} clips`);
+  console.log("① generating and fact-checking the daily question set…");
+  const requiredQuestions = shortsPerDay * questionsPerShort;
+  const candidates = await geminiQuiz(requiredQuestions + 4);
+  const seen = new Set();
+  const allQuestions = candidates.filter((question) => {
+    const key = question.q.toLowerCase().replace(/\s+/g, " ").trim();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).slice(0, requiredQuestions);
+  if (allQuestions.length < shortsPerDay * questionsPerShort) {
+    throw new Error(`quiz generation returned ${allQuestions.length} questions; need ${shortsPerDay * questionsPerShort} for ${shortsPerDay} Shorts`);
+  }
+
+  const human = new Date().toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" });
+  const accent = "#3B82F6";
+  const subscribeText = `Subscribe to ${channelName} for daily current affairs and GK.`;
+  const pickSound = async (name) => {
+    for (const ext of [".wav", ".mp3"]) {
+      if (await fs.access(path.join(ROOT, "public", "quiz", name + ext)).then(() => true).catch(() => false)) return `quiz/${name}${ext}`;
+    }
+    return "";
+  };
+  const tick = await pickSound("tick");
+  const ding = await pickSound("reveal");
+  const quizEngine = engine || "edge";
+  const fallbackVoice = voice || (lang === "en" ? "en-US-AndrewNeural" : (LANGS[lang] || LANGS.en).voice);
+  const quizVoice = quizEngine === "cartesia" ? cartesiaVoice || "" : fallbackVoice;
+  const clips = [];
+  await fs.mkdir(SCRIPTS, { recursive: true });
+  await fs.mkdir(path.join(ROOT, "out"), { recursive: true });
+
+  for (let i = 0; i < shortsPerDay; i++) {
+    const part = i + 1;
+    const base = `${dateStr}-current-affairs-quiz-${part}`;
+    const questions = allQuestions.slice(i * questionsPerShort, (i + 1) * questionsPerShort).map((q) => ({ ...q }));
+    const props = {
+      title: "Daily Current Affairs",
+      date: human,
+      channelName,
+      accent,
+      subscribeText,
+      tick,
+      ding,
+      answerSeconds: channel.voiceover === false ? 7 : 3,
+      revealSeconds: channel.voiceover === false ? 4 : 2,
+      questions,
+    };
+    const meta = {
+      title: `Daily Current Affairs Quiz - ${human} | GK MCQs for UPSC SSC Banking`,
+      description: `Today's current affairs + GK quiz for competitive exams (UPSC, SSC, Banking, Railways). ${questions.length} questions - comment your score!\n\n#currentaffairs #gk #quiz #upsc #ssc #dailycurrentaffairs`,
+      tags: ["current affairs", "current affairs quiz", "daily current affairs", "gk quiz", "gk mcq", "general knowledge", "upsc", "ssc", "banking exam", "railway exam", "competitive exams", "today current affairs", "quiz"],
+      categoryId: "27",
+      thumbnail: { badge: "QUIZ", bigText: "Daily Current Affairs", subText: `${human} · ${questions.length} Questions`, accent, channelName },
+      channel: channel.id,
+      lang,
+    };
+    await fs.writeFile(path.join(SCRIPTS, `${base}.meta.json`), JSON.stringify(meta, null, 2));
+    const propsPath = path.join(ROOT, "out", `${base}.short.props.json`);
+    await fs.writeFile(propsPath, JSON.stringify(props, null, 2));
+    clips.push({ base, props, propsPath, meta });
+  }
+
+  if (!doRender) {
+    console.log(`✓ prepared ${clips.length} Short scripts (no render requested)`);
+    return;
+  }
+
+  await fs.mkdir(path.join(ROOT, "public", "vo"), { recursive: true });
+  for (const [clipIndex, clip] of clips.entries()) {
+    if (channel.voiceover === false) {
+      // No voice-over — render with sound effects (tick + ding) only.
+      console.log(`\n② Part ${clipIndex + 1}/${shortsPerDay}: voice-over disabled — rendering with sound effects only…`);
+      await fs.writeFile(clip.propsPath, JSON.stringify(clip.props, null, 2));
+    } else {
+      console.log(`\n② building spoken narration for Part ${clipIndex + 1}/${shortsPerDay}…`);
+      for (const [questionIndex, question] of clip.props.questions.entries()) {
+        const questionText = `Question ${questionIndex + 1}. ${question.q}`;
+        const answerText = `The correct answer is ${["A", "B", "C", "D"][question.correct]}, ${question.options[question.correct]}.`;
+        for (const [kind, text] of [["question", questionText], ["answer", answerText]]) {
+          const speech = await synth(text, quizVoice, quizEngine, { lang, fallbackVoice });
+          if (!speech.buffer || speech.buffer.length <= 3000) throw new Error(`voice-over generation failed for Part ${clipIndex + 1}, question ${questionIndex + 1} (${kind})`);
+          const rel = path.posix.join("vo", clip.base, `${questionIndex + 1}-${kind}.${speech.ext}`);
+          await fs.mkdir(path.dirname(path.join(ROOT, "public", rel)), { recursive: true });
+          await fs.writeFile(path.join(ROOT, "public", rel), speech.buffer);
+          const seconds = speech.words?.length
+            ? speech.words[speech.words.length - 1].end
+            : Math.max(2, text.trim().split(/\s+/).length / 2.6);
+          question[`${kind}Audio`] = rel;
+          question[`${kind}AudioFrames`] = Math.max(1, Math.ceil(seconds * 30));
+        }
+      }
+      await fs.writeFile(clip.propsPath, JSON.stringify(clip.props, null, 2));
+    }
+    console.log(`   rendering ${clip.base}.short.mp4…`);
+    execSync(`npx remotion render QuizShort "out/${clip.base}.short.mp4" --props="out/${clip.base}.short.props.json" --concurrency=1`, { cwd: ROOT, stdio: "inherit" });
+  }
+
+  if (doUpload) {
+    console.log(`\n③ uploading ${clips.length} Shorts…`);
+    for (const [i, clip] of clips.entries()) {
+      const at = publishAt || publishAtForTime(times[i]);
+      const atFlag = at ? ` --at=${at}` : "";
+      const privacyFlag = at ? "" : channel.privacy === "public" ? " --public" : channel.privacy === "unlisted" ? " --unlisted" : "";
+      console.log(`   Part ${i + 1}/${shortsPerDay} → ${at || "upload now"}`);
+      execSync(`node pipeline/publish.mjs "${clip.base}" --short --channel=${channel.id}${privacyFlag}${atFlag}`, { cwd: ROOT, stdio: "inherit" });
+    }
+  }
+}
+
+/** Current-affairs QUIZ pipeline — generate + fact-check MCQs, then render/upload. */
+async function runQuiz({ channel, channelName, dateStr, doRender, doUpload, publishAt, doShort, doLong, voice, engine, lang }) {
+  if (channel.quizShortsPerDay) {
+    await runQuizShorts({ channel, channelName, dateStr, doRender, doUpload, publishAt, voice, engine, cartesiaVoice: channel.cartesiaVoice, lang });
+    return;
+  }
   const fileExists = (p) => fs.access(p).then(() => true).catch(() => false);
   // Which formats? --short = short only, --long = long only, neither = both (the
   // daily cron passes neither, so scheduled runs still make both).
@@ -1303,13 +1429,13 @@ async function main() {
   }
   const dateStr = today.toISOString().slice(0, 10);
 
-  // Quiz niche has its own pipeline (grounded MCQs → silent render → upload both).
+  // Quiz niche has its own pipeline (grounded MCQs → render → upload).
   if (niche === "quiz") {
     if (!hasGemini()) {
       console.error("Quiz niche needs Gemini — add pipeline/gemini.key.");
       process.exit(1);
     }
-    await runQuiz({ channel, channelName, dateStr, doRender, doUpload, publishAt, doShort, doLong });
+    await runQuiz({ channel, channelName, dateStr, doRender, doUpload, publishAt, doShort, doLong, voice, engine, lang });
     return;
   }
 
@@ -1344,6 +1470,7 @@ async function main() {
     await runDrama({ channel, channelName, dateStr, doRender, doUpload, publishAt });
     return;
   }
+
   // Islamic Reminders channel (authentic Dhikr, Quran, Hadith, Duas, Quizzes)
   if (niche === "islamic") {
     await runIslamic({

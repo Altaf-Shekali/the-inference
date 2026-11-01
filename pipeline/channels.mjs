@@ -57,6 +57,18 @@ const normalize = (c) => {
 /** the effective local upload time for a channel ("HH:MM") */
 export const uploadTimeOf = (c) => c.uploadTime || REGIONS[c.region]?.uploadTime || "19:30";
 
+/** Convert an IST wall-clock release time to today's RFC3339 UTC instant. */
+export function publishAtForTime(hhmm, now = new Date()) {
+  const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(String(hhmm || ""));
+  if (!match) throw new Error(`Invalid upload time "${hhmm}" (expected HH:MM)`);
+  const [, hour, minute] = match;
+  const offset = 5.5 * 60 * 60 * 1000;
+  const istNow = new Date(now.getTime() + offset);
+  const target = Date.UTC(istNow.getUTCFullYear(), istNow.getUTCMonth(), istNow.getUTCDate(), Number(hour), Number(minute)) - offset;
+  if (target <= now.getTime()) return "";
+  return new Date(target).toISOString().replace(/\.\d{3}Z$/, "Z");
+}
+
 /** all channels (or a single implicit default if no registry yet) */
 export function loadChannels() {
   try {
