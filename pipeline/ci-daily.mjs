@@ -60,6 +60,30 @@ for (const ch of targets) {
     continue;
   }
   const releaseTimes = ch.quizShortsPerDay && Array.isArray(ch.uploadTimes) ? ch.uploadTimes : [];
+  if (ch.niche === "islamic") {
+    const deliveries = [
+      { type: "dhikr", time: ch.dhikrUploadTime || "20:00" },
+      { type: "theme", time: uploadTimeOf(ch) },
+    ];
+    for (const delivery of deliveries) {
+      const at = publishIso(delivery.time);
+      const atFlag = at ? ` --at=${at}` : "";
+      const schedule = at ? `scheduled ${delivery.time} IST (${at})` : "upload now (release time passed)";
+      console.log(`\n=== ${ch.id} ${delivery.type} === (${schedule})`);
+      try {
+        execSync(
+          `node pipeline/agent.mjs --render --upload --channel=${ch.id} --islamic-type=${delivery.type}${atFlag}`,
+          { cwd: ROOT, stdio: "inherit" },
+        );
+        console.log(`channel '${ch.id}' ${delivery.type} done`);
+      } catch (e) {
+        fail = 1;
+        console.error(`channel '${ch.id}' ${delivery.type} FAILED: ${e.message}`);
+      }
+    }
+    continue;
+  }
+
   const at = releaseTimes.length ? "" : publishIso(uploadTimeOf(ch));
   const atFlag = at ? ` --at=${at}` : "";
   const schedule = releaseTimes.length ? `(scheduled releases ${releaseTimes.join(", ")})` : at ? `(scheduled release ${at})` : "(upload now)";

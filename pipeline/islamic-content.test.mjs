@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { fetchVerifiedQuranVerse } from "./islamic-content.mjs";
-import { chooseNextIslamicRotationItem } from "./islamic-agent.mjs";
+import {
+  buildDailyDhikrRecord,
+  chooseNextIslamicRotationItem,
+} from "./islamic-agent.mjs";
 
 const response = (body, ok = true, status = 200) => ({
   ok,
@@ -114,4 +117,25 @@ test("skips already-used items when there is no rotation history", () => {
     { source: { type: "quran", surahNum: 20, ayahNum: 114 } },
   ]);
   assert.equal(next.sourceKey, "2:201");
+});
+
+test("builds a daily 33-count Dhikr counter with an authentic source", () => {
+  const record = buildDailyDhikrRecord("2026-11-07");
+
+  assert.equal(record.id, "dhikr-20261107");
+  assert.equal(record.pillar, "dhikr");
+  assert.equal(record.video.template, "IslamicDhikrCounter");
+  assert.equal(record.video.targetCount, 33);
+  assert.equal(record.religiousContent.arabic, "سُبْحَانَ اللَّهِ");
+  assert.equal(record.religiousContent.transliteration, "Subḥānallāh");
+  assert.equal(record.source.collection, "Sahih Muslim");
+  assert.equal(record.source.hadithNum, "597a");
+  assert.equal(record.video.baseDate, "2026-11-07");
+});
+
+test("rejects malformed dates for daily Dhikr records", () => {
+  assert.throws(
+    () => buildDailyDhikrRecord("not-a-date"),
+    /Invalid Islamic publishing date/,
+  );
 });

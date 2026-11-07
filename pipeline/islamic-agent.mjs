@@ -10,8 +10,6 @@ import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 import {
   loadIslamicContent,
-  getApprovedRecord,
-  getPendingUploadRecord,
   updateRecordStatus,
   addIslamicRecord,
   fetchVerifiedQuranVerse,
@@ -79,7 +77,7 @@ async function recordUpload(entry) {
   await fs.writeFile(UPLOADS_FILE, JSON.stringify(uploads, null, 2));
 }
 
-async function findUpload(base, channel) {
+async function loadUploads() {
   let uploads = [];
   try {
     uploads = JSON.parse(await fs.readFile(UPLOADS_FILE, "utf8"));
@@ -87,7 +85,65 @@ async function findUpload(base, channel) {
     if (error.code !== "ENOENT") throw error;
   }
   if (!Array.isArray(uploads)) throw new Error("YouTube upload registry is not a JSON array.");
+  return uploads;
+}
+
+async function findUpload(base, channel) {
+  const uploads = await loadUploads();
   return uploads.find((upload) => upload.base === base && upload.channel === channel) || null;
+}
+
+async function findDailyUpload(dateStr, channel, contentType) {
+  const prefix = `${dateStr}-islamic-`;
+  const isDhikr = (upload) => upload.base.includes(`${dateStr}-islamic-dhikr-`);
+  const uploads = await loadUploads();
+  return uploads.find((upload) =>
+    upload.channel === channel &&
+    typeof upload.base === "string" &&
+    upload.base.startsWith(prefix) &&
+    (contentType === "dhikr" ? isDhikr(upload) : !isDhikr(upload)),
+  ) || null;
+}
+
+export function buildDailyDhikrRecord(dateStr) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+    throw new Error(`Invalid Islamic publishing date: "${dateStr}"`);
+  }
+  const dateId = dateStr.replaceAll("-", "");
+  return {
+    id: `dhikr-${dateId}`,
+    pillar: "dhikr",
+    format: "dhikr-counter",
+    title: "SubhanAllah — A 33-Count Dhikr",
+    religiousContent: {
+      arabic: "سُبْحَانَ اللَّهِ",
+      transliteration: "Subḥānallāh",
+      translation: "Glory be to Allah",
+    },
+    source: {
+      type: "hadith",
+      collection: "Sahih Muslim",
+      hadithNum: "597a",
+      narrator: "Abu Huraira (RA)",
+      authenticity: "Sahih",
+      sourceUrl: "https://sunnah.com/muslim:597a",
+    },
+    verification: {
+      status: "VERIFICATION_PENDING",
+      reviewer: "Curated Sahih Muslim reference",
+      notes: "Sahih Muslim 597a describes glorifying Allah 33 times after each prayer.",
+    },
+    video: {
+      template: "IslamicDhikrCounter",
+      baseDate: dateStr,
+      duration: 90,
+      targetCount: 33,
+      countType: "after-prayer dhikr (Sahih Muslim 597a)",
+      voiceover: false,
+      soundEffects: true,
+      aspectRatio: "9:16",
+    },
+  };
 }
 
 const TEMPLATE_MAP = {
@@ -107,66 +163,109 @@ export async function runIslamic({
   doUpload = false,
   publishAt = null,
   pillar = null,
+  contentType = "theme",
 }) {
-  console.log(`Agent: Islamic Reminders  |  ${channelName}  |  ${dateStr}`);
+  if (!["dhikr", "theme"].includes(contentType)) {
+    throw new Error(`Unknown Islamic content type "${contentType}" (expected dhikr or theme)`);
+  }
+  console.log(`Agent: Islamic Reminders (${contentType})  |  ${channelName}  |  ${dateStr}`);
 
-  const pendingUpload = await getPendingUploadRecord(channel.id, pillar);
-  let record = pendingUpload || await getApprovedRecord(channel.id, pillar);
+  if (doUpload) {
+    const dailyUpload = await findDailyUpload(dateStr, channel.id, contentType);
+    if (dailyUpload) {
+      console.log(`   ✓ ${contentType} video already uploaded today: ${dailyUpload.url}`);
+      return { record: null, rendered: false, alreadyUploaded: true };
+    }
+  }
+
+  const records = await loadIslamicContent(channel.id);
+  const isRequestedContent = (candidate) =>
+    contentType === "dhikr"
+      ? candidate.pillar === "dhikr" && candidate.id === `dhikr-${dateStr.replaceAll("-", "")}`
+      : candidate.pillar !== "dhikr";
+  let record = contentType === "dhikr"
+    ? records.find((candidate) => isRequestedContent(candidate))
+    : null;
+  record ||= records.find((candidate) =>
+    candidate.verification?.status === "UPLOAD_PENDING" &&
+    !candidate.youtubeVideoId &&
+    isRequestedContent(candidate),
+  ) || records.find((candidate) =>
+    candidate.verification?.status === "APPROVED" &&
+    isRequestedContent(candidate),
+  );
   const usedPath = channelUsedTopicsPath(channel.id);
   const used = await loadUsed(usedPath);
 
   if (!record) {
-    console.log("① No ready record found. Selecting the next source-verified Quran item in the daily rotation.");
-    const records = await loadIslamicContent(channel.id);
-    const rotationItem = chooseNextIslamicRotationItem(used, records);
-    const [surahNum, ayahNum] = rotationItem.sourceKey.split(":").map(Number);
-    const verifiedContent = await fetchVerifiedQuranVerse(surahNum, ayahNum);
+    if (contentType === "dhikr") {
+      console.log("① No daily Dhikr counter found. Preparing the verified 33-count SubhanAllah video.");
+      const dailyRecord = buildDailyDhikrRecord(dateStr);
+      record = await addIslamicRecord(channel.id, dailyRecord);
+      record = await updateRecordStatus(channel.id, record.id, "APPROVED", {
+        verification: {
+          sourceVerified: true,
+          arabicVerified: true,
+          translationVerified: true,
+          reviewer: dailyRecord.verification.reviewer,
+          notes: dailyRecord.verification.notes,
+        },
+      });
+    } else {
+      console.log("① No ready theme record found. Selecting the next source-verified Quran item in the daily rotation.");
+      const rotationItem = chooseNextIslamicRotationItem(used, records);
+      const [surahNum, ayahNum] = rotationItem.sourceKey.split(":").map(Number);
+      const verifiedContent = await fetchVerifiedQuranVerse(surahNum, ayahNum);
 
-    record = await addIslamicRecord(channel.id, {
-      pillar: rotationItem.pillar,
-      title: rotationItem.title,
-      religiousContent: {
-        ...verifiedContent.religiousContent,
-        context: rotationItem.pillar === "dua" ? "A supplication from the Quran." : "",
-        reflection: "Pause and reflect on the guidance in this verse.",
-      },
-      source: verifiedContent.source,
-      verification: {
-        status: "VERIFICATION_PENDING",
-        reviewer: "Automated Quran.com source verification",
-        sourceVerified: true,
-        arabicVerified: true,
-        translationVerified: true,
-        notes: `Verse ${rotationItem.sourceKey} and Saheeh International translation retrieved from Quran.com API.`,
-      },
-      video: {
-        template: rotationItem.template,
-        baseDate: dateStr,
-        voiceover: false,
-        soundEffects: true,
-      },
-    });
-    record = await updateRecordStatus(channel.id, record.id, "APPROVED", {
-      source: verifiedContent.source,
-      religiousContent: {
-        ...record.religiousContent,
-        ...verifiedContent.religiousContent,
-        context: rotationItem.pillar === "dua" ? "A supplication from the Quran." : "",
-        reflection: "Pause and reflect on the guidance in this verse.",
-      },
-      verification: {
-        sourceVerified: true,
-        arabicVerified: true,
-        translationVerified: true,
-        reviewer: "Automated Quran.com source verification",
-        notes: `Verse ${rotationItem.sourceKey} and Saheeh International translation retrieved from Quran.com API.`,
-      },
-    });
-    console.log(`   ✓ Automatically approved after Quran.com verification: ${rotationItem.sourceKey}`);
+      record = await addIslamicRecord(channel.id, {
+        pillar: rotationItem.pillar,
+        title: rotationItem.title,
+        religiousContent: {
+          ...verifiedContent.religiousContent,
+          context: rotationItem.pillar === "dua" ? "A supplication from the Quran." : "",
+          reflection: "Pause and reflect on the guidance in this verse.",
+        },
+        source: verifiedContent.source,
+        verification: {
+          status: "VERIFICATION_PENDING",
+          reviewer: "Automated Quran.com source verification",
+          sourceVerified: true,
+          arabicVerified: true,
+          translationVerified: true,
+          notes: `Verse ${rotationItem.sourceKey} and Saheeh International translation retrieved from Quran.com API.`,
+        },
+        video: {
+          template: rotationItem.template,
+          baseDate: dateStr,
+          voiceover: false,
+          soundEffects: true,
+        },
+      });
+      record = await updateRecordStatus(channel.id, record.id, "APPROVED", {
+        source: verifiedContent.source,
+        religiousContent: {
+          ...record.religiousContent,
+          ...verifiedContent.religiousContent,
+          context: rotationItem.pillar === "dua" ? "A supplication from the Quran." : "",
+          reflection: "Pause and reflect on the guidance in this verse.",
+        },
+        verification: {
+          sourceVerified: true,
+          arabicVerified: true,
+          translationVerified: true,
+          reviewer: "Automated Quran.com source verification",
+          notes: `Verse ${rotationItem.sourceKey} and Saheeh International translation retrieved from Quran.com API.`,
+        },
+      });
+      console.log(`   ✓ Automatically approved after Quran.com verification: ${rotationItem.sourceKey}`);
+    }
   }
 
   console.log(`② Using ${record.verification?.status} content: "${record.title}" (${record.pillar})`);
-  console.log(`   Source: ${record.source?.surahName} ${record.source?.surahNum}:${record.source?.ayahNum}`);
+  const sourceDisplay = record.source?.type === "quran"
+    ? `Surah ${record.source.surahName} (${record.source.surahNum}:${record.source.ayahNum})`
+    : `${record.source?.collection || "Source"} ${record.source?.hadithNum || ""}`.trim();
+  console.log(`   Source: ${sourceDisplay}`);
 
   // 2. Map record to template props
   const templateId = record.video?.template || TEMPLATE_MAP[record.pillar] || "IslamicDhikrCounter";
@@ -245,7 +344,9 @@ export async function runIslamic({
   await fs.mkdir(SCRIPTS_DIR, { recursive: true });
 
   const recordDate = record.video?.baseDate || record.createdAt?.slice(0, 10) || dateStr;
-  const baseSlug = `${recordDate}-islamic-${record.id}`;
+  const baseSlug = contentType === "dhikr"
+    ? `${recordDate}-islamic-dhikr-${record.id.slice("dhikr-".length)}`
+    : `${recordDate}-islamic-${record.id}`;
   const propsFile = path.join(OUT_DIR, `${baseSlug}.short.props.json`);
   const metaFile = path.join(SCRIPTS_DIR, `${baseSlug}.meta.json`);
   const mp4File = path.join(OUT_DIR, `${baseSlug}.short.mp4`);
@@ -253,10 +354,13 @@ export async function runIslamic({
   await fs.writeFile(propsFile, JSON.stringify(props, null, 2), "utf8");
 
   const isQuranSource = record.source?.type === "quran";
+  const isDhikr = record.pillar === "dhikr";
   const sourceLabel = isQuranSource
     ? `Surah ${record.source.surahName} (${record.source.surahNum}:${record.source.ayahNum})`
     : record.source?.collection || record.source?.surahName || "Authentic Islamic Sources";
-  const tags = isQuranSource
+  const tags = isDhikr
+    ? ["islamic reminders", "dhikr", "tasbih", "counter"]
+    : isQuranSource
     ? ["islamic reminders", "quran", record.pillar === "dua" ? "quranic dua" : "quran reflection"]
     : ["islamic reminders", "dhikr", "hadith", "dua"];
   const meta = {
@@ -266,7 +370,7 @@ export async function runIslamic({
       `${isQuranSource ? "Quran" : "Authentic"} Reference: ${sourceLabel}\n` +
       `${record.source?.sourceUrl ? `Source: ${record.source.sourceUrl}\n` : ""}` +
       `Channel: ${channelName}\n` +
-      `${isQuranSource ? `#shorts #islamicreminders #quran${record.pillar === "dua" ? " #dua" : ""}` : "#shorts #islamicreminders #hadith #dhikr"}`,
+      `${isDhikr ? "#shorts #dhikr #tasbih #islamicreminders" : isQuranSource ? `#shorts #islamicreminders #quran${record.pillar === "dua" ? " #dua" : ""}` : "#shorts #islamicreminders #hadith #dhikr"}`,
     tags,
     renderedAt: new Date().toISOString(),
     recordId: record.id,
@@ -302,7 +406,9 @@ export async function runIslamic({
         title: record.title,
         id: record.id,
         pillar: record.pillar,
-        sourceKey: `${record.source.surahNum}:${record.source.ayahNum}`,
+        sourceKey: record.source?.type === "quran"
+          ? `${record.source.surahNum}:${record.source.ayahNum}`
+          : null,
       });
       await fs.mkdir(path.dirname(usedPath), { recursive: true });
       await fs.writeFile(usedPath, JSON.stringify(used, null, 2), "utf8");

@@ -5,7 +5,7 @@
 #   Disable one:  Unregister-ScheduledTask -TaskName "InferenceDaily-<id>" -Confirm:$false
 #   List:  Get-ScheduledTask -TaskName "InferenceDaily-*"
 #
-# Re-run this any time you add/change a channel or its uploadTime.
+# Re-run this any time you add/change a channel or its upload schedule.
 
 $ErrorActionPreference = "Stop"
 $proj = Split-Path -Parent $PSScriptRoot
@@ -23,7 +23,13 @@ foreach ($ch in $channels) {
   $id = $ch.id
   $uploadTime = if ($ch.uploadTime) { $ch.uploadTime } else { "19:30" }
   $releaseTimes = if ($ch.quizShortsPerDay -and $ch.uploadTimes) { @($ch.uploadTimes) } else { @() }
-  $releaseLabel = if ($releaseTimes.Count) { $releaseTimes -join ", " } else { $uploadTime }
+  $releaseLabel = if ($ch.niche -eq "islamic") {
+    "Dhikr $($ch.dhikrUploadTime) + theme $uploadTime"
+  } elseif ($releaseTimes.Count) {
+    $releaseTimes -join ", "
+  } else {
+    $uploadTime
+  }
   # render trigger: explicit renderTime (e.g. idle morning) if set, else uploadTime - 1h
   if ($ch.renderTime) {
     $at = $ch.renderTime

@@ -1398,6 +1398,7 @@ async function main() {
   };
   const topic = flagVal("--topic");
   const publishAt = flagVal("--at"); // RFC3339 UTC — schedule the public release
+  const islamicType = flagVal("--islamic-type");
 
   // resolve the channel (defaults to "the-inference"); its config drives name,
   // language, pillars, voice and privacy unless a flag overrides.
@@ -1473,6 +1474,9 @@ async function main() {
 
   // Islamic Reminders channel (authentic Dhikr, Quran, Hadith, Duas, Quizzes)
   if (niche === "islamic") {
+    if (islamicType && !["dhikr", "theme"].includes(islamicType)) {
+      throw new Error(`Unknown Islamic content type "${islamicType}" (expected dhikr or theme)`);
+    }
     await runIslamic({
       channel,
       channelName,
@@ -1480,6 +1484,7 @@ async function main() {
       doRender,
       doUpload,
       publishAt,
+      contentType: islamicType || "theme",
     });
     return;
   }

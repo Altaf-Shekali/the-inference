@@ -86,7 +86,8 @@ npm run yt-auth -- --channel=<id>        # authorize a channel's YouTube (or the
 npm run daily-upload -- --channel=<id>   # generate + upload one channel
 ```
 
-- The daily run produces **one video per enabled channel** (see `run-daily.ps1`).
+- The daily run normally produces one video per enabled channel. Current Affairs and NooraniVerse
+  have separate multi-video daily schedules (see `channels.json`).
 - The dashboard Generate panel has a **Channel** picker; a video uploads to its own channel.
 - The default `the-inference` channel keeps using the original `pipeline/youtube.token.json`,
   so existing setups are unchanged.
@@ -107,16 +108,19 @@ Each channel has a **niche** (set in the dashboard add-channel form or `channels
   sound.
 - The Tasbih counter advances one bead every 1.5 seconds and adjusts video duration to fit the
   selected count.
-- NooraniVerse runs an unattended daily rotation of Quran-based duas, reflections, and reminders.
+- NooraniVerse publishes two unattended daily Shorts: a 33-count SubhanAllah Dhikr counter at
+  20:00 IST and a rotating Quran-based dua, reflection, or reminder at 21:00 IST.
   Verse text and the Saheeh International translation are fetched from the Quran.com API before
-  the record is automatically approved, rendered, and uploaded; the Islamic workflow does not
-  require Gemini or dashboard approval.
+  the theme record is automatically approved, rendered, and uploaded; the Dhikr counter is based
+  on Sahih Muslim 597a. The Islamic workflow does not require Gemini or dashboard approval.
 
 ## Daily automation (peak-time scheduling)
 
 Each channel has an **uploadTime** (its region's peak-viewership time, local clock). A
-Windows Scheduled Task per channel fires **1 hour before** that — it generates, renders,
-and uploads with a **scheduled release** (`publishAt`) at the peak time.
+Windows Scheduled Task per channel fires at its configured **renderTime**, or 1 hour before
+`uploadTime` if no render time is set. It generates and renders the video, then uploads with
+a **scheduled release** (`publishAt`). NooraniVerse releases its Dhikr at 20:00 IST and its
+rotating Quran/theme video at 21:00 IST; Current Affairs uses its four configured `uploadTimes`.
 
 Enable / refresh (re-run whenever you add or retime a channel):
 

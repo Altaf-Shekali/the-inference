@@ -69,6 +69,27 @@ foreach ($ch in $targets) {
   $tokenLegacy = Join-Path $proj "pipeline\youtube.token.json"
   $hasToken = (Test-Path $tokenCh) -or ($id -eq "the-inference" -and (Test-Path $tokenLegacy))
   if (-not $hasToken) { Log "channel '$id' not authorized - skipping (run: npm run yt-auth -- --channel=$id)"; continue }
+  if ($ch.niche -eq "islamic") {
+    $deliveries = @(
+      [pscustomobject]@{ Type = "dhikr"; Time = $(if ($ch.dhikrUploadTime) { $ch.dhikrUploadTime } else { "20:00" }) },
+      [pscustomobject]@{ Type = "theme"; Time = $(if ($ch.uploadTime) { $ch.uploadTime } else { "21:00" }) }
+    )
+    foreach ($delivery in $deliveries) {
+      $iso = Get-PublishIso $delivery.Time
+      $npmArgs = @("run", "daily-upload", "--", "--channel=$id", "--islamic-type=$($delivery.Type)")
+      if ($iso) { $npmArgs += "--at=$iso" }
+      if ($iso) { Log "=== $id $($delivery.Type) === (scheduled release $iso)" }
+      else { Log "=== $id $($delivery.Type) === (upload immediately; release time passed)" }
+      & npm.cmd @npmArgs 2>&1 | Tee-Object -FilePath $log -Append
+      if ($LASTEXITCODE -ne 0) {
+        $fail = 1
+        Log "channel '$id' $($delivery.Type) FAILED (exit $LASTEXITCODE)"
+      } else {
+        Log "channel '$id' $($delivery.Type) done"
+      }
+    }
+    continue
+  }
   # For scheduled visibility, publish at peak time unless the channel explicitly
   # requests public uploads, which should go live as soon as the render finishes.
   $releaseTimes = if ($ch.quizShortsPerDay -and $ch.uploadTimes) { @($ch.uploadTimes) } else { @() }
