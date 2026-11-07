@@ -109,7 +109,7 @@ Each channel has a **niche** (set in the dashboard add-channel form or `channels
 - The Tasbih counter advances one bead every 1.5 seconds and adjusts video duration to fit the
   selected count.
 - NooraniVerse publishes two unattended daily Shorts: a 33-count SubhanAllah Dhikr counter at
-  20:00 IST and a rotating Quran-based dua, reflection, or reminder at 21:00 IST.
+  10:00 IST and a rotating Quran-based dua, reflection, or reminder at 17:30 IST.
   Verse text and the Saheeh International translation are fetched from the Quran.com API before
   the theme record is automatically approved, rendered, and uploaded; the Dhikr counter is based
   on Sahih Muslim 597a. GitHub Actions owns NooraniVerse's schedule; its local Windows task is
@@ -121,8 +121,8 @@ Each channel has a **niche** (set in the dashboard add-channel form or `channels
 Each channel has an **uploadTime** (its region's peak-viewership time, local clock). A
 Windows Scheduled Task per channel fires at its configured **renderTime**, or 1 hour before
 `uploadTime` if no render time is set. It generates and renders the video, then uploads with
-a **scheduled release** (`publishAt`). NooraniVerse releases its Dhikr at 20:00 IST and its
-rotating Quran/theme video at 21:00 IST; Current Affairs uses its four configured `uploadTimes`.
+a **scheduled release** (`publishAt`). NooraniVerse releases its Dhikr at 10:00 IST and its
+rotating Quran/theme video at 17:30 IST; Current Affairs uses its four configured `uploadTimes`.
 
 Enable / refresh (re-run whenever you add or retime a channel):
 
