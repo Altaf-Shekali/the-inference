@@ -117,6 +117,7 @@
     "dhikrUploadTime": "20:00",
     "uploadTime": "21:00",
     "renderTime": "15:00",
+    "localScheduleEnabled": false,
     "topics": "authentic Dhikr, Quran, Hadith, and Islamic reminders",
     "privacy": "public",
     "enabled": true

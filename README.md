@@ -112,7 +112,9 @@ Each channel has a **niche** (set in the dashboard add-channel form or `channels
   20:00 IST and a rotating Quran-based dua, reflection, or reminder at 21:00 IST.
   Verse text and the Saheeh International translation are fetched from the Quran.com API before
   the theme record is automatically approved, rendered, and uploaded; the Dhikr counter is based
-  on Sahih Muslim 597a. The Islamic workflow does not require Gemini or dashboard approval.
+  on Sahih Muslim 597a. GitHub Actions owns NooraniVerse's schedule; its local Windows task is
+  disabled to prevent duplicate uploads. The Islamic workflow does not require Gemini or dashboard
+  approval.
 
 ## Daily automation (peak-time scheduling)
 

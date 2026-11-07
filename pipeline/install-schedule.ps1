@@ -12,7 +12,7 @@ $proj = Split-Path -Parent $PSScriptRoot
 $runner = Join-Path $proj "pipeline\run-daily.ps1"
 
 $cfg = Get-Content (Join-Path $proj "pipeline\channels.json") -Raw | ConvertFrom-Json
-$channels = @($cfg | Where-Object { $_.enabled -ne $false })
+$channels = @($cfg | Where-Object { $_.enabled -ne $false -and $_.localScheduleEnabled -ne $false })
 if (-not $channels) { Write-Host "No enabled channels in channels.json."; exit 0 }
 
 # remove stale tasks first (cleans up disabled/renamed channels)

@@ -57,7 +57,7 @@ if ($Channel) {
   $targets = @($cfg | Where-Object { $_.id -eq $Channel })
   if (-not $targets) { $targets = @([pscustomobject]@{ id = $Channel; uploadTime = "" }) }
 } else {
-  $targets = @($cfg | Where-Object { $_.enabled -ne $false })
+  $targets = @($cfg | Where-Object { $_.enabled -ne $false -and $_.localScheduleEnabled -ne $false })
   if (-not $targets) { $targets = @([pscustomobject]@{ id = "the-inference"; uploadTime = "" }) }
 }
 
