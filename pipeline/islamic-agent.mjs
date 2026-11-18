@@ -106,39 +106,139 @@ async function findDailyUpload(dateStr, channel, contentType) {
 }
 
 export function buildDailyDhikrRecord(dateStr) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+  const dateMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr);
+  if (!dateMatch) {
     throw new Error(`Invalid Islamic publishing date: "${dateStr}"`);
   }
+  const [, year, month, day] = dateMatch;
+  const date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+  if (date.toISOString().slice(0, 10) !== dateStr) {
+    throw new Error(`Invalid Islamic publishing date: "${dateStr}"`);
+  }
+
+  const afterPrayerSource = {
+    type: "hadith",
+    collection: "Sahih Muslim",
+    hadithNum: "597a",
+    narrator: "Abu Huraira (RA)",
+    authenticity: "Sahih",
+    sourceUrl: "https://sunnah.com/muslim:597a",
+  };
+  const dhikrRotation = [
+    {
+      title: "SubhanAllah",
+      arabic: "سُبْحَانَ اللَّهِ",
+      transliteration: "Subḥānallāh",
+      translation: "Glory be to Allah",
+      targetCount: 33,
+      countType: "33 times after each prayer",
+      source: afterPrayerSource,
+      verificationNote: "Sahih Muslim 597a includes this phrase 33 times after each prayer as part of the 99 remembrances.",
+    },
+    {
+      title: "Alhamdulillah",
+      arabic: "الْحَمْدُ لِلَّهِ",
+      transliteration: "Alḥamdulillāh",
+      translation: "All praise is for Allah",
+      targetCount: 33,
+      countType: "33 times after each prayer",
+      source: afterPrayerSource,
+      verificationNote: "Sahih Muslim 597a includes this phrase 33 times after each prayer as part of the 99 remembrances.",
+    },
+    {
+      title: "Allahu Akbar",
+      arabic: "اللَّهُ أَكْبَرُ",
+      transliteration: "Allāhu akbar",
+      translation: "Allah is the Greatest",
+      targetCount: 33,
+      countType: "33 times after each prayer",
+      source: afterPrayerSource,
+      verificationNote: "Sahih Muslim 597a includes this phrase 33 times after each prayer as part of the 99 remembrances.",
+    },
+    {
+      title: "Astaghfirullah",
+      arabic: "أَسْتَغْفِرُ اللَّهَ",
+      transliteration: "Astaghfirullāh",
+      translation: "I seek forgiveness from Allah",
+      targetCount: 3,
+      countType: "3 times after prayer",
+      source: {
+        type: "hadith",
+        collection: "Sahih Muslim",
+        hadithNum: "591",
+        narrator: "Thawban (RA)",
+        authenticity: "Sahih",
+        sourceUrl: "https://sunnah.com/muslim:591",
+      },
+      verificationNote: "Sahih Muslim 591 reports that the Prophet sought forgiveness three times after prayer.",
+    },
+    {
+      title: "SubhanAllahi wa bihamdihi",
+      arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
+      transliteration: "Subḥānallāhi wa biḥamdih",
+      translation: "Glory and praise be to Allah",
+      targetCount: 100,
+      countType: "100 times in a day",
+      source: {
+        type: "hadith",
+        collection: "Sahih al-Bukhari",
+        hadithNum: "6405",
+        narrator: "Abu Huraira (RA)",
+        authenticity: "Sahih",
+        sourceUrl: "https://sunnah.com/bukhari:6405",
+      },
+      rewardAnimation: "foam-forgiveness",
+      rewardCaption: "The hadith says sins are forgiven, even if they are like the foam of the sea.",
+      verificationNote: "Sahih al-Bukhari 6405 specifies saying this 100 times in a day and describes forgiveness even if sins are like sea foam.",
+    },
+    {
+      title: "La ilaha illallah wahdahu la sharika lahu",
+      arabic: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",
+      transliteration: "Lā ilāha illallāhu waḥdahu lā sharīka lah, lahul-mulku wa lahul-ḥamdu wa huwa ʿalā kulli shayʾin qadīr",
+      translation: "None has the right to be worshipped but Allah alone, without partner. His is the dominion and praise, and He is powerful over everything.",
+      targetCount: 100,
+      countType: "100 times in a day",
+      source: {
+        type: "hadith",
+        collection: "Sahih al-Bukhari",
+        hadithNum: "3293",
+        narrator: "Abu Huraira (RA)",
+        authenticity: "Sahih",
+        sourceUrl: "https://sunnah.com/bukhari:3293",
+      },
+      rewardAnimation: "deeds-and-erasure",
+      rewardCaption: "The narration mentions 100 good deeds recorded and 100 sins erased.",
+      verificationNote: "Sahih al-Bukhari 3293 specifies saying this 100 times in a day and mentions 100 good deeds and 100 sins erased.",
+    },
+  ];
+  const dayNumber = Math.floor(date.getTime() / 86_400_000);
+  const rotationIndex = ((dayNumber % dhikrRotation.length) + dhikrRotation.length) % dhikrRotation.length;
+  const dhikr = dhikrRotation[rotationIndex];
   const dateId = dateStr.replaceAll("-", "");
   return {
     id: `dhikr-${dateId}`,
     pillar: "dhikr",
     format: "dhikr-counter",
-    title: "SubhanAllah — A 33-Count Dhikr",
+    title: `${dhikr.title} — ${dhikr.targetCount}-Count Dhikr`,
     religiousContent: {
-      arabic: "سُبْحَانَ اللَّهِ",
-      transliteration: "Subḥānallāh",
-      translation: "Glory be to Allah",
+      arabic: dhikr.arabic,
+      transliteration: dhikr.transliteration,
+      translation: dhikr.translation,
     },
-    source: {
-      type: "hadith",
-      collection: "Sahih Muslim",
-      hadithNum: "597a",
-      narrator: "Abu Huraira (RA)",
-      authenticity: "Sahih",
-      sourceUrl: "https://sunnah.com/muslim:597a",
-    },
+    source: dhikr.source,
     verification: {
       status: "VERIFICATION_PENDING",
-      reviewer: "Curated Sahih Muslim reference",
-      notes: "Sahih Muslim 597a describes glorifying Allah 33 times after each prayer.",
+      reviewer: "Curated Sahih narration",
+      notes: dhikr.verificationNote,
     },
     video: {
       template: "IslamicDhikrCounter",
       baseDate: dateStr,
-      duration: 90,
-      targetCount: 33,
-      countType: "after-prayer dhikr (Sahih Muslim 597a)",
+      duration: Math.ceil((45 + dhikr.targetCount * 45 + 180) / 30),
+      targetCount: dhikr.targetCount,
+      countType: dhikr.countType,
+      rewardAnimation: dhikr.rewardAnimation || "none",
+      rewardCaption: dhikr.rewardCaption || "",
       voiceover: false,
       soundEffects: true,
       aspectRatio: "9:16",
@@ -199,7 +299,7 @@ export async function runIslamic({
 
   if (!record) {
     if (contentType === "dhikr") {
-      console.log("① No daily Dhikr counter found. Preparing the verified 33-count SubhanAllah video.");
+      console.log("① No daily Dhikr counter found. Preparing today's verified rotating 33-count Dhikr video.");
       const dailyRecord = buildDailyDhikrRecord(dateStr);
       record = await addIslamicRecord(channel.id, dailyRecord);
       record = await updateRecordStatus(channel.id, record.id, "APPROVED", {
@@ -276,13 +376,16 @@ export async function runIslamic({
       arabic: record.religiousContent?.arabic || "أَسْتَغْفِرُ اللَّهَ",
       transliteration: record.religiousContent?.transliteration || "Astaghfirullāh",
       meaning: record.religiousContent?.translation || "I seek the forgiveness of Allah",
-      targetCount: record.video?.targetCount || 33,
-      countType: record.video?.countType || "sunnah-suggested",
+      targetCount: record.video?.targetCount || 3,
+      countType: record.video?.countType || "3 times after prayer",
+      rewardAnimation: record.video?.rewardAnimation || "none",
+      rewardCaption: record.video?.rewardCaption || "",
       source: {
         collection: record.source?.collection || "Sahih Muslim",
         hadithNum: record.source?.hadithNum || "591",
         narrator: record.source?.narrator || "Thawban (RA)",
         authenticity: record.source?.authenticity || "Sahih",
+        sourceUrl: record.source?.sourceUrl || "",
       },
       theme: record.video?.theme || "midnight",
       channelName,

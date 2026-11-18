@@ -18,6 +18,7 @@ export const TasbihBeads: React.FC<TasbihBeadsProps> = ({
   inactiveColor = "rgba(255, 255, 255, 0.2)",
 }) => {
   const activeIndex = Math.min(Math.max(currentCount - 1, -1), totalBeads - 1);
+  const beadRadius = totalBeads > 50 ? 4.5 : 8;
 
   const beads = useMemo(() => {
     const list = [];
@@ -63,16 +64,16 @@ export const TasbihBeads: React.FC<TasbihBeadsProps> = ({
         const isActive = b.index === activeIndex;
 
         let fill = inactiveColor;
-        let r = 8;
+        let r = beadRadius;
         let stroke = "none";
         let filter = "none";
 
         if (isCompleted) {
           fill = accentColor;
-          r = 8.5;
+          r = beadRadius + 0.5;
         } else if (isActive) {
           fill = "#ffffff";
-          r = 13;
+          r = beadRadius + 5;
           stroke = accentColor;
           filter = `drop-shadow(0 0 10px ${accentColor})`;
         }
@@ -85,7 +86,7 @@ export const TasbihBeads: React.FC<TasbihBeadsProps> = ({
             r={r}
             fill={fill}
             stroke={stroke}
-            strokeWidth={isActive ? 3 : 0}
+            strokeWidth={isActive ? 2 : 0}
             style={{
               filter,
             }}

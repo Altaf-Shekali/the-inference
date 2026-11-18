@@ -119,23 +119,51 @@ test("skips already-used items when there is no rotation history", () => {
   assert.equal(next.sourceKey, "2:201");
 });
 
-test("builds a daily 33-count Dhikr counter with an authentic source", () => {
-  const record = buildDailyDhikrRecord("2026-11-07");
+test("rotates authentic Dhikr counts and sources daily", () => {
+  const date = "2026-11-07";
+  const rotation = Array.from({ length: 6 }, (_, index) => {
+    const day = new Date(`${date}T00:00:00.000Z`);
+    day.setUTCDate(day.getUTCDate() + index);
+    return buildDailyDhikrRecord(day.toISOString().slice(0, 10));
+  });
+  const record = rotation[0];
+  const nextCycle = buildDailyDhikrRecord("2026-11-13");
 
   assert.equal(record.id, "dhikr-20261107");
   assert.equal(record.pillar, "dhikr");
   assert.equal(record.video.template, "IslamicDhikrCounter");
-  assert.equal(record.video.targetCount, 33);
-  assert.equal(record.religiousContent.arabic, "سُبْحَانَ اللَّهِ");
-  assert.equal(record.religiousContent.transliteration, "Subḥānallāh");
-  assert.equal(record.source.collection, "Sahih Muslim");
-  assert.equal(record.source.hadithNum, "597a");
-  assert.equal(record.video.baseDate, "2026-11-07");
+  assert.equal(new Set(rotation.map((item) => item.title)).size, 6);
+  assert.equal(record.video.baseDate, date);
+  assert.equal(nextCycle.religiousContent.arabic, record.religiousContent.arabic);
+  assert.equal(nextCycle.title, record.title);
+  assert.ok(rotation.every((item) => item.video.targetCount > 0));
+  assert.ok(rotation.every((item) => item.source.sourceUrl.startsWith("https://sunnah.com/")));
+
+  const afterPrayer = rotation.filter((item) => item.source.hadithNum === "597a");
+  assert.equal(afterPrayer.length, 3);
+  assert.ok(afterPrayer.every((item) => item.video.targetCount === 33));
+
+  const astaghfirullah = rotation.find((item) => item.source.hadithNum === "591");
+  assert.equal(astaghfirullah.video.targetCount, 3);
+
+  const forgiveness = rotation.find((item) => item.source.hadithNum === "6405");
+  assert.equal(forgiveness.video.targetCount, 100);
+  assert.equal(forgiveness.video.rewardAnimation, "foam-forgiveness");
+  assert.match(forgiveness.video.rewardCaption, /foam of the sea/);
+
+  const deeds = rotation.find((item) => item.source.hadithNum === "3293");
+  assert.equal(deeds.video.targetCount, 100);
+  assert.equal(deeds.video.rewardAnimation, "deeds-and-erasure");
+  assert.match(deeds.video.rewardCaption, /100 good deeds.*100 sins erased/);
 });
 
 test("rejects malformed dates for daily Dhikr records", () => {
   assert.throws(
     () => buildDailyDhikrRecord("not-a-date"),
+    /Invalid Islamic publishing date/,
+  );
+  assert.throws(
+    () => buildDailyDhikrRecord("2026-02-30"),
     /Invalid Islamic publishing date/,
   );
 });

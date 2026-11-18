@@ -108,11 +108,14 @@ Each channel has a **niche** (set in the dashboard add-channel form or `channels
   sound.
 - The Tasbih counter advances one bead every 1.5 seconds and adjusts video duration to fit the
   selected count.
-- NooraniVerse publishes two unattended daily Shorts: a 33-count SubhanAllah Dhikr counter at
-  10:00 IST and a rotating Quran-based dua, reflection, or reminder at 17:30 IST.
+- NooraniVerse publishes two unattended daily Shorts: a rotating Dhikr counter with
+  source-specific counts (3, 33, or 100) at 10:00 IST and a rotating Quran-based dua,
+  reflection, or reminder at 17:30 IST. Source-supported reward outcomes appear as clearly
+  illustrative end-card animations, not as a literal record; the Islamic workflow adds no AI voiceover.
   Verse text and the Saheeh International translation are fetched from the Quran.com API before
-  the theme record is automatically approved, rendered, and uploaded; the Dhikr counter is based
-  on Sahih Muslim 597a. GitHub Actions owns NooraniVerse's schedule; its local Windows task is
+  the theme record is automatically approved, rendered, and uploaded. The Dhikr rotation cites
+  Sahih Muslim 591/597a and Sahih al-Bukhari 3293/6405. GitHub Actions owns NooraniVerse's schedule;
+  its local Windows task is
   disabled to prevent duplicate uploads. The Islamic workflow does not require Gemini or dashboard
   approval.
 - JAWARI ATMA's Kannada story renderer supports both vertical Shorts and landscape long-form scenes,
