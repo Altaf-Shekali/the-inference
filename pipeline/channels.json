@@ -28,6 +28,7 @@
     "region": "IN",
     "uploadTime": "18:00",
     "renderTime": "06:15",
+    "localScheduleEnabled": false,
     "topics": "ನಿಜ ಜೀವನದ ರೋಚಕ ಕಥೆಗಳು",
     "privacy": "private",
     "enabled": true

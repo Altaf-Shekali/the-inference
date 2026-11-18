@@ -372,6 +372,20 @@ export async function geminiNarrative({ persona, kind, langName, facts, category
   // (and anything else) stays in its native script.
   const roman = langName === "Hindi";
   const disp = roman ? "Romanized Hindi (Latin script, natural Hinglish)" : langName + " script";
+  const sceneExamples = langName === "Kannada"
+    ? `- {"type":"hook","kicker":"${category.topicTag}","headline":"<a scroll-stopping 3-6 word hook in ${disp}>","sub":"<a one-line teaser (in ${disp}) that opens a curiosity gap>","setting":"street","locationLabel":"<place/date in ${disp}>","camera":"wide","entities":[{"type":"person","name":"<Kannada name>","role":"<fact-based role>","gender":"man","age":"adult","pose":"standing","mood":"determined"},{"type":"object","name":"<important clue in Kannada>","objectType":"phone","state":"highlighted"}]}\n` +
+      `- {"type":"point","heading":"<short evocative line in ${disp}, 2-6 words>","bullets":[],"setting":"forest","locationLabel":"<place/date in ${disp}>","camera":"medium","entities":[{"type":"person","name":"<Kannada name or role>","gender":"woman","age":"adult","pose":"worried","mood":"scared"},{"type":"animal","name":"<animal label in Kannada>","species":"dog","action":"standing","mood":"alert"}]}  // a beat; bullets EMPTY, the vo carries it\n` +
+      `- {"type":"quote","quote":"<a striking line, in ${disp}>","attribution":"<who / context>","setting":"court","camera":"close","entities":[{"type":"person","name":"<Kannada name>","role":"<role>","gender":"man","pose":"pointing","mood":"angry"},{"type":"object","name":"<evidence label>","objectType":"document","state":"highlighted"}]}  // use once at the peak\n` +
+      `- {"type":"outro","headline":"<closing line in ${disp}>","cta":"<a short subscribe line in ${disp} naming ${channelName}>","setting":"city","camera":"wide","entities":[{"type":"person","name":"<Kannada name>","role":"<role>","gender":"woman","pose":"standing","mood":"hopeful"}]}\n\n`
+    : `- {"type":"hook","kicker":"${category.topicTag}","headline":"<a scroll-stopping 3-6 word hook in ${disp}>","sub":"<a one-line teaser (in ${disp}) that opens a curiosity gap>","setting":"street","locationLabel":"<place/date in ${disp}>","camera":"wide","characters":[{"name":"<name in ${disp}>","role":"<role>","pose":"standing","mood":"determined"}]}\n` +
+      `- {"type":"point","heading":"<short evocative line in ${disp}, 2-6 words>","bullets":[],"setting":"room","locationLabel":"<place/date in ${disp}>","camera":"medium","characters":[{"name":"<name in ${disp}>","role":"<role>","pose":"worried","mood":"scared"}]}  // a beat; bullets EMPTY, the vo carries it\n` +
+      `- {"type":"quote","quote":"<a striking line, in ${disp}>","attribution":"<who / context>","setting":"court","camera":"close","characters":[{"name":"<name in ${disp}>","role":"<role>","pose":"pointing","mood":"angry"}]}  // use once at the peak\n` +
+      `- {"type":"outro","headline":"<closing line in ${disp}>","cta":"<a short subscribe line in ${disp} naming ${channelName}>","setting":"city","camera":"wide","characters":[{"name":"<name in ${disp}>","role":"<role>","pose":"standing","mood":"hopeful"}]}\n\n`;
+  const sceneVisualRules = langName === "Kannada"
+    ? `- For every beat, choose a fitting "setting", "locationLabel", and "camera". Use "entities" to stage the scene: up to five people, animals, or meaningful objects. Person entities need a Kannada name or role, gender, age, pose, and mood. Animal entities need an accurate species and action. Object entities need an accurate objectType and state. Use recurring names consistently across scenes.\n` +
+      `- Vary the camera framing when the story supports it: use wide for establishing spaces, medium for interactions, close for a supported clue or emotion, and overhead only for genuinely top-down spatial details. Avoid repeating the same framing on consecutive beats where possible.\n` +
+      `- Only depict people, animals, and objects supported by the researched story and this beat's narration. Do not invent a person, animal, clue, or prop to fill the frame. Use a generic Kannada role/name when the source does not identify a person. If no visual entity is supported, leave "entities" empty and let the environment carry the scene. The native Remotion renderer draws every entity; do not request stock footage or external images.\n`
+    : `- Choose a fitting setting, location label, camera framing, and up to three story characters for each scene. Keep recurring character names consistent, and do not invent people or events absent from the source.\n`;
   const user =
     `Make a ${short ? "~40 second vertical Short" : "2-3 minute"} narrated video.\n` +
     `${opener}\n` +
@@ -385,19 +399,16 @@ export async function geminiNarrative({ persona, kind, langName, facts, category
     `  "source":"<the real sources, comma-separated>", "voice":"${voice}", "music":"", "showCaptions":${short},\n` +
     `  "scenes":[ ${beats} scenes ]\n}\n` +
     `EVERY scene MUST have a "vo" = the spoken narration for that beat, written in ${disp}. Scene types:\n` +
-    `- {"type":"hook","kicker":"${category.topicTag}","headline":"<a scroll-stopping 3-6 word hook in ${disp}>","sub":"<a one-line teaser (in ${disp}) that opens a curiosity gap>","keywords":["english stock-footage term"]}\n` +
-    `- {"type":"point","heading":"<short evocative line in ${disp}, 2-6 words>","bullets":[],"keywords":["english stock-footage term"]}  // a beat; bullets EMPTY, the vo carries it\n` +
-    `- {"type":"quote","quote":"<a striking line, in ${disp}>","attribution":"<who / context>"}  // use once at the peak\n` +
-    `- {"type":"outro","headline":"<closing line in ${disp}>","cta":"<a short subscribe line in ${disp} naming ${channelName}>","keywords":["english stock-footage term"]}\n\n` +
+    `${sceneExamples}` +
     `RULES:\n` +
     `- Start with "hook", end with "outro"; ${midBeats} "point" beats in between that unfold IN ORDER; optionally one "quote" at the peak.\n` +
     `- The HOOK scene MUST have its own spoken "vo" (the punchy opening hook line, spoken aloud) — NEVER leave the hook silent; it is the single most important line of narration.\n` +
     `- Each "vo" is 1-4 natural spoken ${langName} sentences, written in ${disp}. TOTAL narration ~${words} words.\n` +
-    `- "keywords" are ENGLISH stock-footage search terms matching the mood (e.g. "lonely person window","busy city crowd","brain neurons","old letters"). 2-3 words each.\n` +
+    `${sceneVisualRules}` +
     `- On-screen text (headline/heading/sub/quote) is short and punchy, in ${disp}.\n` +
     (roman
       ? `- CRITICAL: write BOTH the spoken "vo" AND all on-screen text in ROMANIZED Hindi — Latin script, natural Hinglish, e.g. "Kya aap jaante hain ki aapka dimaag aapko har roz dhoka deta hai?". This is what the Gen-Z audience reads easily and how top Hindi creators caption. Keep everyday English words as-is (AI, stress, brain, mind). Use NO Devanagari anywhere.\n`
-      : `- CRITICAL: every "vo" and every on-screen field must be 100% ${langName} script with ZERO Latin/English letters. Transliterate ALL names, places, brands, numbers-as-words and abbreviations/acronyms (DNA, USA, AI, CEO, GPS…) into ${langName}. The TTS voice mispronounces Latin text, so a single Latin character is a failure. (Only "keywords" and the JSON keys stay English.)\n`) +
+      : `- CRITICAL: every "vo" and every on-screen field must be 100% ${langName} script with ZERO Latin/English letters. Transliterate ALL names, places, brands, numbers-as-words and abbreviations/acronyms (DNA, USA, AI, CEO, GPS…) into ${langName}. The TTS voice mispronounces Latin text, so a single Latin character is a failure. (Only the JSON keys stay English.)\n`) +
     (roman
       ? `- "cta" is a short Roman-Hindi subscribe line naming ${channelName} (e.g. "${channelName} ko subscribe karo").\n\n`
       : `- "cta" must be written in ${langName} too (e.g. "${channelName} ${langName === "Kannada" ? "ಚಾನೆಲ್ ಅನ್ನು ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ" : "को सब्सक्राइब करें"}"), since it is shown on screen.\n\n`) +

@@ -115,6 +115,9 @@ Each channel has a **niche** (set in the dashboard add-channel form or `channels
   on Sahih Muslim 597a. GitHub Actions owns NooraniVerse's schedule; its local Windows task is
   disabled to prevent duplicate uploads. The Islamic workflow does not require Gemini or dashboard
   approval.
+- JAWARI ATMA's Kannada story renderer supports both vertical Shorts and landscape long-form scenes,
+  using native characters, environments, animals, objects, and camera motion. GitHub Actions handles
+  daily rendering and scheduled release; its local Windows task is disabled.
 
 ## Daily automation (peak-time scheduling)
 

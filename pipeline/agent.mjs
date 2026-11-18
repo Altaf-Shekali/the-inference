@@ -3,11 +3,11 @@
  *
  *   node pipeline/agent.mjs            # auto-rotate pillar by day, write a script
  *   node pipeline/agent.mjs tools      # force a pillar (ainews|tools|trend|business)
- *   node pipeline/agent.mjs --render   # also build voiceover/B-roll + render the video
+ *   node pipeline/agent.mjs --render   # also build voiceover, motion graphics, and render the video
  *
  * Flow:  ① discover (search → Nemotron picks a fresh topic, dedup vs used-topics)
  *        ② research (search + fetch sources → notes)
- *        ③ script   (Nemotron writes scenes+vo+keywords matching the template schema)
+ *        ③ script   (Nemotron writes scenes+vo matching the template schema)
  * Output: pipeline/scripts/<date>-<slug>.json (+ .meta.json), then optional render.
  */
 import { promises as fs } from "fs";
@@ -288,7 +288,7 @@ VOICE & VIBE — sound like a top tech YouTuber, NOT a news anchor or press rele
 
 RULES:
 - Start with "hook", end with "outro".
-- Put numbers in "stat"/"bars". Add "keywords" (2-3 visual B-roll search terms) ONLY to hook/point/quote/tool/outro; NOT to stat/bars/headlines/compare (those are clean graphics).
+- Put numbers in "stat"/"bars". Use native motion graphics for every scene; do not request or describe external stock footage.
 - Wrap the 1-2 most important words per text line in **double asterisks** to highlight them.
 - PACING (critical): each "vo" is ONE short, punchy sentence — MAX ~16 words. Never write 2-3 long sentences in one scene; split into more scenes instead. Aim for fast 4-7 second beats. More short scenes beats fewer long ones.
 - "vo" is spoken narration: natural, energetic, spell acronyms phonetically ("A-I","I-P-O","C-E-O").
@@ -555,6 +555,49 @@ const toStr = (v) => {
   return String(v);
 };
 
+function normalizeStoryEntities(entities) {
+  if (!Array.isArray(entities)) return undefined;
+  const enumValue = (value, allowed) => allowed.includes(value) ? value : undefined;
+  const normalized = [];
+  for (const raw of entities.slice(0, 5)) {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) continue;
+    const name = toStr(raw.name);
+    if (!name) continue;
+    if (raw.type === "person") {
+      const entity = { type: "person", name };
+      const role = toStr(raw.role);
+      if (role) entity.role = role;
+      for (const [key, values] of Object.entries({
+        gender: ["man", "woman", "unspecified"],
+        age: ["child", "adult", "elder"],
+        pose: ["standing", "walking", "sitting", "reaching", "pointing", "surprised", "worried", "running", "kneeling"],
+        mood: ["neutral", "hopeful", "sad", "angry", "scared", "worried", "determined"],
+      })) {
+        const value = enumValue(raw[key], values);
+        if (value) entity[key] = value;
+      }
+      normalized.push(entity);
+    } else if (raw.type === "animal") {
+      const species = enumValue(raw.species, ["dog", "cat", "horse", "bird", "cow", "deer", "elephant", "tiger", "snake", "generic"]);
+      if (!species) continue;
+      const entity = { type: "animal", name, species };
+      const action = enumValue(raw.action, ["standing", "walking", "running", "sitting", "flying"]);
+      const mood = enumValue(raw.mood, ["neutral", "calm", "alert", "scared", "angry"]);
+      if (action) entity.action = action;
+      if (mood) entity.mood = mood;
+      normalized.push(entity);
+    } else if (raw.type === "object") {
+      const objectType = enumValue(raw.objectType, ["phone", "letter", "key", "car", "motorcycle", "bag", "suitcase", "document", "lamp", "table", "door", "clock", "generic"]);
+      if (!objectType) continue;
+      const entity = { type: "object", name, objectType };
+      const state = enumValue(raw.state, ["normal", "highlighted", "broken", "hidden"]);
+      if (state) entity.state = state;
+      normalized.push(entity);
+    }
+  }
+  return normalized;
+}
+
 /** force the model's scenes to match the template schema; drop unsalvageable ones */
 function normalizeScenes(scenes) {
   const out = [];
@@ -573,6 +616,11 @@ function normalizeScenes(scenes) {
     if (Array.isArray(s.keywords)) s.keywords = s.keywords.map(toStr).filter(Boolean);
     if (Array.isArray(s.bullets)) s.bullets = s.bullets.map(toStr).filter(Boolean);
     if (Array.isArray(s.features)) s.features = s.features.map(toStr).filter(Boolean);
+    if (Array.isArray(s.entities)) {
+      const entities = normalizeStoryEntities(s.entities);
+      if (entities.length) s.entities = entities;
+      else delete s.entities;
+    }
     if (t === "bars" && Array.isArray(s.data))
       s.data = s.data.map((d) => ({ label: toStr(d.label), value: Number(d.value) || 0 })).filter((d) => d.label);
     if ((t === "headlines" || t === "compare") && Array.isArray(s.items))
@@ -1338,7 +1386,7 @@ async function runDrama({ channel, channelName, dateStr, doRender, doUpload, pub
     return;
   }
 
-  console.log("\n③ building voiceover + B-roll…");
+  console.log("\n③ building voiceover and motion graphics…");
   execSync(`node pipeline/build.mjs "${scriptPath}"`, { cwd: ROOT, stdio: "inherit" });
   console.log("\n③ building the Shorts teaser…");
   execSync(`node pipeline/build.mjs "${shortScriptPath}" "out/${base}.short.props.json" --base=${base}.short --captions`, { cwd: ROOT, stdio: "inherit" });
@@ -1353,7 +1401,7 @@ async function runDrama({ channel, channelName, dateStr, doRender, doUpload, pub
     try {
       execSync(`${cmd} --concurrency=1`, { cwd: ROOT, stdio: "inherit" });
     } catch {
-      console.warn(`\n⚠ ${label} render failed (likely B-roll) — retrying graphics-only…`);
+      console.warn(`\n⚠ ${label} render failed — retrying graphics-only…`);
       const props = JSON.parse(await fs.readFile(propsFile, "utf8"));
       props.scenes.forEach((s) => {
         delete s.broll;
@@ -1488,7 +1536,6 @@ async function main() {
     });
     return;
   }
-
 
   console.log(`Agent: ${modelName()}  |  ${channelName}  |  ${doShort ? "SHORT  |  " : ""}${lang !== "en" ? L.name + "  |  " : ""}${niche === "ainews" ? "pillar" : niche}: ${pillarId} (${pillar.topicTag})  |  ${dateStr}`);
 
@@ -1758,7 +1805,7 @@ async function main() {
     const propsFile = path.join(ROOT, "out", doShort ? `${base}.short.props.json` : `${base}.props.json`);
     const buildArgs = doShort ? ` "${propsFile}" --base=${base}.short --captions` : "";
 
-    console.log(`\n④ building ${doShort ? "short " : ""}voiceover + B-roll…`);
+    console.log(`\n④ building ${doShort ? "short " : ""}voiceover and motion graphics…`);
     execSync(`node pipeline/build.mjs "${scriptPath}"${buildArgs}`, { cwd: ROOT, stdio: "inherit" });
     console.log(`\n④ rendering ${doShort ? "Short (9:16)" : "video"}…`);
     const renderCmd = `npx remotion render ${comp} out/${outName} --props=out/${path.basename(propsFile)}`;
@@ -1768,9 +1815,8 @@ async function main() {
       // the faster config concurrency.
       execSync(`${renderCmd} --concurrency=1`, { cwd: ROOT, stdio: "inherit" });
     } catch {
-      // B-roll video decoding can crash the Windows compositor. Never lose the
-      // video over it: strip footage and re-render graphics-only (rock solid).
-      console.warn("\n⚠ render failed (likely B-roll/compositor) — retrying graphics-only…");
+      // Strip any stale footage fields and re-render the native graphics path.
+      console.warn("\n⚠ render failed — retrying graphics-only…");
       const props = JSON.parse(await fs.readFile(propsFile, "utf8"));
       props.scenes.forEach((s) => {
         delete s.broll;

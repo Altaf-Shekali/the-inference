@@ -19,7 +19,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 import { synth } from "./tts.mjs";
-import { fetchClip, hasPexelsKey } from "./footage.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const FPS = 30;
@@ -36,30 +35,6 @@ const DWELL_TYPES = new Set(["stat", "bars", "quote", "compare", "headlines"]);
 const MAX_WORDS_PER_CUE = 5;
 
 const sec2frame = (s) => Math.round(s * FPS);
-
-/** Transcode a downloaded clip to constant 30fps + fixed 1920x1080 so the
- * Remotion compositor never hits "Output changed" (VFR / mid-stream size
- * changes in some stock clips crash OffthreadVideo). Returns true on success. */
-async function normalizeClip(absPath) {
-  const tmp = absPath + ".norm.mp4";
-  try {
-    // 720p (not 1080p): B-roll sits behind a dark scrim, so 720 is plenty and
-    // roughly halves the compositor's per-frame memory (avoids OOM on multi-clip videos).
-    execSync(
-      `npx remotion ffmpeg -y -i "${absPath}" -vf scale=1280:720 -r 30 -c:v libx264 -pix_fmt yuv420p -preset veryfast -crf 24 -an "${tmp}"`,
-      { cwd: ROOT, stdio: "ignore" },
-    );
-    await fs.rename(tmp, absPath);
-    return true;
-  } catch {
-    try {
-      await fs.unlink(tmp);
-    } catch {
-      /* ignore */
-    }
-    return false;
-  }
-}
 
 /** if a file exists under public/, return its public-relative path, else "" */
 async function detectAsset(rel) {
@@ -151,22 +126,7 @@ async function main() {
   doc.sfx = doc.sfx || {};
 
   const voDir = path.join(ROOT, "public", "vo", base);
-  const brollDir = path.join(ROOT, "public", "broll", base);
   await fs.mkdir(voDir, { recursive: true });
-  await fs.mkdir(brollDir, { recursive: true });
-
-  const canFetch = hasPexelsKey();
-  if (!canFetch) {
-    console.log("  (no PEXELS_API_KEY — B-roll will fall back to motion graphics)");
-  }
-
-  // B-roll per video. Rendering now runs on cloud Linux (16GB) and scenes play
-  // sequentially (only one clip decodes at a time), so the old Windows-compositor
-  // cap of 3 is gone. Cover the WHOLE video — story/psych scenes have no bullets,
-  // so B-roll IS their visual; without this they go blank after the first few.
-  // One clip per keyworded scene, capped for safety on unusually long videos.
-  const MAX_BROLL = Math.min(doc.scenes.length, 14);
-  let brollCount = 0;
 
   // ---- Pass 1: voiceover. For Cartesia we keep ONE voice across the whole video:
   // if any Cartesia call fails (out of credits / error) we drop the entire video to
@@ -243,24 +203,11 @@ async function main() {
     console.log("");
   }
 
-  // ---- Pass 2: B-roll (separate so a Cartesia→Edge restart never re-fetches it).
-  // --no-broll skips fetching (fast Short rebuilds reuse motion graphics + captions).
-  if (canFetch && !flags["no-broll"]) {
-    for (let i = 0; i < doc.scenes.length; i++) {
-      const scene = doc.scenes[i];
-      if (!scene.keywords?.length || scene.broll || brollCount >= MAX_BROLL) continue;
-      const brollRel = path.posix.join("broll", base, `${i}.mp4`);
-      const ok = await fetchClip(scene.keywords, path.join(ROOT, "public", brollRel));
-      if (!ok) continue;
-      const normed = await normalizeClip(path.join(ROOT, "public", brollRel));
-      if (normed) {
-        scene.broll = brollRel;
-        brollCount++;
-        console.log(`  [${i + 1}/${doc.scenes.length}] b-roll ✓`);
-      } else {
-        console.log(`  [${i + 1}/${doc.scenes.length}] b-roll skipped (transcode failed)`);
-      }
-    }
+  // Motion graphics only. Remove any stale B-roll fields from older scripts so
+  // rebuilt props never accidentally reuse downloaded stock clips.
+  for (const scene of doc.scenes) {
+    delete scene.broll;
+    delete scene.bgImage;
   }
 
   await fs.mkdir(path.dirname(outPath), { recursive: true });
