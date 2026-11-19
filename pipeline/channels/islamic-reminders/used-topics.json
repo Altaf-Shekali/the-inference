@@ -201,5 +201,19 @@
     "id": "quran-mwkia64r",
     "pillar": "quran",
     "sourceKey": "2:153"
+  },
+  {
+    "date": "2026-11-19",
+    "title": "SubhanAllahi wa bihamdihi — 100-Count Dhikr",
+    "id": "dhikr-20261119",
+    "pillar": "dhikr",
+    "sourceKey": null
+  },
+  {
+    "date": "2026-11-19",
+    "title": "Do Not Lose Heart",
+    "id": "reminder-mwnc5gfk",
+    "pillar": "reminder",
+    "sourceKey": "3:139"
   }
 ]
