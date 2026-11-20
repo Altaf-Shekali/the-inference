@@ -215,5 +215,19 @@
     "id": "reminder-mwnc5gfk",
     "pillar": "reminder",
     "sourceKey": "3:139"
+  },
+  {
+    "date": "2026-11-20",
+    "title": "La ilaha illallah wahdahu la sharika lahu — 100-Count Dhikr",
+    "id": "dhikr-20261120",
+    "pillar": "dhikr",
+    "sourceKey": null
+  },
+  {
+    "date": "2026-11-20",
+    "title": "Place Your Trust in Allah",
+    "id": "quran-mwosasal",
+    "pillar": "quran",
+    "sourceKey": "65:3"
   }
 ]
