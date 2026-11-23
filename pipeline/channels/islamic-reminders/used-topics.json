@@ -257,5 +257,19 @@
     "id": "quran-mwrjrn7e",
     "pillar": "quran",
     "sourceKey": "93:3"
+  },
+  {
+    "date": "2026-11-23",
+    "title": "Allahu Akbar — 33-Count Dhikr",
+    "id": "dhikr-20261123",
+    "pillar": "dhikr",
+    "sourceKey": null
+  },
+  {
+    "date": "2026-11-23",
+    "title": "Allah Is Sufficient for Us",
+    "id": "reminder-mwt1lxe5",
+    "pillar": "reminder",
+    "sourceKey": "3:173"
   }
 ]
