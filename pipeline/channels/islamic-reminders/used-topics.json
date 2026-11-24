@@ -271,5 +271,19 @@
     "id": "reminder-mwt1lxe5",
     "pillar": "reminder",
     "sourceKey": "3:173"
+  },
+  {
+    "date": "2026-11-24",
+    "title": "Astaghfirullah — 3-Count Dhikr",
+    "id": "dhikr-20261124",
+    "pillar": "dhikr",
+    "sourceKey": null
+  },
+  {
+    "date": "2026-11-24",
+    "title": "Guidance for Those Who Strive",
+    "id": "quran-mwulfqj1",
+    "pillar": "quran",
+    "sourceKey": "29:69"
   }
 ]
